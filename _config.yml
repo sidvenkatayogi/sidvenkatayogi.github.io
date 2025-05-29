@@ -12,7 +12,7 @@ site_theme               : "default"
 title                    : "Siddhartha Venkatayogi"
 title_separator          : "-"
 name                     : &name "Siddhartha Venkatayogi"
-description              : &description "Personal Description"
+description              : &description "Personal Website for Siddhartha Venkatayogi (sidvenkatayogi) Computer Science Student at UT Austin"
 url                      : https://sidvenkatayogi.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io" or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "sidvenkatayogi/sidvenkatayogi.github.io"
@@ -29,7 +29,7 @@ author:
   location         : "Austin, Texas"
   employer         : "University of Texas at Austin"
   uri              : # URL
-  email            : "sidvenkatayogi[at]utexas[dot]edu" 
+  email            : "sidvenkatayogi [at] utexas [dot] edu" 
 
   # Academic websites
   academia         : # URL
