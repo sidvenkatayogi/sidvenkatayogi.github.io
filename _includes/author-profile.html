@@ -28,8 +28,11 @@
         <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>{{ author.location }}</li>
       {% endif %}
       {% if author.employer %}
-        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>{{ author.employer }}</li>
-      {% endif %}
+        <li class="author__desktop" style="display: flex; align-items: center; margin-left: -3px;">
+          <img src="{{ base_path }}/images/Athletics_Bevo_Silhouette.svg" alt="UT Logo" style="height: 1em; width: auto; margin-right: 0.5em;">
+          {{ author.employer }}
+        </li>
+        {% endif %}
       {% if author.uri %}
         <li><a href="{{ author.uri }}"><i class="fas fa-fw fa-link icon-pad-right" aria-hidden="true"></i>{{ site.data.ui-text[site.locale].website_label | default: "Website" }}</a></li>
       {% endif %}

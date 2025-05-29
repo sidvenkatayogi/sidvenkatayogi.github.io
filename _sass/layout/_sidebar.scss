@@ -165,6 +165,9 @@
   z-index: 10;
   position: relative;
   cursor: pointer;
+  width: 350;       // Allow container to expand
+  // min-width: 250px;  // Set minimum width
+  // max-width: 320px;  // Increase maximum width
 
   li:last-child {
     a {
@@ -214,7 +217,7 @@
     content: "";
     position: absolute;
     top: -11px;
-    left: calc(50% - 10px);
+    left: calc(100% - 10px);
     width: 0;
     border-style: solid;
     border-width: 0 10px 10px;
@@ -231,7 +234,7 @@
     content: "";
     position: absolute;
     top: -10px;
-    left: calc(50% - 10px);
+    left: calc(100% - 10px);
     width: 0;
     border-style: solid;
     border-width: 0 10px 10px;
@@ -244,13 +247,16 @@
   }
 
   li {
-    white-space: nowrap;
+    width: 100%;
+      word-break: break-word;  // Allow long text to wrap
+      overflow-wrap: break-word;
   }
 
   a {
-    display: block;
+    display: inline-block;
+    width: 100%;
     margin-bottom: 5px;
-    padding-right: 5px;
+    padding-right: 20px;
     padding-top: 2px;
     padding-bottom: 2px;
     color: inherit;
