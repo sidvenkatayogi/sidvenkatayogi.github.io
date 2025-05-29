@@ -1,6 +1,6 @@
 ---
 title: "SURVIVAL"
-excerpt: "<img src='/images/tigers.png' width='auto' height='500'>"
+excerpt: "<img src='/images/tigers.png' width='500' height='auto'>"
 collection: Art
 ---
-"<img src='/images/tigers.png'"
+"<img src='/images/tigers.png'>"

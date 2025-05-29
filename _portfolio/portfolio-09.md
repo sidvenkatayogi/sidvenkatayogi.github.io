@@ -1,6 +1,6 @@
 ---
 title: "COUCH"
-excerpt: "<img src='/images/couch.png' width='auto' height='500'>"
+excerpt: "<img src='/images/couch.png' width='500' height='auto'>"
 collection: Art
 ---
 "<img src='/images/couch.png'>"

@@ -1,6 +1,6 @@
 ---
 title: "CORNERSTORE CHAOS"
-excerpt: "<img src='/images/7-12-2022_street_explosion_scene_wip.png' width='auto' height='500'>"
+excerpt: "<img src='/images/7-12-2022_street_explosion_scene_wip.png' width='500' height='auto'>"
 collection: Art
 ---
-"<img src='/images/7-12-2022_street_explosion_scene_wip.png'"
+"<img src='/images/7-12-2022_street_explosion_scene_wip.png'>"
