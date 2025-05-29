@@ -1,6 +1,6 @@
 ---
-title: "EXTERMINATION"
-excerpt: "<img src='/images/3-11-2024_dragon.png'>"
+title: "REFLECTION"
+excerpt: "<img src='images/reflection_update.png'>"
 collection: Art
 ---
 
