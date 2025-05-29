@@ -41,7 +41,10 @@
       max-width: $x-large;
     }
   }
-
+  /* filepath: _sass/layout/_base.scss */
+  body {
+    padding-bottom: 10em; /* Increase padding to prevent overlap */
+  }
   a {
     color: inherit;
     text-decoration: none;
