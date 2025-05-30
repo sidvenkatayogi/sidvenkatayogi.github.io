@@ -16,6 +16,24 @@ html {
 
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  --selection-text-color: #00000083;
+  --selection-background-color: #fffb0050;
+}
+
+html[data-theme="dark"] {
+  // ...existing code...
+  --selection-text-color: #ffffff;
+  --selection-background-color: #fffd87;
+  box-sizing: border-box;
+  background-color: var(--global-bg-color);
+  font-size: 16px;
+
+  @include breakpoint($medium) {
+    font-size: 18px;
+  }
+
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 /* Remove margin */
@@ -23,15 +41,14 @@ html {
 body { margin: 0; }
 
 /* Selected elements */
-
 ::-moz-selection {
-  color: #fff;
-  background: #000;
+  color: var(--selection-text-color);
+  background: var(--selection-background-color);
 }
 
 ::selection {
-  color: #fff;
-  background: #000;
+  color: var(--selection-text-color);
+  background: var(--selection-background-color);
 }
 
 /* Display HTML5 elements in IE6-9 and FF3 */

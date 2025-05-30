@@ -80,8 +80,10 @@
         <li><a href="https://dribbble.com/{{ author.dribbble }}"><i class="fab fa-fw fa-dribbble icon-pad-right" aria-hidden="true"></i>Dribbble</a></li>
       {% endif %}      
       {% if author.github %}
-        <li><a href="https://github.com/{{ author.github }}"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
-      {% endif %}
+        <li class="author__desktop" style="display: flex; align-items: center; margin-left: 0px;">
+          <img src="{{ base_path }}/images/Github-desktop-logo-symbol.svg" alt="Github Logo" style="height: 1em; width: auto; margin-right: 0.5em;"></i>Github</a></li>
+        </li>
+        {% endif %}
       {% if author.kaggle %}
         <li><a href="https://kaggle.com/{{ author.kaggle }}"><i class="fab fa-fw fa-kaggle icon-pad-right" aria-hidden="true"></i>Kaggle</a></li>
       {% endif %}      
