@@ -220,7 +220,7 @@ collections:
   # publications:
   #   output: true
   #   permalink: /:collection/:path/
-  Art:
+  portfolio:
     output: true
     permalink: /art/:title/
   # talks:
