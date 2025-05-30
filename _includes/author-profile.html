@@ -21,7 +21,7 @@
   </div>
 
   <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
+    <button class="btn btn--inverse">Info</button>
     <ul class="author__urls social-icons">
       <!-- Font Awesome icons / Biographic information  -->
       {% if author.location %}
@@ -29,10 +29,12 @@
       {% endif %}
       {% if author.employer %}
         <li class="author__desktop" style="display: flex; align-items: center; margin-left: -3px;">
-          <img src="{{ base_path }}/images/Athletics_Bevo_Silhouette.svg" alt="UT Logo" style="height: 1em; width: auto; margin-right: 0.5em;">
-          {{ author.employer }}
+          <a href="https://utexas.edu/" style="display: flex; align-items: center;">
+            <img src="{{ base_path }}/images/Athletics_Bevo_Silhouette.svg" alt="UT Logo" style="height: 1em; width: auto; margin-right: 0.5em;">
+            {{ author.employer }}
+          </a>
         </li>
-        {% endif %}
+      {% endif %}
       {% if author.uri %}
         <li><a href="{{ author.uri }}"><i class="fas fa-fw fa-link icon-pad-right" aria-hidden="true"></i>{{ site.data.ui-text[site.locale].website_label | default: "Website" }}</a></li>
       {% endif %}
@@ -80,10 +82,13 @@
         <li><a href="https://dribbble.com/{{ author.dribbble }}"><i class="fab fa-fw fa-dribbble icon-pad-right" aria-hidden="true"></i>Dribbble</a></li>
       {% endif %}      
       {% if author.github %}
-        <li class="author__desktop" style="display: flex; align-items: center; margin-left: 0px;">
-          <img src="{{ base_path }}/images/Github-desktop-logo-symbol.svg" alt="Github Logo" style="height: 1em; width: auto; margin-right: 0.5em;"></i>Github</a></li>
-        </li>
-        {% endif %}
+      <li class="author__desktop" style="display: flex; align-items: center; margin-left: 0px;">
+        <a href="https://github.com/{{ author.github }}" style="display: flex; align-items: center;">
+          <img src="{{ base_path }}/images/Github-desktop-logo-symbol.svg" alt="Github Logo" style="height: 1em; width: auto; margin-right: 0.5em;">
+          Github
+        </a>
+      </li>
+{% endif %}
       {% if author.kaggle %}
         <li><a href="https://kaggle.com/{{ author.kaggle }}"><i class="fab fa-fw fa-kaggle icon-pad-right" aria-hidden="true"></i>Kaggle</a></li>
       {% endif %}      
@@ -92,9 +97,6 @@
       {% endif %}      
 
       <!-- Font Awesome icons / Social media -->
-      {% if author.bluesky %}
-        <li><a href="https://bsky.app/profile/{{ author.bluesky }}"><i class="fab fa-fw fa-bluesky icon-pad-right" aria-hidden="true"></i>Bluesky</a></li>
-      {% endif %}
       {% if author.facebook %}
         <li><a href="https://www.facebook.com/{{ author.facebook }}"><i class="fab fa-fw fa-facebook-f icon-pad-right" aria-hidden="true"></i>Facebook</a></li>
       {% endif %}
@@ -142,9 +144,12 @@
       {% endif %}      
       {% if author.tumblr %}
         <li><a href="https://{{ author.tumblr }}.tumblr.com"><i class="fab fa-fw fa-tumblr icon-pad-right" aria-hidden="true"></i>Tumblr</a></li>
+      {% endif %}
+      {% if author.bluesky %}
+        <li><a href="https://bsky.app/profile/{{ author.bluesky }}"><i class="fab fa-fw fa-bluesky icon-pad-right" aria-hidden="true"></i>Bluesky</a></li>
       {% endif %}      
       {% if author.twitter %}
-        <li><a href="https://twitter.com/{{ author.twitter }}"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
+        <li><a href="https://twitter.com/{{ author.twitter }}"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>Twitter</a></li>
       {% endif %}
       {% if author.vine %}
         <li><a href="https://vine.co/u/{{ author.vine }}"><i class="fab fa-fw fa-vine icon-pad-right" aria-hidden="true"></i>Vine</a></li>

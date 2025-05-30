@@ -3,7 +3,7 @@
 Name Name:
   name        : "Siddhartha Venkatayogi"
   uri         : "sidvenkatayogi.github.io"
-  email       : "sidvenkatayogi@utexas.edu"
+  # email       : "sidvenkatayogi@utexas.edu"
   bio         : "This is the first name."
   avatar      : "hdsht.png"
   twitter     : "name"
