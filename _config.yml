@@ -220,6 +220,9 @@ collections:
   # publications:
   #   output: true
   #   permalink: /:collection/:path/
+  programming:
+    output: true
+    permalink: /:collection/:title/
   portfolio:
     output: true
     permalink: /art/:title/
