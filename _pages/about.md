@@ -15,7 +15,7 @@ In my free time, I like to study various math topics, [draw](/art), write comics
 ## Contact
 If your a high school student, feel free to contact me for any advice. To anyone else, also feel free to contact me; I'm always looking for new opportunities!
 
-The best way to contact me right now is through my **email** or **linkedin**. Honestly, I don't use Twitter nor Bluesky, but I plan to start posting my new projects and blog posts on there to get more reach.
+The best way to contact me right now is through my **email** or **linkedin**. Honestly, I don't use Twitter or Bluesky, but I plan to start posting my new projects and blog posts on there to get more reach.
 
 ## P.S
 This website is still under construction, so some pages may be broken or empty.
