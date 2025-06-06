@@ -275,9 +275,17 @@ defaults:
       type: portfolio
     values:
       layout: single
+      # author_profile: true
+      # share: true
+      # comment: true
+  - scope:
+      path: ""
+      type: programming
+    values:
+      layout: single
       author_profile: true
-      share: true
-      comment: true
+      # share: true
+      # comment: true
   # # _talks
   # - scope:
   #     path: ""

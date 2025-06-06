@@ -1,0 +1,20 @@
+.archive {
+    float: none;
+    margin: 0 auto;
+    width: 80%;
+    padding-right: 0;
+  }
+  
+  @media (min-width: 80em) {
+    .archive {
+      width: 70%;
+    }
+  }
+  
+  .archive__item {
+    text-align: center;
+  }
+  
+  .archive__item-excerpt {
+    text-align: center;
+  }

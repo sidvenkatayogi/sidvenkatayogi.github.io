@@ -4,10 +4,29 @@ title: "Programming"
 permalink: /programming/
 author_profile: true
 ---
-Haven't focused on projects in the past, this will look much more full after this summer!
+I haven't focused on projects that much in the past, but this will look much more full after this summer.
 
 {% include base_path %}
 
 {% for post in site.programming %}
-  {% include archive-single.html %}
+<div class="{{ include.type | default: 'list' }}__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    <h2 class="archive__item-title" itemprop="headline">
+      {% if post.link %}
+        <a href="{{ post.link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink"><i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+      {% else %}
+        <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ post.title }}</a>
+      {% endif %}
+    </h2>
+    {% if post.github %}
+      <p><a href="https://{{ post.github }}" target="_blank"><i class="fab fa-github"></i> View on GitHub</a></p>
+    {% endif %}
+    {% if post.excerpt %}
+      <div class="archive__item-excerpt" itemprop="description">
+        {{ post.excerpt }}
+      </div>
+    {% endif %}
+    
+  </article>
+</div>
 {% endfor %}
