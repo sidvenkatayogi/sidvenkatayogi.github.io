@@ -27,7 +27,7 @@ main:
     url: /year-archive/
     
   - title: "Resume"
-    url: /files/Resume.pdf/
+    url: https://sidvenkatayogi.github.io/files/Resume.pdf
     
   # - title: "CV"
   #   url: /cv-json/

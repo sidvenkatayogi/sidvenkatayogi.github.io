@@ -8,7 +8,7 @@ redirect_from:
 ---
 <!-- # Home -->
 ## About Me
-Welcome! I'm an incoming freshman and computer science student at UT Austin. I'm interested in exploring many computer science/programming topics, but some that I'm currently interested in are Computer Vision, Natural Language Processing, and Graphics. Once I start school in the fall, I'm aiming to improve my fundamental theoretical CS knowledge. As for after undergrad, I'm still trying to decide between pursuing industry, a PhD, or a startup.
+Welcome! I'm an incoming freshman and computer science student at UT Austin. I'm interested in exploring many computer science/programming topics, but some that I'm currently interested in are Computer Vision, Natural Language Processing, and Graphics. I'm especially interested in using these topics in software for real users. I'm still trying to decide between pursuing industry, a PhD, or a startup.
 
 In my free time, I like to study various math topics, [draw](/art), write comics, play basketball/volleyball/soccer (non-competitively), or go to the gym.
 
