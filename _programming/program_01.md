@@ -8,6 +8,7 @@ github: github.com/sidvenkatayogi/APResearch_Instagram
 ---
 
 # [github.com/sidvenkatayogi/APResearch_Instagram](https://github.com/sidvenkatayogi/APResearch_Instagram)
+# [Full Paper](https://sidvenkatayogi.github.io/files/AnExploratoryAnalysisofAudienceSizeTrendsofHumanandAIArtonInstagram.pdf)
 
 <!-- <embed src="./files/An Exploratory Analysis of Audience Size Trends of Human and AI Art on Instagram.pdf" type="application/pdf" width="100%" height="600px" /> -->
 
