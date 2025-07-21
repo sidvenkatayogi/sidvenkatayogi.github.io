@@ -25,7 +25,7 @@ author:
   avatar           : "hdsht.png"
   name             : "(Sid)dhartha Venkatayogi"
   pronouns         : "he/him"  
-  bio              : "Incoming CS @ UT (2029)"
+  bio              : "CS @ UT (2028 or 2029 idk yet). Currently looking for 2026 Internships."
   location         : "Austin, Texas"
   employer         : "University of Texas at Austin"
   uri              : # URL
@@ -242,8 +242,8 @@ defaults:
       author_profile: true
       read_time: true
       comments: true
-      share: true
-      related: true
+      share: false
+      related: false
   # _pages
   - scope:
       path: ""
