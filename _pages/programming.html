@@ -8,7 +8,8 @@ I haven't focused on projects that much in the past, but this will look much mor
 
 {% include base_path %}
 
-{% for post in site.programming %}
+{% assign sorted_posts = site.programming | sort: "title" | reverse %}
+{% for post in sorted_posts %}
 <div class="{{ include.type | default: 'list' }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     <h2 class="archive__item-title" itemprop="headline">
