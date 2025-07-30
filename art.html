@@ -3,10 +3,11 @@ layout: default
 title: Art
 ---
 
-<h2>Art Portfolio</h2>
+
 
 <ul>
-  {% for art_piece in site.art %}
+  {% assign sorted_art = site.art | sort: "order" | reverse %}
+  {% for art_piece in sorted_art %}
     <li>
       <h3><a href="{{ art_piece.url | relative_url }}">{{ art_piece.title }}</a></h3>
       {% if art_piece.excerpt %}

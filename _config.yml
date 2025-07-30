@@ -26,13 +26,13 @@ exclude:
 collections:
   projects:
     output: true
-    permalink: /programming/:title/
+    permalink: /programming/:slug/
   art:
     output: true
-    permalink: /art/:title/
+    permalink: /art/:slug/
   posts:
     output: true
-    permalink: /blog/:year/:month/:day/:title/
+    permalink: /blog/:year/:month/:day/:slug/
   pages:
     output: true
     permalink: /:name.html

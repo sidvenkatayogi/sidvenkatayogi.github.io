@@ -3,10 +3,11 @@ layout: default
 title: Programming
 ---
 
-<h2>Programming Projects</h2>
+
 
 <ul>
-  {% for project in site.projects %}
+  {% assign sorted_projects = site.projects | sort: "order" | reverse %}
+  {% for project in sorted_projects %}
     <li>
       <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
       {% if project.excerpt %}

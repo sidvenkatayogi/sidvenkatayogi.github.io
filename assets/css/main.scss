@@ -54,9 +54,6 @@ body {
     padding: 5px 0;
 }
 
-.content {
-    /* No specific margins here, wrapper handles centering and padding */
-}
 
 .footer {
     position: fixed;
@@ -107,11 +104,25 @@ body {
 }
 
 /* Ensure images and iframes are centered within the content */
-.content img,
-.content iframe {
+.content img {
     display: block; /* Make them block-level for margin:auto to work */
     margin-left: auto;
     margin-right: auto;
     max-width: 100%; /* Prevent overflow */
     height: auto; /* Maintain aspect ratio */
+}
+
+.content iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* For 16:9 aspect ratio */
+    display: block; /* Ensure it's block-level for centering */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Make excerpt images in art section smaller */
+.centered-content-page .content .excerpt img {
+    max-width: 225px; /* Adjust this value to make them smaller */
+    height: auto;
 }
