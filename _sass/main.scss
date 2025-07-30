@@ -1,0 +1,76 @@
+---
+---
+
+// No @use "minima/..."; statements here to avoid conflicts.
+// All styles are explicitly defined.
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #fff;
+    color: #000;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative; /* For fixed positioning context */
+}
+
+.wrapper {
+    max-width: 800px; /* Your desired content width */
+    margin: 0 auto; /* Center the wrapper */
+    padding: 0 30px; /* Padding on sides for content */
+    flex-grow: 1; /* Allows content to take available space */
+    padding-top: 150px; /* Space for fixed header */
+    padding-bottom: 100px; /* Space for fixed footer */
+}
+
+.header {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.header nav ul li a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+    padding: 5px 0;
+}
+
+.content {
+    /* No specific margins here, wrapper handles centering and padding */
+}
+
+.footer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    text-align: right;
+    z-index: 1000;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+.footer a {
+    color: #000;
+    text-decoration: none;
+}

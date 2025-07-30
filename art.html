@@ -1,34 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Siddhartha Venkatayogi - Art</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Siddhartha Venkatayogi</h1>
-            <nav>
-                <ul>
-                    <li><a href="about.html">About Me</a></li>
-                    <li><a href="programming.html">Programming</a></li>
-                    <li><a href="art.html" class="active">Art</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="content">
-            <div id="art" class="content-section">
-            </div>
-        </div>
-        <div class="footer">
-            <p>Location: Austin, Texas</p>
-            <p>Institution: University of Texas at Austin</p>
-            <p>Contacts: sidvenkatayogi [at] utexas [dot] edu</p>
-            <p>Socials: <a href="https://github.com/sidvenkatayogi">GitHub</a>, <a href="https://www.linkedin.com/in/sidvenkatayogi">LinkedIn</a>, <a href="https://twitter.com/sidvenkatayogi">Twitter</a>, <a href="https://sidvenkatayogi.bsky.social">Bluesky</a></p>
-        </div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+---
+layout: default
+title: Art
+---
+
+<h2>Art Portfolio</h2>
+
+<ul>
+  {% for art_piece in site.art %}
+    <li>
+      <h3><a href="{{ art_piece.url | relative_url }}">{{ art_piece.title }}</a></h3>
+      {% if art_piece.excerpt %}
+        <div class="excerpt">{{ art_piece.excerpt }}</div>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

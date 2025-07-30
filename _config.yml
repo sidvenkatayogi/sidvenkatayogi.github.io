@@ -1,0 +1,59 @@
+
+title: Siddhartha Venkatayogi
+email: sidvenkatayogi@utexas.edu
+description: >- # this means to ignore newlines until "baseurl:"
+  Personal website of Siddhartha Venkatayogi.
+
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Build settings
+markdown: kramdown
+sass:
+  sass_dir: assets/css
+
+include: ["assets"]
+
+# Theme (Minima components are now explicitly @used in _sass/main.scss)
+# theme: minima
+plugins:
+  - jekyll-feed
+
+exclude:
+  - about.html
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /programming/:title/
+  art:
+    output: true
+    permalink: /art/:title/
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+  pages:
+    output: true
+    permalink: /:name.html
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+  - scope:
+      path: ""
+      type: "art"
+    values:
+      layout: "art"
+  - scope:
+      path: "_pages"
+    values:
+      layout: "page"
