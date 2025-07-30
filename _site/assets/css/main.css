@@ -12,7 +12,7 @@
 }
 html,
 body {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   font-family: "Inter SemiBold", sans-serif; /* Apply SemiBold to body */
@@ -83,14 +83,31 @@ h6 {
 }
 
 .header nav ul li a {
+  color: inherit;
   text-decoration: none;
-  color: #000;
   display: block;
   padding: 5px 0;
 }
 
-.content {
-  /* No specific margins here, wrapper handles centering and padding */
+.header nav ul li a:hover {
+  color: #555; /* Slightly darker for light mode */
+}
+
+body.dark-mode .header nav ul li a:hover {
+  color: #cccccc; /* Slightly lighter for dark mode */
+}
+
+.content a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.content a:hover {
+  color: #555; /* Slightly darker for light mode */
+}
+
+body.dark-mode .content a:hover {
+  color: #cccccc; /* Slightly lighter for dark mode */
 }
 
 .footer {
@@ -98,16 +115,19 @@ h6 {
   bottom: 20px;
   right: 20px;
   text-align: right;
-  z-index: 1000;
-}
-
-.footer p {
-  margin: 5px 0;
 }
 
 .footer a {
-  color: #000;
+  color: inherit;
   text-decoration: none;
+}
+
+.footer a:hover {
+  color: #555; /* Slightly darker for light mode */
+}
+
+body.dark-mode .footer a:hover {
+  color: #cccccc; /* Slightly lighter for dark mode */
 }
 
 /* Styles to remove bullet points from general content lists */
@@ -202,6 +222,136 @@ h2#table-of-contents + ul {
 .centered-content-page .content .excerpt img {
   max-width: 300px; /* Adjust this value to make them smaller */
   height: auto;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #1a1a1a; /* Dark background */
+  color: #f0f0f0; /* Light text */
+}
+
+body.dark-mode .site-header {
+  background-color: #2a2a2a;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+body.dark-mode .site-nav .page-link {
+  color: #f0f0f0;
+}
+
+body.dark-mode .site-nav .page-link:hover {
+  color: #bbbbbb;
+}
+
+body.dark-mode .post-link {
+  color: #f0f0f0;
+}
+
+body.dark-mode .post-link:hover {
+  color: #bbbbbb;
+}
+
+body.dark-mode .site-footer {
+  background-color: #2a2a2a;
+  border-top: 1px solid #3a3a3a;
+  color: #f0f0f0;
+}
+
+body.dark-mode .header nav ul li a {
+  color: #f0f0f0;
+}
+
+body.dark-mode .footer a {
+  color: #f0f0f0;
+}
+
+/* Theme Toggle Styles (Radio Buttons) */
+.theme-toggle-wrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+}
+
+.theme-option input[type=radio] {
+  /* Hide default radio button */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #333; /* Default outer border (light mode) */
+  border-radius: 0; /* Square shape */
+  cursor: pointer;
+  margin-right: 4px;
+  position: relative;
+  outline: none;
+  background-color: transparent; /* Default background */
+}
+
+/* Dark mode specific outer border for radio buttons */
+body.dark-mode .theme-option input[type=radio] {
+  border-color: #ccc; /* Lighter border for dark mode */
+}
+
+/* Checked state for light mode */
+.theme-option input[type=radio]#light-mode:checked {
+  border-color: #000; /* Outer border black */
+  background-color: #fff; /* Inner border white */
+}
+
+.theme-option input[type=radio]#light-mode:checked::before {
+  background-color: #000; /* Fill black */
+  content: "";
+  display: block;
+  width: 6px; /* Adjust size for fill */
+  height: 6px; /* Adjust size for fill */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Checked state for dark mode */
+.theme-option input[type=radio]#dark-mode:checked {
+  border-color: #fff; /* Outer border white */
+  background-color: #000; /* Inner border black */
+}
+
+body.dark-mode .theme-option input[type=radio]#dark-mode:checked {
+  border-color: #fff; /* Outer border white */
+  background-color: #000; /* Inner border black */
+}
+
+.theme-option input[type=radio]#dark-mode:checked::before {
+  background-color: #fff; /* Fill white */
+  content: "";
+  display: block;
+  width: 6px; /* Adjust size for fill */
+  height: 6px; /* Adjust size for fill */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.theme-option label {
+  cursor: pointer;
+  font-size: 1em;
+  color: #000; /* Default light mode text color */
+}
+
+/* Dark mode specific styles for labels */
+body.dark-mode .theme-option label {
+  color: #f0f0f0; /* White text in dark mode */
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -22,12 +22,22 @@
                 {{ content }}
             </div>
         </div>
-        <div class="footer">
+        <div class="theme-toggle-wrapper">
+    <div class="theme-option">
+      <input type="radio" id="light-mode" name="theme" value="light-mode" checked>
+      <label for="light-mode">Light</label>
+    </div>
+    <div class="theme-option">
+      <input type="radio" id="dark-mode" name="theme" value="dark-mode">
+      <label for="dark-mode">Dark</label>
+    </div>
+  </div>
+  <script src="{{ '/script.js' | relative_url }}"></script>
+  <div class="footer">
             <p>Location: Austin, Texas</p>
             <p>Institution: University of Texas at Austin</p>
             <p>Contacts: {{ site.email }}</p>
             <p>Socials: <a href="https://github.com/sidvenkatayogi">GitHub</a>, <a href="https://www.linkedin.com/in/sidvenkatayogi">LinkedIn</a>, <a href="https://twitter.com/sidvenkatayogi">Twitter</a>, <a href="https://sidvenkatayogi.bsky.social">Bluesky</a></p>
         </div>
-    </div>
 </body>
 </html>
