@@ -80,8 +80,17 @@ h6 {
     z-index: 1000;
 }
 
-.header h1 {
-    margin: 0;
+.header h1 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.header h1 a:hover {
+    color: #555; /* Slightly darker for light mode */
+}
+
+body.dark-mode .header h1 a:hover {
+    color: #cccccc; /* Slightly lighter for dark mode */
 }
 
 .header nav ul {
@@ -148,7 +157,7 @@ body.dark-mode .footer a:hover {
     height: 8px;
     background-color: #000; /* Black circle for light mode */
     border-radius: 50%;
-    margin-left: 5px;
+    margin-right: 5px; /* Adjusted margin to the right */
     vertical-align: middle;
 }
 
@@ -266,7 +275,7 @@ body.dark-mode .site-nav .page-link {
 }
 
 body.dark-mode .site-nav .page-link:hover {
-    color: #bbbbbb;
+    color: #929292;
 }
 
 body.dark-mode .post-link {
@@ -274,7 +283,7 @@ body.dark-mode .post-link {
 }
 
 body.dark-mode .post-link:hover {
-    color: #bbbbbb;
+    color: #929292;
 }
 
 body.dark-mode .site-footer {
