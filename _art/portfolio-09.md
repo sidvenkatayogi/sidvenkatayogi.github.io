@@ -1,5 +1,4 @@
 ---
-layout: art
 title: "COUCH"
 excerpt: "<img src='/images/couch.png' width='500' height='auto'>"
 slug: couch

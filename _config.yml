@@ -47,12 +47,12 @@ defaults:
       path: ""
       type: "projects"
     values:
-      layout: "project"
+      layout: "item"
   - scope:
       path: ""
       type: "art"
     values:
-      layout: "art"
+      layout: "item"
   - scope:
       path: "_pages"
     values:

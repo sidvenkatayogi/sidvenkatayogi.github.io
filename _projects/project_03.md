@@ -1,5 +1,4 @@
 ---
-layout: project
 title: "PIXIE"
 excerpt: "<img src='/images/pixie_social_preview.png' width='500' height='auto'>"
 slug: pixie

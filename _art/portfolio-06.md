@@ -1,5 +1,4 @@
 ---
-layout: art
 title: "HEADACHE"
 excerpt: "<img src='/images/headache_update.png' width='550' height='auto'>"
 slug: headache

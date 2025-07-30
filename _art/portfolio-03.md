@@ -1,5 +1,4 @@
 ---
-layout: art
 title: "SURVIVAL"
 excerpt: "<img src='/images/tigers.png' width='700' height='auto'>"
 slug: survival

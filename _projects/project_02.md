@@ -1,5 +1,4 @@
 ---
-layout: project
 title: "Word Wizard"
 excerpt: "<img src='/images/ww_thumbnail.png' width='500' height='auto'>"
 slug: word-wizard

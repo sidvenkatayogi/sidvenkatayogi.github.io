@@ -1,5 +1,4 @@
 ---
-layout: art
 title: "WARM FOSSIL"
 excerpt: "<img src='/images/trex.png' width='600' height='auto'>"
 slug: warm-fossil
