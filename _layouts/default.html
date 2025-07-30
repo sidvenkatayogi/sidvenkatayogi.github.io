@@ -10,10 +10,10 @@
             <h1>{{ site.title }}</h1>
             <nav>
                 <ul>
-                    <li><a href="{{ '/about.html' | relative_url }}">About Me</a></li>
-                    <li><a href="{{ '/programming.html' | relative_url }}">Programming</a></li>
-                    <li><a href="{{ '/art.html' | relative_url }}">Art</a></li>
-                    <li><a href="{{ '/blog.html' | relative_url }}">Blog</a></li>
+                    <li><a href="{{ '/about.html' | relative_url }}">About Me</a>{% if page.url == '/about.html' %}<span class="nav-circle"></span>{% endif %}</li>
+                    <li><a href="{{ '/programming.html' | relative_url }}">Programming</a>{% if page.url == '/programming.html' %}<span class="nav-circle"></span>{% elsif page.url contains '/programming/' %}<span class="nav-circle"></span><span class="nav-circle"></span>{% endif %}</li>
+                    <li><a href="{{ '/art.html' | relative_url }}">Art</a>{% if page.url == '/art.html' %}<span class="nav-circle"></span>{% elsif page.url contains '/art/' %}<span class="nav-circle"></span><span class="nav-circle"></span>{% endif %}</li>
+                    <li><a href="{{ '/blog.html' | relative_url }}">Blog</a>{% if page.url == '/blog.html' %}<span class="nav-circle"></span>{% elsif page.url contains '/blog/' %}<span class="nav-circle"></span><span class="nav-circle"></span>{% endif %}</li>
                 </ul>
             </nav>
         </div>

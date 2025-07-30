@@ -90,10 +90,14 @@ h6 {
     margin: 10px 0 0 0;
 }
 
+.header nav ul li {
+    display: flex;
+    align-items: center;
+}
+
 .header nav ul li a {
     color: inherit;
     text-decoration: none;
-    display: block;
     padding: 5px 0;
 }
 
@@ -136,6 +140,20 @@ body.dark-mode .content a:hover {
 
 body.dark-mode .footer a:hover {
     color: #cccccc; /* Slightly lighter for dark mode */
+}
+
+.nav-circle {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #000; /* Black circle for light mode */
+    border-radius: 50%;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+body.dark-mode .nav-circle {
+    background-color: #fff; /* White circle for dark mode */
 }
 
 /* Styles to remove bullet points from general content lists */
