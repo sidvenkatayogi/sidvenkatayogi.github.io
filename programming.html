@@ -9,7 +9,7 @@ title: Programming
   {% assign sorted_projects = site.projects | sort: "order" | reverse %}
   {% for project in sorted_projects %}
     <li>
-      <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
+      <h2><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h2>
       {% if project.excerpt %}
         <div class="excerpt">{{ project.excerpt }}</div>
       {% endif %}

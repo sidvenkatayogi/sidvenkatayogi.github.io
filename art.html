@@ -9,7 +9,7 @@ title: Art
   {% assign sorted_art = site.art | sort: "order" | reverse %}
   {% for art_piece in sorted_art %}
     <li>
-      <h3><a href="{{ art_piece.url | relative_url }}">{{ art_piece.title }}</a></h3>
+      <h2><a href="{{ art_piece.url | relative_url }}">{{ art_piece.title }}</a></h2>
       {% if art_piece.excerpt %}
         <div class="excerpt">{{ art_piece.excerpt }}</div>
       {% endif %}

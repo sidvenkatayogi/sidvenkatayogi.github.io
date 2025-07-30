@@ -4,15 +4,60 @@
 // No @use "minima/..."; statements here to avoid conflicts.
 // All styles are explicitly defined.
 
+@font-face {
+    font-family: 'Inter SemiBold';
+    src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Thin';
+    src: url('../fonts/Inter-Thin.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html,
 body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: 'Inter SemiBold', sans-serif; /* Apply SemiBold to body */
     background-color: #fff;
     color: #000;
 }
+
+/* Default font sizes for all heading types */
+h1 {
+    font-family: 'Inter Thin', sans-serif;
+    font-size: 3.0em; /* Default H1 size */
+}
+
+h2 {
+    font-family: 'Inter Thin', sans-serif;
+    font-size: 2.5em; /* Default H2 size */
+}
+
+// h3 {
+//     font-family: 'Inter Thin', sans-serif;
+//     font-size: 1.5em; /* Default H3 size */
+// }
+
+// h4 {
+//     font-family: 'Inter Thin', sans-serif;
+//     font-size: 1.2em; /* Default H4 size */
+// }
+
+// h5 {
+//     font-family: 'Inter Thin', sans-serif;
+//     font-size: 1em; /* Default H5 size */
+// }
+
+// h6 {
+//     font-family: 'Inter Thin', sans-serif;
+//     font-size: 0.8em; /* Default H6 size */
+// }
 
 .container {
     display: flex;
@@ -54,6 +99,9 @@ body {
     padding: 5px 0;
 }
 
+.content {
+    /* No specific margins here, wrapper handles centering and padding */
+}
 
 .footer {
     position: fixed;
@@ -72,7 +120,7 @@ body {
     text-decoration: none;
 }
 
-/* Styles to remove bullet points */
+/* Styles to remove bullet points from general content lists */
 .content ul {
     list-style: none;
     padding-left: 0;
@@ -80,6 +128,12 @@ body {
 
 .content li {
     margin-bottom: 10px; /* Add some spacing between list items */
+}
+
+/* Re-enable bullet points for Table of Contents */
+h2#table-of-contents + ul {
+    list-style: disc; /* Use disc for standard bullet points */
+    padding-left: 20px; /* Add back some indentation */
 }
 
 /* Centering for programming.html and art.html listing pages */
@@ -103,6 +157,19 @@ body {
     text-align: center; /* Ensure text within list items is centered */
 }
 
+/* Increase title size in programming and art sections (overrides defaults) */
+.centered-content-page .content h1 {
+    font-size: 4.0em; /* Example: Larger H1 for these sections */
+}
+
+.centered-content-page .content h2 {
+    font-size: 3.0em; /* Example: Larger H2 for these sections */
+}
+
+.centered-content-page .content h3 {
+    font-size: 2.0em; /* Example: Larger H3 for these sections */
+}
+
 /* Ensure images and iframes are centered within the content */
 .content img {
     display: block; /* Make them block-level for margin:auto to work */
@@ -123,6 +190,6 @@ body {
 
 /* Make excerpt images in art section smaller */
 .centered-content-page .content .excerpt img {
-    max-width: 225px; /* Adjust this value to make them smaller */
+    max-width: 150px; /* Adjust this value to make them smaller */
     height: auto;
 }
