@@ -7,4 +7,4 @@ Welcome! I'm an incoming freshman and computer science student at UT Austin. I'm
 In my free time, I like to study various math topics, [draw](/art), write comics, watch shows/movies (currently watching One Piece), play basketball/ volleyball/ soccer (non-competitively), or go to the gym.
 
 ## Contact
-Feel free to contact me; I'm always looking for new opportunities! The best way to contact me right now is through my **email**. Linkedin also works but I don't check it as often. Honestly, I don't use Twitter or Bluesky, but I plan to start posting my new projects and blog posts on there to get more reach.
+Feel free to contact me; I'm always looking for new opportunities! The best way to contact me right now is through my email. Linkedin also works but I don't check it as often. Honestly, I don't use Twitter or Bluesky, but I plan to start posting my new projects and blog posts on there to get more reach.
