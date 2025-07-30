@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const lightModeRadio = document.getElementById('light-mode');
     const darkModeRadio = document.getElementById('dark-mode');
 
-    // Set the radio button to the current theme
-    if (document.documentElement.className === 'dark-mode') {
+    // Set the radio button to the current theme based on the html element's class
+    if (document.documentElement.classList.contains('dark-mode')) {
         darkModeRadio.checked = true;
     } else {
         lightModeRadio.checked = true;
