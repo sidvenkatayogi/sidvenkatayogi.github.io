@@ -20,15 +20,33 @@ body {
   color: #000;
 }
 
+h1, h2, h3 {
+  font-family: "Inter Thin", sans-serif; /* Apply Thin to titles */
+}
+
 /* Default font sizes for all heading types */
 h1 {
-  font-family: "Inter Thin", sans-serif;
-  font-size: 3em; /* Default H1 size */
+  font-size: 2.5em; /* Default H1 size */
 }
 
 h2 {
-  font-family: "Inter Thin", sans-serif;
-  font-size: 2.5em; /* Default H2 size */
+  font-size: 2em; /* Default H2 size */
+}
+
+h3 {
+  font-size: 1.5em; /* Default H3 size */
+}
+
+h4 {
+  font-size: 1.2em; /* Default H4 size */
+}
+
+h5 {
+  font-size: 1em; /* Default H5 size */
+}
+
+h6 {
+  font-size: 0.8em; /* Default H6 size */
 }
 
 .container {
@@ -121,25 +139,45 @@ h2#table-of-contents + ul {
 }
 
 .centered-content-page .content ul li {
-  text-align: center; /* Center the content within each list item */
+  display: flex; /* Use flexbox for side-by-side layout */
+  align-items: center; /* Vertically align items in the middle */
+  justify-content: space-between; /* Push items to opposite ends */
+  text-align: left; /* Reset text alignment for the flex item */
+  margin-bottom: 20px; /* Add more space between list items */
 }
 
-.centered-content-page .content ul li h3,
 .centered-content-page .content ul li .excerpt {
-  text-align: center; /* Ensure text within list items is centered */
+  flex-shrink: 0; /* Prevent image from shrinking */
+  margin-left: 100px; /* Add a small margin to separate from text */
+}
+
+.centered-content-page .content ul li .excerpt img {
+  max-width: 100px; /* Adjust image size as needed */
+  height: auto;
+  display: block; /* Ensure it behaves as a block within flex item */
+}
+
+.centered-content-page .content ul li > div:not(.excerpt) {
+  /* This targets the div containing the title and other text */
+  flex-grow: 1; /* Allow text content to take remaining space */
+}
+
+.centered-content-page .content ul li h2,
+.centered-content-page .content ul li .excerpt {
+  text-align: left; /* Ensure text within list items is left-aligned */
 }
 
 /* Increase title size in programming and art sections (overrides defaults) */
 .centered-content-page .content h1 {
-  font-size: 4em; /* Example: Larger H1 for these sections */
+  font-size: 3em; /* Increased H1 size */
 }
 
 .centered-content-page .content h2 {
-  font-size: 3em; /* Example: Larger H2 for these sections */
+  font-size: 2.5em; /* Increased H2 size */
 }
 
 .centered-content-page .content h3 {
-  font-size: 2em; /* Example: Larger H3 for these sections */
+  font-size: 1.8em; /* Increased H3 size */
 }
 
 /* Ensure images and iframes are centered within the content */
@@ -162,7 +200,7 @@ h2#table-of-contents + ul {
 
 /* Make excerpt images in art section smaller */
 .centered-content-page .content .excerpt img {
-  max-width: 150px; /* Adjust this value to make them smaller */
+  max-width: 300px; /* Adjust this value to make them smaller */
   height: auto;
 }
 

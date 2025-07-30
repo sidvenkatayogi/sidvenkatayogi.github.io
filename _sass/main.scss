@@ -70,7 +70,45 @@ body {
     margin: 5px 0;
 }
 
+
 .footer a {
     color: #000;
     text-decoration: none;
+}
+
+.two-column-layout {
+    display: flex;
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+    max-width: 900px; /* Adjust as needed to control the overall width of the two columns */
+    margin-left: 5%; /* Shift the entire block a little to the left */
+    margin-right: auto; /* Allow it to remain responsive */
+}
+
+.left-column {
+    flex: 1; /* Take up available space */
+    min-width: 300px; /* Minimum width for the column */
+    text-align: center; /* Center align text within the column */
+    padding-right: 20px; /* Add some spacing between columns */
+}
+
+.left-column h1 {
+    text-align: center;
+}
+
+.right-column {
+    flex: 1; /* Take up available space */
+    min-width: 300px; /* Minimum width for the column */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .two-column-layout {
+        flex-direction: column; /* Stack columns vertically on small screens */
+        margin-left: auto; /* Center the block on small screens */
+        margin-right: auto;
+    }
+    .left-column, .right-column {
+        padding-right: 0;
+        width: 100%;
+    }
 }
