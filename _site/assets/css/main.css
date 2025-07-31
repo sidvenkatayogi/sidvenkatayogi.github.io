@@ -433,7 +433,9 @@ html.dark-mode .theme-option label {
 
 @media screen and (max-width: 768px) {
   .header h1 a {
-    font-size: 0.67em; /* Reduce font size for the main title */
+    font-size: 0.8em; /* Increase font size for the main title */
+    position: relative;
+    top: -8px;
   }
   h1 {
     font-size: 2em; /* Adjust H1 font size for mobile */
@@ -470,12 +472,27 @@ html.dark-mode .theme-option label {
     font-size: 0.8em; /* Adjust font size for navigation items */
   }
   .theme-toggle-wrapper {
-    top: 10px;
-    right: 15px;
+    top: 120px;
+    right: 3px;
     bottom: auto;
     left: auto;
-    flex-direction: row;
-    gap: 10px;
+    flex-direction: column; /* Revert to vertical layout */
+    gap: 50px;
+  }
+  .theme-option {
+    display: flex;
+    align-items: center;
+    transform: rotate(90deg);
+    transform-origin: top right;
+  }
+  .theme-option input[type=radio] {
+    order: 1; /* Place the button first */
+    margin-right: 5px; /* Add some space between the button and the label */
+  }
+  .theme-option label {
+    order: 2; /* Place the label second */
+    writing-mode: horizontal-tb; /* Reset writing mode */
+    text-orientation: mixed;
   }
   .social-links {
     word-spacing: -1.4px; /* Reduce spacing between social links */
