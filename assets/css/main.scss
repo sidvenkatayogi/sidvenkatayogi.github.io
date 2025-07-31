@@ -25,6 +25,7 @@ body {
     padding: 0;
     font-family: 'Inter SemiBold', sans-serif; /* Apply SemiBold to body */
     color: #000;
+    overflow-x: hidden;
 }
 
 body {
@@ -32,6 +33,7 @@ body {
 
 h1, h2, h3 {
     font-family: 'Inter Thin', sans-serif; /* Apply Thin to titles */
+    word-wrap: break-word; /* Add this line to wrap long words */
 }
 
 /* Default font sizes for all heading types */
@@ -443,15 +445,79 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    .header h1 a {
+        font-size: 0.67em; /* Reduce font size for the main title */
+    }
+
+    h1 {
+        font-size: 2.0em; /* Adjust H1 font size for mobile */
+    }
+
+    .header nav ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 0px; /* Adjust gap between items */
+        width: 200px;
+    }
+
+    .header nav ul li:nth-child(1) {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .header nav ul li:nth-child(2) {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .header nav ul li:nth-child(3) {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .header nav ul li:nth-child(4) {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .header nav ul li a {
+        font-size: 0.8em; /* Adjust font size for navigation items */
+    }
+
     .theme-option label,
-    .footer p,
+    .footer p {
+        font-size: 0.9em; /* Adjust font size for theme options and footer */
+    }
+
     .content p {
-        font-size: 1.1em; /* Increase font size for specific elements */
+        font-size: 1.1em;
     }
 
     .wrapper {
-        padding-top: 250px; /* Move content lower */
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 195px, black 245px, black calc(100% - 175px), transparent calc(100% - 125px), transparent 100%);
-        mask-image: linear-gradient(to bottom, transparent 0%, transparent 195px, black 245px, black calc(100% - 175px), transparent calc(100% - 125px), transparent 100%);
+        max-width: 100%;
+        padding-top: 150px; /* Move content higher */
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 130px, black 165px, black calc(100% - 110px), transparent calc(100% - 90px), transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, transparent 130px, black 165px, black calc(100% - 110px), transparent calc(100% - 90px), transparent 100%);
+    }
+
+    .content img {
+        object-fit: contain;
+    }
+
+    .centered-content-page .content ul li {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally */
+        text-align: center; /* Center text */
+        margin-bottom: 40px; /* Increase spacing between items */
+    }
+
+    .centered-content-page .content ul li .excerpt {
+        margin-left: 0; /* Remove left margin */
+        margin-top: 15px; /* Add space between text and image */
+    }
+
+    .centered-content-page .content h2 {
+        font-size: 1.8em; /* Reduce title size */
     }
 }
