@@ -14,8 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (this.checked) {
             document.documentElement.className = 'light-mode';
             localStorage.setItem('theme', 'light-mode');
-            waves.reset();   // Clear old lines
-            waves.render();  // Re-render with correct color
+            if (!isMobileDevice()) {
+                waves.reset();   // Clear old lines
+                waves.render();  // Re-render with correct color
+            }
         }
     });
 
@@ -23,13 +25,17 @@ document.addEventListener('DOMContentLoaded', function () {
         if (this.checked) {
             document.documentElement.className = 'dark-mode';
             localStorage.setItem('theme', 'dark-mode');
-            waves.reset();   // Clear old lines
-            waves.render();  // Re-render with correct color
+            if (!isMobileDevice()) {
+                waves.reset();   // Clear old lines
+                waves.render();  // Re-render with correct color
+            }
         }
     });
 
     // Initial render of the waves with the correct theme
-    waves.render();
+    if (!isMobileDevice()) {
+        waves.render();
+    }
 });
 
 (function () {
@@ -344,10 +350,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 })();
 
-var waves = new Waves('#holder', {
-    fps: true,
-    waves: 3,
-    width: 200,
-});
+function isMobileDevice() {
+    return window.innerWidth <= 768; // Adjust breakpoint as needed
+}
 
-waves.animate();
+if (!isMobileDevice()) {
+    var waves = new Waves('#holder', {
+        fps: true,
+        waves: 3,
+        width: 150,
+    });
+
+    waves.animate();
+}

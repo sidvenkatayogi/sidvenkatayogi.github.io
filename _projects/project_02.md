@@ -1,6 +1,6 @@
 ---
 title: "Word Wizard"
-excerpt: "<img src='/images/ww_thumbnail.png' width='500' height='auto'>"
+excerpt: "<img src='/images/ww_thumbnail.webp' width='500' height='auto'>"
 slug: word-wizard
 order: 2
 ---

@@ -1,6 +1,6 @@
 ---
 title: "AP Research"
-excerpt: "<img src='/images/ap_thumbnail.png' width='500' height='auto'>"
+excerpt: "<img src='/images/ap_thumbnail.webp' width='500' height='auto'>"
 slug: ap-research
 order: 1
 ---
