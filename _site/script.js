@@ -356,8 +356,17 @@ function isMobileDevice() {
 
 if (!isMobileDevice()) {
     var waves = new Waves('#holder', {
-        fps: true,
+        fps: false,
         waves: 3,
+        width: 150,
+    });
+
+    waves.animate();
+}
+else{
+    var waves = new Waves('#holder', {
+        fps: true,
+        waves: 1,
         width: 150,
     });
 
