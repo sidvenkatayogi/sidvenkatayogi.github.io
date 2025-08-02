@@ -416,6 +416,16 @@ html.dark-mode .theme-option label {
   color: #f0f0f0; /* White text in dark mode */
 }
 
+::selection {
+  background-color: #313131;
+  color: #ffffff;
+}
+
+html.dark-mode ::selection {
+  background-color: #d6d6d6;
+  color: #000000;
+}
+
 * {
   margin: 0;
   padding: 0;
