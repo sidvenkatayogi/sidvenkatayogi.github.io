@@ -153,9 +153,10 @@ html.dark-mode .header nav ul li a:hover {
     color: #cccccc; /* Slightly lighter for dark mode */
 }
 
-.content h2 a,
-.content h3 a {
-    text-decoration: none; /* Remove underline from links within h2 and h3 in content */
+
+
+.centered-content-page .content h2 a, .content ul h2 a {
+    text-decoration: none;
 }
 
 .content a {
