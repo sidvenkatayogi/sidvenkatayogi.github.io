@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             amplitude: 0.5,
             background: true,
             preload: true,
-            speed: [0.004, 0.008],
+            speed: [0.003, 0.006],
             debug: false,
             fps: false,
         });
