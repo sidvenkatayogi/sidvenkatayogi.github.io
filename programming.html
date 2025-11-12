@@ -11,7 +11,9 @@ title: Programming
     <li>
       <h2><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h2>
       {% if project.excerpt %}
-        <div class="excerpt">{{ project.excerpt }}</div>
+        <a href="{{ project.url | relative_url }}">
+          <div class="excerpt">{{ project.excerpt }}</div>
+        </a>
       {% endif %}
     </li>
   {% endfor %}

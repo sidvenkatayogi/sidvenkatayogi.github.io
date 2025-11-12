@@ -11,7 +11,9 @@ title: Art
     <li>
       <h2><a href="{{ art_piece.url | relative_url }}">{{ art_piece.title }}</a></h2>
       {% if art_piece.excerpt %}
-        <div class="excerpt">{{ art_piece.excerpt }}</div>
+        <a href="{{ art_piece.url | relative_url }}">
+          <div class="excerpt">{{ art_piece.excerpt }}</div>
+        </a>
       {% endif %}
     </li>
   {% endfor %}
