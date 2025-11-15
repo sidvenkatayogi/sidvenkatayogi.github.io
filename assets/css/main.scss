@@ -135,13 +135,17 @@ h6 {
 .home-page .header nav ul {
     display: flex;
     justify-content: center;
+    // flex-direction: column; /* Stack items vertically */
+    // align-items: center; /* Center items horizontally */
     margin: 0;
     padding: 0;
 }
 
 .home-page .header nav ul li {
-   display: inline-block;
-   margin: 0 15px;
+//    display: block; /* Make li a block element */
+//    margin: 30px 0; /* Add vertical margin */
+    display: inline-block;
+    margin: 0 45px;
 }
 
 .home-page .header nav ul li a {
