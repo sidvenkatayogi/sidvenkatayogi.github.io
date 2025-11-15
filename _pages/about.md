@@ -20,6 +20,18 @@ title: "About Me"
 <br />
 
 ##### always looking for new opportunities!
+<!-- 
+<br />
+<br /> -->
+
+<div class="profile-picture-section">
+  <img src="/images/IMG_4013.jpg" alt="Profile Picture" class="profile-picture-circle">
+  <div class="profile-picture-text">
+    <h3>What's my profile picture?</h3>
+    <p>It's a character from Bakuman, a manga I really like. His name is Eiji Nizuma. In the story, he's a genius who's like cracked in the manga world. Very eccentric very cool guy.</p>
+  </div>
+</div>
+
 <!-- <br /> -->
 <!-- # Contact
 ##### Feel free to contact me; I'm always looking for new opportunities! Email and Linkedin are good. Honestly, I don't use Twitter or Bluesky, Maybe I should. -->
