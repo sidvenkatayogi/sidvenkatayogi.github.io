@@ -43,6 +43,14 @@ h1, h2, h3 {
     word-wrap: break-word; /* Add this line to wrap long words */
 }
 
+h1 {
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    margin-bottom: 0.5em;
+}
+
 /* Default font sizes for all heading types */
 h1 {
     font-size: 2.5em; /* Default H1 size */
@@ -230,6 +238,10 @@ html.dark-mode .nav-circle {
     margin-bottom: 10px; /* Add some spacing between list items */
 }
 
+.blog-page .content li {
+    margin-bottom: 30px; /* Increased spacing for blog excerpts */
+}
+
 /* Re-enable bullet points for Table of Contents */
 h2#table-of-contents + ul {
     list-style: disc; /* Use disc for standard bullet points */
@@ -280,10 +292,12 @@ h2#table-of-contents + ul {
 /* Increase title size in programming and art sections (overrides defaults) */
 .centered-content-page .content h1 {
     font-size: 3em; /* Increased H1 size */
+    margin-bottom: 0;
 }
 
 .centered-content-page .content h2 {
     font-size: 2.5em; /* Increased H2 size */
+    margin-bottom: 0;
 }
 
 .centered-content-page .content h3 {

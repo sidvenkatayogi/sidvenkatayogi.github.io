@@ -2,7 +2,6 @@
 layout: page
 title: "About Me"
 ---
-<br />
 ##### Welcome! I'm a computer science student at UT Austin. 
 <br />
 ##### interested in any kind of software
@@ -18,5 +17,4 @@ title: "About Me"
 ##### go to the gym
 <br />
 # Contact
-<br />
 ##### Feel free to contact me; I'm always looking for new opportunities! The best way to contact me right now is through my email. Linkedin also works but I don't check it as often. Honestly, I don't use Twitter or Bluesky, but I plan to start posting my new projects and blog posts on there to get more reach.

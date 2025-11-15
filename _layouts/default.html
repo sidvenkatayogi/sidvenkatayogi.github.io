@@ -12,7 +12,7 @@
     </script>
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 </head>
-<body class="{% if page.url == '/programming.html' or page.url == '/art.html' %}centered-content-page{% endif %}">
+<body class="{% if page.url == '/programming.html' or page.url == '/art.html' %}centered-content-page{% elsif page.url == '/blog.html' %}blog-page{% endif %}">
     <div id="holder"></div>
     <div class="container">
         <div class="header">
