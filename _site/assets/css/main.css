@@ -109,19 +109,35 @@ h6 {
 }
 
 .home-page .header nav {
-  position: fixed;
+  position: fixed; /* Position nav independently */
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -70%);
-  width: 100%;
+  transform: translate(-50%, -50%);
+  width: 100%; /* Occupy full width to center content */
+  text-align: center; /* Fallback for centering */
+  z-index: 4; /* Ensure it's above other elements if needed */
 }
 
 .home-page .header nav ul {
+  display: flex;
   justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .home-page .header nav ul li {
-  justify-content: center;
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.home-page .header nav ul li a {
+  font-size: 2.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.home-page .wrapper {
+  padding-top: 0;
 }
 
 .header h1 a {
