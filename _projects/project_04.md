@@ -2,7 +2,7 @@
 title: "Wispr Edit"
 excerpt: "<img src='/images/wispredit.webp' width='500' height='auto'>"
 slug: wispredit
-order: 4
+order: 5
 ---
 #### Wispr Edit is a voice-to-text application inspired by [Wispr Flow](https://wisprflow.ai/). It brings fast, accurate voice typing to any application on your computer and adds a "Smart Edit" feature that lets you modify text using natural language voice commands.
 <br />
