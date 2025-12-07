@@ -5,7 +5,11 @@ title: "About Me"
 ##### Welcome! I'm a computer science student at UT Austin. 
 <br />
 ##### interested in any kind of software and research
-##### experience in Computer Vision and Natural Language Processing
+<br />
+##### currently working as a research assistant in UT Computational Linguistics,
+##### researching LLMs in the medical domain
+<br />
+##### experience in Natural Language Processing and Computer Vision
 <br />
 ##### I also like to...
 <br />
@@ -15,6 +19,7 @@ title: "About Me"
 ##### watch shows/movies, currently watching One Piece (doesn't beat Narugoat tho)
 ##### play basketball/volleyball/soccer (not well lol)
 ##### go to the gym
+##### eat vegan food
 
 <br />
 <br />
