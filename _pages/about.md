@@ -9,8 +9,6 @@ title: "About Me"
 ##### currently working as a research assistant in UT Computational Linguistics,
 ##### researching LLMs in the medical domain
 <br />
-##### experience in Natural Language Processing and Computer Vision
-<br />
 ##### I also like to...
 <br />
 ##### [draw](/art)
