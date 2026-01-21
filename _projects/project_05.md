@@ -2,7 +2,7 @@
 title: "PIXIE"
 excerpt: "<img src='/images/pixie_social_preview.webp' width='500' height='auto'>"
 slug: pixie
-order: 6
+order: 7
 ---
 #### Pixie (PIcture eXploration and Inference Engine) lets you view and explore your saved images by various indices. It's perfect for visual creatives looking for a novel, intuitive visual method to browse/search for inspiration and reference. Visit [my blog post](https://sidvenkatayogi.github.io/blog/2025/07/20/making-pixie/) about PIXIE. To get the latest release and more information, visit the [Github repository!](https://github.com/sidvenkatayogi/pixie)
 <br />
