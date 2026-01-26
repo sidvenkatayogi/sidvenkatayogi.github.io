@@ -2,7 +2,7 @@
 title: "Word Wizard"
 excerpt: "<img src='/images/ww_thumbnail.webp' width='500' height='auto'>"
 slug: word-wizard
-order: 3
+order: 4
 ---
 #### Word Wizard is a linear story-based 2D pixel game where you use words to get through the levels. This puzzle and adventure game requires you to play unique word puzzles and get past the action. The full game info, web player, and downloads can be found on [itch.io](https://sidvenkatayogi.itch.io/word-wizard) and [Newgrounds](https://www.newgrounds.com/portal/view/899710). Code on [Github](https://github.com/sidvenkatayogi/Word-Wizard-NLC)
 <br />

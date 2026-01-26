@@ -2,7 +2,7 @@
 title: "GovEase"
 excerpt: "<img src='/images/govease.webp' width='500' height='auto'>"
 slug: govease
-order: 2
+order: 3
 ---
 #### My team's [HackTX25](https://hacktx.com/#about) project! Made in 24 hours. Ngl ts is ass but it was my first hackathon so chill on me 🙏
 
