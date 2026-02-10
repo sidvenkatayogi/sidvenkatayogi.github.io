@@ -42,20 +42,24 @@ document.addEventListener('DOMContentLoaded', function () {
     var pi = Math.PI;
     var pi2 = 2 * Math.PI;
 
+    // ASCII characters from darkest to lightest (more dense to less dense)
+    var asciiChars = '@#$?!abc;:+*=-,.` ';
+
     this.Waves = function (holder, options) {
         var Waves = this;
 
         Waves.options = extend(options || {}, {
-            resize: false,
+            resize: true,
             rotation: 45,
             waves: 5,
-            width: 100,
-            amplitude: 0.5,
+            width: 10,
+            amplitude: 1.5,
             background: true,
             preload: true,
             speed: [0.003, 0.006],
             debug: false,
             fps: false,
+            asciiCellSize: 12, // Size of each ASCII cell in pixels
         });
 
         Waves.waves = [];
@@ -64,6 +68,10 @@ document.addEventListener('DOMContentLoaded', function () {
         Waves.canvas = document.createElement('canvas');
         Waves.ctx = Waves.canvas.getContext('2d');
         Waves.holder.appendChild(Waves.canvas);
+
+        // Create offscreen canvas for wave rendering
+        Waves.offscreenCanvas = document.createElement('canvas');
+        Waves.offscreenCtx = Waves.offscreenCanvas.getContext('2d');
 
         Waves.stats = new Stats();
 
@@ -107,8 +115,28 @@ document.addEventListener('DOMContentLoaded', function () {
     Waves.prototype.render = function () {
         var Waves = this;
         var ctx = Waves.ctx;
+        var offscreenCtx = Waves.offscreenCtx;
 
+        // Clear both canvases
         Waves.clear();
+        offscreenCtx.clearRect(0, 0, Waves.width, Waves.height);
+
+        // Draw background on main canvas
+        if (Waves.options.background) {
+            Waves.background();
+        }
+
+        // Render waves to offscreen canvas (white lines on black)
+        offscreenCtx.fillStyle = '#000';
+        offscreenCtx.fillRect(0, 0, Waves.width, Waves.height);
+
+        each(Waves.waves, function (wave) {
+            wave.update();
+            wave.drawToOffscreen(offscreenCtx);
+        });
+
+        // Convert offscreen canvas to ASCII art
+        Waves.renderAscii();
 
         if (Waves.options.debug) {
             ctx.beginPath();
@@ -116,15 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
             ctx.arc(Waves.centerX, Waves.centerY, Waves.radius, 0, pi2);
             ctx.stroke();
         }
-
-        if (Waves.options.background) {
-            Waves.background();
-        }
-
-        each(Waves.waves, function (wave) {
-            wave.update();
-            wave.draw();
-        });
     };
 
     Waves.prototype.animate = function () {
@@ -151,17 +170,70 @@ document.addEventListener('DOMContentLoaded', function () {
         var Waves = this;
         var ctx = Waves.ctx;
 
-        var gradient = ctx.createLinearGradient(0, 0, 0, Waves.height);
+        // Base background color (start of gradient)
         if (document.documentElement.classList.contains('dark-mode')) {
-            gradient.addColorStop(0, '#000');
-            gradient.addColorStop(1, '#222');
+            ctx.fillStyle = '#000';
         } else {
-            gradient.addColorStop(0, '#fff');
-            gradient.addColorStop(1, '#ddd');
+            ctx.fillStyle = '#fff';
         }
 
-        ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, Waves.width, Waves.height);
+    };
+
+    Waves.prototype.renderAscii = function () {
+        var Waves = this;
+        var ctx = Waves.ctx;
+        var offscreenCtx = Waves.offscreenCtx;
+        var cellSize = Waves.options.asciiCellSize * Waves.scale;
+        var isDarkMode = document.documentElement.classList.contains('dark-mode');
+
+        // Get pixel data from offscreen canvas (wave data)
+        var imageData = offscreenCtx.getImageData(0, 0, Waves.width, Waves.height);
+        var pixels = imageData.data;
+
+        // Set up text rendering
+        ctx.font = (cellSize * 0.9) + 'px monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // Text color: dark grey on light mode, light grey on dark mode
+        ctx.fillStyle = isDarkMode ? '#434343' : '#e4e4e4';
+
+        // Sample offscreen canvas in grid and render ASCII
+        var cols = Math.ceil(Waves.width / cellSize);
+        var rows = Math.ceil(Waves.height / cellSize);
+
+        for (var row = 0; row < rows; row++) {
+            for (var col = 0; col < cols; col++) {
+                var x = col * cellSize;
+                var y = row * cellSize;
+
+                // Calculate average wave brightness for this cell
+                var totalWaveBrightness = 0;
+                var sampleCount = 0;
+
+                for (var sy = 0; sy < cellSize && y + sy < Waves.height; sy += 2) {
+                    for (var sx = 0; sx < cellSize && x + sx < Waves.width; sx += 2) {
+                        var pixelIndex = ((Math.floor(y + sy) * Waves.width) + Math.floor(x + sx)) * 4;
+                        totalWaveBrightness += pixels[pixelIndex];
+                        sampleCount++;
+                    }
+                }
+
+                var avgWaveBrightness = sampleCount > 0 ? totalWaveBrightness / sampleCount : 0;
+
+                // If there's wave content, map to ASCII character; otherwise use backtick
+                if (avgWaveBrightness > 2) {
+                    // Direct conversion: brightness to character
+                    var charIndex = Math.floor((avgWaveBrightness / 255) * (asciiChars.length - 1));
+                    charIndex = Math.max(0, Math.min(asciiChars.length - 1, charIndex));
+                    ctx.fillText(asciiChars[charIndex], x + cellSize / 2, y + cellSize / 2);
+                } else {
+                    // Solid background of backticks
+                    ctx.fillText("`", x + cellSize / 2, y + cellSize / 2);
+                }
+            }
+        }
     };
 
     Waves.prototype.resize = function () {
@@ -175,6 +247,11 @@ document.addEventListener('DOMContentLoaded', function () {
         Waves.canvas.height = Waves.height;
         Waves.canvas.style.width = width + 'px';
         Waves.canvas.style.height = height + 'px';
+
+        // Also resize offscreen canvas
+        Waves.offscreenCanvas.width = Waves.width;
+        Waves.offscreenCanvas.height = Waves.height;
+
         Waves.radius = Math.sqrt(Waves.width ** 2 + Waves.height ** 2) / 2;
         Waves.centerX = Waves.width / 2;
         Waves.centerY = Waves.height / 2;
@@ -216,23 +293,25 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     Wave.prototype.draw = function () {
+        // Legacy method - now we use drawToOffscreen
+        var Wave = this;
+        Wave.drawToOffscreen(Wave.Waves.ctx);
+    };
+
+    Wave.prototype.drawToOffscreen = function (ctx) {
         var Wave = this;
         var Waves = Wave.Waves;
 
-        var ctx = Waves.ctx;
         var radius = Waves.radius;
         var radius3 = radius / 3;
         var x = Waves.centerX;
         var y = Waves.centerY;
         var rotation = dtr(Waves.options.rotation);
         var amplitude = Waves.options.amplitude;
-        var debug = Waves.options.debug;
 
         var Lines = Wave.Lines;
 
         each(Lines, function (line, i) {
-            if (debug && i > 0) return;
-
             var angle = line.angle;
 
             var x1 = x - radius * Math.cos(angle[0] * amplitude + rotation);
@@ -244,28 +323,14 @@ document.addEventListener('DOMContentLoaded', function () {
             var cpx2 = x + radius3 * Math.cos(angle[2] * amplitude * 2);
             var cpy2 = y + radius3 * Math.sin(angle[2] * amplitude * 2);
 
-            ctx.strokeStyle = debug ? '#aaa' : line.color;
+            // Draw white lines on black background for brightness sampling
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.lineWidth = 2;
 
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, x2, y2);
             ctx.stroke();
-
-            if (debug) {
-                ctx.strokeStyle = '#aaa';
-                ctx.globalAlpha = 0.3;
-
-                ctx.beginPath();
-                ctx.moveTo(x1, y1);
-                ctx.lineTo(cpx1, cpy1);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(x2, y2);
-                ctx.lineTo(cpx2, cpy2);
-                ctx.stroke();
-
-                ctx.globalAlpha = 1;
-            }
         });
     };
 
@@ -281,12 +346,6 @@ document.addEventListener('DOMContentLoaded', function () {
             Math.sin(angle[2] += speed[2]),
             Math.sin(angle[3] += speed[3])
         ];
-
-        if (document.documentElement.classList.contains('dark-mode')) {
-            Line.color = 'rgba(50, 50, 50, 0.1)';
-        } else {
-            Line.color = 'rgba(216, 216, 216, 0.1)';
-        }
     }
 
     function Stats() {

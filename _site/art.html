@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         (function() {
-            var theme = localStorage.getItem('theme') || 'light-mode';
+            var theme = localStorage.getItem('theme') || 'dark-mode';
             document.documentElement.className = theme;
             document.documentElement.style.backgroundColor = (theme === 'dark-mode') ? '#1a1a1a' : '#fff';
         })();
@@ -126,11 +126,11 @@
         </div>
         <div class="theme-toggle-wrapper">
     <div class="theme-option">
-      <input type="radio" id="light-mode" name="theme" value="light-mode" checked>
+      <input type="radio" id="light-mode" name="theme" value="light-mode">
       <label for="light-mode">Light</label>
     </div>
     <div class="theme-option">
-      <input type="radio" id="dark-mode" name="theme" value="dark-mode">
+      <input type="radio" id="dark-mode" name="theme" value="dark-mode" checked>
       <label for="dark-mode">Dark</label>
     </div>
   </div>
