@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
             amplitude: 1.5,
             background: true,
             preload: true,
-            speed: [0.003, 0.006],
+            speed: [0.003, 0.015],
             thinSpeed: [0.005, 0.01], // Faster speed for thin waves
             debug: false,
             fps: false,
