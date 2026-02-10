@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ctx.textBaseline = 'middle';
 
         // Text color: dark grey on light mode, light grey on dark mode
-        ctx.fillStyle = isDarkMode ? '#434343' : '#e4e4e4';
+        ctx.fillStyle = isDarkMode ? '#323232' : '#e4e4e4';
 
         // Sample offscreen canvas in grid and render ASCII
         var cols = Math.ceil(Waves.width / cellSize);
