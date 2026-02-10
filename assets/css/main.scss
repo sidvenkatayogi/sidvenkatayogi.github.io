@@ -281,6 +281,19 @@ html.dark-mode .nav-circle {
 
 .blog-page .content li {
     margin-bottom: 30px; /* Increased spacing for blog excerpts */
+    text-align: center; /* Center titles and dates */
+}
+
+.blog-page .content li h2 {
+    text-align: center;
+}
+
+.blog-page .content li .post-meta {
+    text-align: center;
+}
+
+.blog-page .content li .excerpt {
+    text-align: center;
 }
 
 /* Re-enable bullet points for Table of Contents */
@@ -325,9 +338,13 @@ h2#table-of-contents + ul {
     flex-grow: 1; /* Allow text content to take remaining space */
 }
 
-.centered-content-page .content ul li h2,
+.centered-content-page .content ul li h2 {
+    text-align: right; /* Center title within its flex space */
+    width: 100%;
+}
+
 .centered-content-page .content ul li .excerpt {
-    text-align: left; /* Ensure text within list items is left-aligned */
+    text-align: left;
 }
 
 /* Increase title size in programming and art sections (overrides defaults) */
