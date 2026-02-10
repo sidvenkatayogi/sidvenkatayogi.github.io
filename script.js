@@ -52,17 +52,20 @@ document.addEventListener('DOMContentLoaded', function () {
             resize: true,
             rotation: 45,
             waves: 5,
+            thinWaves: 4, // Extra thin waves
             width: 10,
             amplitude: 1.5,
             background: true,
             preload: true,
             speed: [0.003, 0.006],
+            thinSpeed: [0.005, 0.01], // Faster speed for thin waves
             debug: false,
             fps: false,
             asciiCellSize: 12, // Size of each ASCII cell in pixels
         });
 
         Waves.waves = [];
+        Waves.thinWaves = [];
 
         Waves.holder = document.querySelector(holder);
         Waves.canvas = document.createElement('canvas');
@@ -89,15 +92,22 @@ document.addEventListener('DOMContentLoaded', function () {
         var options = Waves.options;
 
         for (var i = 0; i < options.waves; i++)
-            Waves.waves[i] = new Wave(Waves);
+            Waves.waves[i] = new Wave(Waves, false);
+
+        for (var i = 0; i < options.thinWaves; i++)
+            Waves.thinWaves[i] = new Wave(Waves, true);
 
         if (preload) Waves.preload();
     };
 
     Waves.prototype.reset = function () {
         this.waves = [];
+        this.thinWaves = [];
         for (var i = 0; i < this.options.waves; i++) {
-            this.waves[i] = new Wave(this);
+            this.waves[i] = new Wave(this, false);
+        }
+        for (var i = 0; i < this.options.thinWaves; i++) {
+            this.thinWaves[i] = new Wave(this, true);
         }
     };
 
@@ -108,6 +118,11 @@ document.addEventListener('DOMContentLoaded', function () {
         for (var i = 0; i < options.waves; i++) {
             for (var j = 0; j < options.width; j++) {
                 Waves.waves[i].update();
+            }
+        }
+        for (var i = 0; i < options.thinWaves; i++) {
+            for (var j = 0; j < options.width; j++) {
+                Waves.thinWaves[i].update();
             }
         }
     };
@@ -131,6 +146,11 @@ document.addEventListener('DOMContentLoaded', function () {
         offscreenCtx.fillRect(0, 0, Waves.width, Waves.height);
 
         each(Waves.waves, function (wave) {
+            wave.update();
+            wave.drawToOffscreen(offscreenCtx);
+        });
+
+        each(Waves.thinWaves, function (wave) {
             wave.update();
             wave.drawToOffscreen(offscreenCtx);
         });
@@ -257,12 +277,13 @@ document.addEventListener('DOMContentLoaded', function () {
         Waves.centerY = Waves.height / 2;
     };
 
-    function Wave(Waves) {
+    function Wave(Waves, thin) {
         var Wave = this;
-        var speed = Waves.options.speed;
+        var speed = thin ? Waves.options.thinSpeed : Waves.options.speed;
 
         Wave.Waves = Waves;
         Wave.Lines = [];
+        Wave.thin = thin || false;
 
         Wave.angle = [
             rnd(pi2),
@@ -324,8 +345,13 @@ document.addEventListener('DOMContentLoaded', function () {
             var cpy2 = y + radius3 * Math.sin(angle[2] * amplitude * 2);
 
             // Draw white lines on black background for brightness sampling
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.lineWidth = 2;
+            if (Wave.thin) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+                ctx.lineWidth = 1;
+            } else {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.lineWidth = 2;
+            }
 
             ctx.beginPath();
             ctx.moveTo(x1, y1);
