@@ -216,8 +216,9 @@ document.addEventListener('DOMContentLoaded', function () {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
-        // Text color: dark grey on light mode, light grey on dark mode
-        ctx.fillStyle = isDarkMode ? '#323232' : '#e4e4e4';
+        // Text colors: normal and thin wave variants for each mode
+        var normalColor = isDarkMode ? '#323232' : '#e4e4e4';
+        var thinColor = isDarkMode ? '#444444' : '#c9c9c9';
 
         // Sample offscreen canvas in grid and render ASCII
         var cols = Math.ceil(Waves.width / cellSize);
@@ -228,28 +229,36 @@ document.addEventListener('DOMContentLoaded', function () {
                 var x = col * cellSize;
                 var y = row * cellSize;
 
-                // Calculate average wave brightness for this cell
-                var totalWaveBrightness = 0;
+                // Calculate average wave brightness for this cell from Red (normal) and Green (thin) channels
+                var totalNormalBrightness = 0;
+                var totalThinBrightness = 0;
                 var sampleCount = 0;
 
                 for (var sy = 0; sy < cellSize && y + sy < Waves.height; sy += 2) {
                     for (var sx = 0; sx < cellSize && x + sx < Waves.width; sx += 2) {
                         var pixelIndex = ((Math.floor(y + sy) * Waves.width) + Math.floor(x + sx)) * 4;
-                        totalWaveBrightness += pixels[pixelIndex];
+                        totalNormalBrightness += pixels[pixelIndex];     // Red channel = normal
+                        totalThinBrightness += pixels[pixelIndex + 1];  // Green channel = thin
                         sampleCount++;
                     }
                 }
 
-                var avgWaveBrightness = sampleCount > 0 ? totalWaveBrightness / sampleCount : 0;
+                var avgNormalBrightness = sampleCount > 0 ? totalNormalBrightness / sampleCount : 0;
+                var avgThinBrightness = sampleCount > 0 ? totalThinBrightness / sampleCount : 0;
+                var avgTotalBrightness = Math.max(avgNormalBrightness, avgThinBrightness);
 
                 // If there's wave content, map to ASCII character; otherwise use backtick
-                if (avgWaveBrightness > 2) {
+                if (avgTotalBrightness > 2) {
+                    // Set color based on which type of wave is more prominent in this cell
+                    ctx.fillStyle = avgThinBrightness > avgNormalBrightness ? thinColor : normalColor;
+
                     // Direct conversion: brightness to character
-                    var charIndex = Math.floor((avgWaveBrightness / 255) * (asciiChars.length - 1));
+                    var charIndex = Math.floor((avgTotalBrightness / 255) * (asciiChars.length - 1));
                     charIndex = Math.max(0, Math.min(asciiChars.length - 1, charIndex));
                     ctx.fillText(asciiChars[charIndex], x + cellSize / 2, y + cellSize / 2);
                 } else {
-                    // Solid background of backticks
+                    // Solid background of backticks using the normal background color
+                    ctx.fillStyle = normalColor;
                     ctx.fillText("`", x + cellSize / 2, y + cellSize / 2);
                 }
             }
@@ -344,12 +353,14 @@ document.addEventListener('DOMContentLoaded', function () {
             var cpx2 = x + radius3 * Math.cos(angle[2] * amplitude * 2);
             var cpy2 = y + radius3 * Math.sin(angle[2] * amplitude * 2);
 
-            // Draw white lines on black background for brightness sampling
+            // Draw colored lines on black background for brightness sampling
+            // We use Red channel for normal waves and Green channel for thin waves
+            // so we can color them differently in the final ASCII output.
             if (Wave.thin) {
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+                ctx.strokeStyle = 'rgba(0, 255, 0, 0.25)';
                 ctx.lineWidth = 1;
             } else {
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.strokeStyle = 'rgba(255, 0, 0, 0.4)';
                 ctx.lineWidth = 2;
             }
 
