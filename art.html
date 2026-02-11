@@ -5,16 +5,20 @@ title: Art
 
 
 
-<ul>
+<div class="art-list">
   {% assign sorted_art = site.art | sort: "order" | reverse %}
   {% for art_piece in sorted_art %}
-    <li>
-      <h2><a href="{{ art_piece.url | relative_url }}">{{ art_piece.title }}</a></h2>
-      {% if art_piece.excerpt %}
-        <a href="{{ art_piece.url | relative_url }}">
-          <div class="excerpt">{{ art_piece.excerpt }}</div>
-        </a>
-      {% endif %}
-    </li>
+    <div class="art-item">
+      <div class="art-title">
+        <h4 style="text-align: center;"><a href="{{ art_piece.url | relative_url }}">{{ art_piece.title }}</a></h4>
+      </div>
+      <div class="art-thumbnail">
+        {% if art_piece.excerpt %}
+          <a href="{{ art_piece.url | relative_url }}">
+            <div class="excerpt">{{ art_piece.excerpt }}</div>
+          </a>
+        {% endif %}
+      </div>
+    </div>
   {% endfor %}
-</ul>
+</div>

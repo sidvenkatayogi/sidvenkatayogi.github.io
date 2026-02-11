@@ -38,7 +38,7 @@ body {
 body {
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-family: 'Inter Regular', sans-serif; /* Apply Regular to titles */
     word-wrap: break-word; /* Add this line to wrap long words */
 }
@@ -284,8 +284,12 @@ html.dark-mode .nav-circle {
     text-align: center; /* Center titles and dates */
 }
 
-.blog-page .content li h2 {
+.blog-page .content li h4 {
     text-align: center;
+}
+
+.blog-page .content li h4 a {
+    text-decoration: none;
 }
 
 .blog-page .content li .post-meta {
@@ -698,4 +702,160 @@ body {
         justify-items: center;
         text-align: center;
     }
+}
+
+/* New Project/Art List Styles */
+.project-list, .art-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.project-item, .art-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+  gap: 20px;
+}
+
+/* --- ART PAGE STYLES (Center Image, Right Title) --- */
+
+/* Ghost element (Left) balances Title (Right) */
+.art-item::before {
+  content: "";
+  flex: 1; /* Equal flexible space */
+  min-width: 0; /* Allow shrinking below content size */
+  order: 1;
+  display: block;
+}
+
+/* Thumbnail (Center) */
+.art-thumbnail {
+  flex: 0 0 300px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 2;
+}
+
+/* Ensure inner excerpt centers the image */
+.art-thumbnail .excerpt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Title (Right) - Hidden initially */
+.art-title {
+  flex: 1; /* Equal flexible space */
+  min-width: 0; /* Allow shrinking below content size */
+  display: flex;
+  justify-content: center; /* Center text within the column */
+  align-items: center;
+  text-align: center; /* Center text for wrapping lines */
+  padding: 0 20px;
+  order: 3;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateX(-10px);
+  white-space: normal; /* Ensure text wraps */
+  word-wrap: break-word; /* legacy support */
+  overflow-wrap: break-word; /* modern support */
+}
+
+.art-item:hover .art-title {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* --- PROGRAMMING PAGE STYLES (Center Title, Right Image) --- */
+
+/* Ghost element (Left) balances Thumbnail (Right) */
+.project-item::before {
+  content: "";
+  flex: 0 0 200px; /* Matches project-thumbnail width */
+  order: 1;
+  display: block;
+}
+
+/* Title (Center) - Visible */
+.project-title {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  order: 2;
+}
+
+/* Thumbnail (Right) - Hidden initially */
+.project-thumbnail {
+  flex: 0 0 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 3;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateX(-10px);
+}
+
+.project-item:hover .project-thumbnail {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Ensure inner excerpt centers the image */
+.project-thumbnail .excerpt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
+/* --- Shared Image Sizing --- */
+.centered-content-page .content .project-thumbnail .excerpt img {
+  max-width: 150px;
+  height: auto;
+}
+
+.centered-content-page .content .art-thumbnail .excerpt img {
+  max-width: 250px;
+  height: auto;
+}
+
+.project-title a, .art-title a {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .project-item, .art-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .project-item::before, .art-item::before {
+    display: none;
+  }
+  
+  .project-title, .art-title, .project-thumbnail, .art-thumbnail {
+    width: 100%;
+    flex: auto;
+    margin-bottom: 10px;
+    order: unset; /* Reset order for stacking */
+  }
+
+  /* Ensure content is visible on mobile */
+  .project-title, .art-title, .project-thumbnail {
+    opacity: 1;
+    transform: none;
+    justify-content: center;
+    text-align: center;
+  }
 }

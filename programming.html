@@ -5,16 +5,20 @@ title: Programming
 
 
 
-<ul>
+<div class="project-list">
   {% assign sorted_projects = site.projects | sort: "order" | reverse %}
   {% for project in sorted_projects %}
-    <li>
-      <h2><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h2>
-      {% if project.excerpt %}
-        <a href="{{ project.url | relative_url }}">
-          <div class="excerpt">{{ project.excerpt }}</div>
-        </a>
-      {% endif %}
-    </li>
+    <div class="project-item">
+      <div class="project-title">
+        <h4 style="text-align: center;"><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h4>
+      </div>
+      <div class="project-thumbnail">
+        {% if project.excerpt %}
+          <a href="{{ project.url | relative_url }}">
+            <div class="excerpt">{{ project.excerpt }}</div>
+          </a>
+        {% endif %}
+      </div>
+    </div>
   {% endfor %}
-</ul>
+</div>

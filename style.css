@@ -115,3 +115,25 @@ input:checked + .slider:before {
         background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
     }
 }
+
+.project-list, .art-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-item, .art-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.project-title, .art-title {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.project-thumbnail, .art-thumbnail {
+  flex: 1;
+  text-align: center;
+}
+
