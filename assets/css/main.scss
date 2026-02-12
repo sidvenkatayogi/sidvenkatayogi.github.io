@@ -676,12 +676,16 @@ body {
     }
 }
 
+.about-intro {
+    text-align: center;
+}
+
 .content .profile-picture-section {
     display: grid;
     grid-template-columns: 150px 1fr;
     align-items: center;
     gap: 20px;
-    margin-top: 40px;
+    margin-top: 30vh;
 }
 
 .content .profile-picture-circle {

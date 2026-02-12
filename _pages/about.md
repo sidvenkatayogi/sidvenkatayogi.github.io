@@ -2,6 +2,8 @@
 layout: page
 title: "About Me"
 ---
+<div class="about-intro" markdown="1">
+
 ##### Welcome! I'm a computer science student at UT Austin. 
 <br />
 ##### interested in any kind of software and research
@@ -21,12 +23,15 @@ title: "About Me"
 
 <br />
 <br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 ##### always looking for new opportunities!
-<!-- 
-<br />
-<br /> -->
 
+</div>
 
 <div class="profile-picture-section">
   <img src="/images/IMG_4013.jpg" alt="Profile Picture" class="profile-picture-circle">

@@ -1,4 +1,4 @@
-/// Theme Toggle (Radio Buttons)
+// Theme Toggle (Radio Buttons)
 document.addEventListener('DOMContentLoaded', function () {
     const lightModeRadio = document.getElementById('light-mode');
     const darkModeRadio = document.getElementById('dark-mode');
