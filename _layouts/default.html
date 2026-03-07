@@ -26,9 +26,14 @@
                 </ul>
             </nav>
         </div>
+        {% if page.url == '/' %}
+            {{ content }}
+        {% endif %}
         <div class="wrapper">
             <div class="content">
-                {{ content }}
+                {% unless page.url == '/' %}
+                    {{ content }}
+                {% endunless %}
             </div>
         </div>
         <div class="theme-toggle-wrapper">

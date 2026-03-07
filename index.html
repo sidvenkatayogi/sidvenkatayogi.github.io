@@ -3,4 +3,14 @@ layout: default
 title: Siddhartha Venkatayogi
 ---
 
+<div class="home-quote" id="home-quote"></div>
+
+<script>
+var quotes = [
+  "Until death, all defeat is psychological.",
+  "Do you see how infinite you are?",
+];
+document.getElementById('home-quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+</script>
+
 <script src="{{ '/script.js' | relative_url }}"></script>

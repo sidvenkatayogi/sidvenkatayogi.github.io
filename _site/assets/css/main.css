@@ -108,38 +108,16 @@ h6 {
   z-index: 3; /* Ensure header is above the fade overlay */
 }
 
-.home-page .header nav {
-  position: fixed; /* Position nav independently */
+.home-quote {
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%; /* Occupy full width to center content */
-  text-align: center; /* Fallback for centering */
-  z-index: 4; /* Ensure it's above other elements if needed */
-}
-
-.home-page .header nav ul {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-}
-
-.home-page .header nav ul li {
-  display: block;
-  margin: 15px 0;
-}
-
-.home-page .header nav ul li a {
-  font-size: 1em;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.home-page .wrapper {
-  padding-top: 0;
+  text-align: center;
+  z-index: 2;
+  font-family: "Inter SemiBold", sans-serif;
+  max-width: 600px;
+  width: 90%;
 }
 
 .header h1 a {
@@ -523,20 +501,8 @@ html.dark-mode ::selection {
 }
 
 @media screen and (max-width: 768px) {
-  .home-page .header nav {
-    position: static;
-    transform: none;
-    width: auto;
-    text-align: left;
-    padding-top: 150px;
-  }
-  .home-page .header nav ul {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .home-page .header nav ul li {
-    margin: 15px 0;
+  .home-quote {
+    font-size: 0.8em;
   }
   .header h1 a {
     font-size: 0.8em; /* Increase font size for the main title */
@@ -546,7 +512,7 @@ html.dark-mode ::selection {
   h1 {
     font-size: 2em; /* Adjust H1 font size for mobile */
   }
-  body:not(.home-page) .header nav ul {
+  .header nav ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
@@ -556,20 +522,20 @@ html.dark-mode ::selection {
     left: 45px;
     right: 60px;
   }
-  body:not(.home-page) .header nav ul li:nth-child(1) {
+  .header nav ul li:nth-child(1) {
     grid-column: 1;
     grid-row: 1;
   }
-  body:not(.home-page) .header nav ul li:nth-child(2) {
+  .header nav ul li:nth-child(2) {
     grid-column: 1;
     grid-row: 2;
   }
-  body:not(.home-page) .header nav ul li:nth-child(3) {
+  .header nav ul li:nth-child(3) {
     grid-column: 2;
     grid-row: 1;
     text-align: right;
   }
-  body:not(.home-page) .header nav ul li:nth-child(4) {
+  .header nav ul li:nth-child(4) {
     grid-column: 2;
     grid-row: 2;
     text-align: right;
