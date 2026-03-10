@@ -1,7 +1,7 @@
 ---
-title: "IPANEMA STUDY"
+title: "IPANEMA"
 excerpt: "<img src='/images/brazil_beach_study.webp' width='700' height='auto'>"
-slug: ipanema-study
+slug: ipanema
 order: 2
 ---
 <img src='/images/brazil_beach_study.webp'>
