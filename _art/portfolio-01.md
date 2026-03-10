@@ -2,7 +2,7 @@
 title: "EXTERMINATION"
 excerpt: "<img src='/images/3-11-2024_dragon.webp' width='700' height='auto'>"
 slug: extermination
-order: 10
+order: 11
 ---
 
 <img src='/images/3-11-2024_dragon.webp'>

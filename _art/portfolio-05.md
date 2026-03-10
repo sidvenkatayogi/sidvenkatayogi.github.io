@@ -2,7 +2,7 @@
 title: "REFLECTION"
 excerpt: "<img src='/images/reflection_update.webp' width='580' height='auto'>"
 slug: reflection
-order: 6
+order: 7
 ---
 <img src='/images/reflection_update.webp'>
 

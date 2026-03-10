@@ -2,7 +2,7 @@
 title: "WARM FOSSIL"
 excerpt: "<img src='/images/trex.webp' width='600' height='auto'>"
 slug: warm-fossil
-order: 7
+order: 8
 ---
 <img src='/images/trex.webp'>
 
