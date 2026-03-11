@@ -1,9 +1,9 @@
-// Theme Toggle (Radio Buttons)
-document.addEventListener('DOMContentLoaded', function () {
-    const lightModeRadio = document.getElementById('light-mode');
-    const darkModeRadio = document.getElementById('dark-mode');
+// Theme Toggle (Radio Buttons) — extracted so it can be re-bound after SPA swaps
+function setupThemeToggle() {
+    var lightModeRadio = document.getElementById('light-mode');
+    var darkModeRadio = document.getElementById('dark-mode');
+    if (!lightModeRadio || !darkModeRadio) return;
 
-    // Set the radio button to the current theme based on the html element's class
     if (document.documentElement.classList.contains('dark-mode')) {
         darkModeRadio.checked = true;
     } else {
@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
             document.documentElement.className = 'light-mode';
             localStorage.setItem('theme', 'light-mode');
             if (!isMobileDevice()) {
-                waves.reset();   // Clear old lines
-                waves.render();  // Re-render with correct color
+                waves.reset();
+                waves.render();
             }
         }
     });
@@ -26,16 +26,164 @@ document.addEventListener('DOMContentLoaded', function () {
             document.documentElement.className = 'dark-mode';
             localStorage.setItem('theme', 'dark-mode');
             if (!isMobileDevice()) {
-                waves.reset();   // Clear old lines
-                waves.render();  // Re-render with correct color
+                waves.reset();
+                waves.render();
             }
         }
     });
+}
 
-    // Initial render of the waves with the correct theme
+// SPA-style navigation: swap page content without full reload so the canvas stays alive
+function navigateTo(url, isPopState) {
+    fetch(url)
+        .then(function (response) {
+            if (!response.ok) throw new Error(response.status);
+            return response.text();
+        })
+        .then(function (html) {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(html, 'text/html');
+
+            // Update body class (page-specific layout class)
+            document.body.className = doc.body.className;
+
+            // Swap container contents
+            var newContainer = doc.querySelector('.container');
+            var currentContainer = document.querySelector('.container');
+            if (newContainer && currentContainer) {
+                currentContainer.innerHTML = newContainer.innerHTML;
+            }
+
+            // Update URL and title
+            if (!isPopState) {
+                history.pushState(null, '', url);
+            }
+            document.title = doc.title;
+
+            // Execute inline scripts in the swapped content
+            var scripts = currentContainer.querySelectorAll('script');
+            for (var i = 0; i < scripts.length; i++) {
+                var oldScript = scripts[i];
+                // Skip external scripts (like script.js) to avoid re-initializing waves
+                if (oldScript.src) continue;
+                var newScript = document.createElement('script');
+                newScript.textContent = oldScript.textContent;
+                oldScript.parentNode.replaceChild(newScript, oldScript);
+            }
+
+            // Re-bind theme toggle on the fresh DOM
+            setupThemeToggle();
+
+            // Trigger scatter animation on project/art items
+            animateScatterItems();
+
+            window.scrollTo(0, 0);
+        })
+        .catch(function () {
+            // Fallback to normal navigation on error
+            window.location.href = url;
+        });
+}
+
+// Animate items: start from center of viewport, scatter to final position
+function animateScatterItems() {
+    var items = [];
+    // Collect project/art/blog items
+    document.querySelectorAll('.project-item, .art-item, .blog-page .content li').forEach(function (el) {
+        items.push(el);
+    });
+    // For about page, group children separated by <p><br></p> spacers into animation groups
+    var aboutIntro = document.querySelector('.about-intro');
+    if (aboutIntro) {
+        var groups = [[]];
+        Array.prototype.forEach.call(aboutIntro.children, function (child) {
+            // A <p> containing only whitespace/br is a spacer — starts a new group
+            var isSpacer = child.tagName === 'P' && !child.textContent.trim();
+            if (isSpacer) {
+                groups[groups.length - 1].push(child);
+                groups.push([]);
+            } else {
+                groups[groups.length - 1].push(child);
+            }
+        });
+        // Each group becomes one animation item (array of elements)
+        groups.forEach(function (group) {
+            if (group.length) items.push(group);
+        });
+    }
+    if (!items.length) return;
+
+    var totalItems = items.length;
+    items.forEach(function (item, index) {
+        // item can be a single element or an array of elements (grouped about-intro children)
+        var elements = Array.isArray(item) ? item : [item];
+
+        // Use the first element for position calculation
+        var rect = elements[0].getBoundingClientRect();
+        var centerX = window.innerWidth / 2;
+        var centerY = window.innerHeight / 2;
+        var itemCenterX = rect.left + rect.width / 2;
+        var itemCenterY = rect.top + rect.height / 2;
+        var offsetX = centerX - itemCenterX;
+        var offsetY = centerY - itemCenterY;
+
+        elements.forEach(function (el) {
+            // ASCII art just fades in place, no movement
+            var isAscii = el.classList && el.classList.contains('ascii-art');
+            el.style.setProperty('--scatter-x', isAscii ? '0px' : offsetX + 'px');
+            el.style.setProperty('--scatter-y', isAscii ? '0px' : offsetY + 'px');
+            el.style.animationDelay = (index * 0.07) + 's';
+            el.style.zIndex = totalItems - index;
+            el.style.position = 'relative';
+            el.classList.add('scatter-animate');
+
+            el.addEventListener('animationend', function handler() {
+                el.classList.remove('scatter-animate');
+                el.style.removeProperty('--scatter-x');
+                el.style.removeProperty('--scatter-y');
+                el.style.animationDelay = '';
+                el.style.opacity = '1';
+                el.style.zIndex = '';
+                el.style.position = '';
+                el.removeEventListener('animationend', handler);
+            });
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    setupThemeToggle();
+
+    // Initial render
     if (!isMobileDevice()) {
         waves.render();
     }
+
+    // Trigger scatter animation on initial page load
+    animateScatterItems();
+
+    // Intercept internal link clicks for SPA navigation
+    document.addEventListener('click', function (e) {
+        var link = e.target.closest('a');
+        if (!link) return;
+
+        var href = link.getAttribute('href');
+        if (!href) return;
+
+        // Skip external links, mailto, anchors, new-tab links
+        if (link.origin && link.origin !== window.location.origin) return;
+        if (href.startsWith('mailto:')) return;
+        if (href.startsWith('#')) return;
+        if (link.target === '_blank') return;
+
+        e.preventDefault();
+        navigateTo(href);
+    });
+
+    // Handle browser back/forward
+    window.addEventListener('popstate', function () {
+        navigateTo(window.location.pathname + window.location.search, true);
+    });
 });
 
 (function () {
@@ -97,7 +245,9 @@ document.addEventListener('DOMContentLoaded', function () {
         for (var i = 0; i < options.thinWaves; i++)
             Waves.thinWaves[i] = new Wave(Waves, true);
 
-        if (preload) Waves.preload();
+        if (!Waves.restoreState()) {
+            if (preload) Waves.preload();
+        }
     };
 
     Waves.prototype.reset = function () {
@@ -108,6 +258,58 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         for (var i = 0; i < this.options.thinWaves; i++) {
             this.thinWaves[i] = new Wave(this, true);
+        }
+    };
+
+    Waves.prototype.saveState = function () {
+        var state = {
+            waves: this.waves.map(function (wave) {
+                return {
+                    angle: wave.angle.slice(),
+                    speed: wave.speed.slice(),
+                    lines: wave.Lines.map(function (line) {
+                        return line.angle.slice();
+                    })
+                };
+            }),
+            thinWaves: this.thinWaves.map(function (wave) {
+                return {
+                    angle: wave.angle.slice(),
+                    speed: wave.speed.slice(),
+                    lines: wave.Lines.map(function (line) {
+                        return line.angle.slice();
+                    })
+                };
+            })
+        };
+        try {
+            sessionStorage.setItem('wavesState', JSON.stringify(state));
+        } catch (e) { }
+    };
+
+    Waves.prototype.restoreState = function () {
+        var saved = sessionStorage.getItem('wavesState');
+        if (!saved) return false;
+
+        try {
+            var state = JSON.parse(saved);
+            for (var i = 0; i < state.waves.length && i < this.waves.length; i++) {
+                this.waves[i].angle = state.waves[i].angle;
+                this.waves[i].speed = state.waves[i].speed;
+                this.waves[i].Lines = state.waves[i].lines.map(function (angles) {
+                    return { angle: angles };
+                });
+            }
+            for (var i = 0; i < state.thinWaves.length && i < this.thinWaves.length; i++) {
+                this.thinWaves[i].angle = state.thinWaves[i].angle;
+                this.thinWaves[i].speed = state.thinWaves[i].speed;
+                this.thinWaves[i].Lines = state.thinWaves[i].lines.map(function (angles) {
+                    return { angle: angles };
+                });
+            }
+            return true;
+        } catch (e) {
+            return false;
         }
     };
 
@@ -468,3 +670,10 @@ else{
 
     waves.animate();
 }
+
+// Save state on hard navigation (refresh, external link) as fallback
+window.addEventListener('beforeunload', function () {
+    if (typeof waves !== 'undefined' && waves.saveState) {
+        waves.saveState();
+    }
+});

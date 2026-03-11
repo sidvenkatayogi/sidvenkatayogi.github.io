@@ -10,7 +10,7 @@
             document.documentElement.style.backgroundColor = (theme === 'dark-mode') ? '#1a1a1a' : '#fff';
         })();
     </script>
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 </head>
 <body class="{% if page.url == '/' %}home-page{% elsif page.url == '/programming.html' or page.url == '/art.html' %}centered-content-page{% elsif page.url == '/blog.html' %}blog-page{% endif %}">
     <div id="holder"></div>
@@ -46,7 +46,7 @@
       <label for="dark-mode">Dark</label>
     </div>
   </div>
-  <script src="{{ '/script.js' | relative_url }}"></script>
+  <script src="{{ '/script.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
   <div class="footer">
             <p>Austin, Texas</p>
             <p><a href="https://www.utexas.edu/">University of Texas at Austin</a></p>

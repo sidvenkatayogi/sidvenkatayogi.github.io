@@ -139,6 +139,11 @@ html.dark-mode .quote-overlay {
     background: #000000;
 }
 
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 .home-quote {
     position: fixed;
     top: 50%;
@@ -150,6 +155,8 @@ html.dark-mode .quote-overlay {
     max-width: 600px;
     cursor: default;
     padding: 2em 3em;
+    opacity: 0;
+    animation: fade-in 1s ease forwards;
 }
 
 .home-quote:hover + .quote-overlay {
@@ -282,6 +289,7 @@ html.dark-mode .nav-circle {
 .blog-page .content li {
     margin-bottom: 30px; /* Increased spacing for blog excerpts */
     text-align: center; /* Center titles and dates */
+    opacity: 0;
 }
 
 .blog-page .content li h4 {
@@ -666,6 +674,10 @@ body {
     text-align: center;
 }
 
+.about-intro > h5, .about-intro > pre, .about-intro > p {
+    opacity: 0;
+}
+
 pre.ascii-art {
     font-family: 'Courier New', Courier, monospace;
     font-size: clamp(0.35em, 0.55vw, 0.85em);
@@ -717,6 +729,18 @@ pre.ascii-art {
   width: 100%;
 }
 
+/* Scatter-in animation: items start centered and invisible, animate to position */
+@keyframes scatter-in {
+  0% {
+    opacity: 0;
+    transform: translate(var(--scatter-x), var(--scatter-y)) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
 .project-item, .art-item {
   display: flex;
   flex-direction: row;
@@ -724,6 +748,21 @@ pre.ascii-art {
   margin-bottom: 20px;
   width: 100%;
   gap: 20px;
+  opacity: 0;
+}
+
+.project-item.scatter-animate, .art-item.scatter-animate {
+  opacity: 0;
+  animation: scatter-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.blog-page .content li.scatter-animate, .about-intro > .scatter-animate {
+  opacity: 0;
+  animation: scatter-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 /* --- ART PAGE STYLES (Center Image, Right Title) --- */
@@ -844,6 +883,7 @@ pre.ascii-art {
   .project-item, .art-item {
     flex-direction: column;
     text-align: center;
+    opacity: 1;
   }
 
   .project-item::before, .art-item::before {
@@ -863,5 +903,13 @@ pre.ascii-art {
     transform: none;
     justify-content: center;
     text-align: center;
+  }
+
+  .project-item, .art-item, .blog-page .content li {
+    opacity: 1;
+  }
+
+  .about-intro > h5, .about-intro > pre, .about-intro > p {
+    opacity: 1;
   }
 }
