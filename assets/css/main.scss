@@ -666,12 +666,28 @@ body {
     text-align: center;
 }
 
+pre.ascii-art {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: clamp(0.35em, 0.55vw, 0.85em);
+    line-height: 1.15;
+    white-space: pre;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    overflow: hidden;
+    background: none;
+    border: none;
+    box-shadow: none;
+    pointer-events: none;
+}
+
 .content .profile-picture-section {
     display: grid;
     grid-template-columns: 150px 1fr;
     align-items: center;
     gap: 20px;
-    margin-top: 30vh;
 }
 
 .content .profile-picture-circle {

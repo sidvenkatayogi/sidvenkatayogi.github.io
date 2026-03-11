@@ -12,6 +12,10 @@ order: 6
 #### Instead of relying on static schedules and reactive metrics, FlightSense incentivizes hedge funds, traders, and data scientists to forecast flight disruptions. By creating a liquid market on the Solana blockchain, we generate real-time probability data that provides a strong signal around flight outcomes, helping airlines better predict their flight delays and cancellations, as well as providing data for an additional variable in a more complex internal forecasting algorithm.
 <br />
 
+## Demo
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HUx7skZ2RPE?si=6dxHHiYhrWnGj-Ju" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<br />
+
 ## [Try it out here!](https://flightsense.vercel.app/)
 #### (admin password is "americanairlines")
 <br />
