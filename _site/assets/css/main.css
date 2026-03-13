@@ -612,8 +612,8 @@ html.dark-mode ::selection {
   .wrapper {
     max-width: 100%;
     padding-top: 185px;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 165px, black 200px, black calc(100% - 105px), transparent calc(100% - 85px), transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, transparent 165px, black 200px, black calc(100% - 105px), transparent calc(100% - 85px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 150px, black 185px, black calc(100% - 105px), transparent calc(100% - 85px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, transparent 150px, black 185px, black calc(100% - 105px), transparent calc(100% - 85px), transparent 100%);
   }
   .content img {
     object-fit: contain;
