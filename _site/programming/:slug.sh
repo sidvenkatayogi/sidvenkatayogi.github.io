@@ -16,8 +16,8 @@ fi
 echo "Making room at order position: $POSITION"
 echo ""
 
-# Find all project files and update order fields >= position
-for file in "$PROJECTS_DIR"/project_*.md; do
+# Find all project markdown files and update order fields >= position
+for file in "$PROJECTS_DIR"/*.md; do
     [ -f "$file" ] || continue
 
     # Extract current order value
