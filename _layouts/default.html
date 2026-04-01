@@ -23,6 +23,7 @@
                     <li>{% if page.url == '/programming.html' %}<span class="nav-circle"></span>{% elsif page.url contains '/programming/' %}<span class="nav-circle"></span><span class="nav-circle"></span>{% endif %}<a href="{{ '/programming.html' | relative_url }}">Programming</a></li>
                     <li>{% if page.url == '/art.html' %}<span class="nav-circle"></span>{% elsif page.url contains '/art/' %}<span class="nav-circle"></span><span class="nav-circle"></span>{% endif %}<a href="{{ '/art.html' | relative_url }}">Art</a></li>
                     <li>{% if page.url == '/blog.html' %}<span class="nav-circle"></span>{% elsif page.url contains '/blog/' %}<span class="nav-circle"></span><span class="nav-circle"></span>{% endif %}<a href="{{ '/blog.html' | relative_url }}">Blog</a></li>
+                    <li><a href="{{ '/resume.pdf' | relative_url }}" target="_blank">Resume</a></li>
                 </ul>
             </nav>
         </div>
