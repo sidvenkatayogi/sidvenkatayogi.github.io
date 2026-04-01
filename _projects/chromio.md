@@ -4,7 +4,7 @@ excerpt: "<img src='/images/chromio.png' width='500' height='auto'>"
 slug: chromio
 order: 8
 ---
-#### Work for my project in Texas Luminescence, Chrom.io (text-to-color palette generator). This project did get scrapped because the end product was pretty basic, but I learned a lot experimenting and trying things out!
+#### Work for my project in Texas Luminescence, Chrom.io (text-to-color palette generator). This project did get scrapped because the final full stack product was pretty basic, but I learned a lot experimenting on the ML end!
 
 <br />
 
@@ -13,7 +13,7 @@ order: 8
 
 <br />
 
-### Improved Qwen3-8B palette similarity scores by 13% over baseline!
+### Improved Qwen3-8B palette similarity scores by 13% over baseline, beating gpt-5-mini and gpt-4o!
 <br />
  
 
@@ -21,6 +21,10 @@ order: 8
 
 <br />
 
-#### [Github Repository!](https://github.com/sidvenkatayogi/chromio)
+### [Github Repository!](https://github.com/sidvenkatayogi/chromio) (mainly look at /ml and /experiments)
 
+<br />
+<br />
+
+(score_R is generated pallete similarity to ground truth palettes)
 ![](/images/chromio.png)

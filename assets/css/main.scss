@@ -751,6 +751,10 @@ pre.ascii-art {
   opacity: 0;
 }
 
+.project-item {
+  height: 60px;
+}
+
 .project-item.scatter-animate, .art-item.scatter-animate {
   opacity: 0;
   animation: scatter-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
