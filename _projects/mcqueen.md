@@ -4,7 +4,7 @@ excerpt: "<img src='/images/mcqueen.png' width='500' height='auto'>"
 slug: mcqueen
 order: 5
 ---
-#### Work for my project in ECLAIR, McQueen ([AWS Deepracer](https://aws.amazon.com/deepracer/)).
+#### Work for my team's project in ECLAIR, McQueen ([AWS Deepracer](https://aws.amazon.com/deepracer/)).
 
 <br />
 
