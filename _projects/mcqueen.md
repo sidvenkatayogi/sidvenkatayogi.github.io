@@ -12,3 +12,9 @@ order: 5
 <br />
 
 #### [Github Repository!](https://github.com/ECLAIR-Robotics/mcqueen)
+<br />
+
+
+![](/images/mcqueen_flick.JPG)
+
+#### ^ making the race track lol
