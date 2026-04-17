@@ -17,4 +17,4 @@ order: 5
 
 ![](/images/mcqueen_flick.JPG)
 
-#### ^ making the race track lol
+#### ^ making the race track

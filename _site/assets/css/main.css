@@ -844,6 +844,7 @@ pre.ascii-art {
     flex-direction: column;
     text-align: center;
     opacity: 1;
+    height: auto;
   }
   .project-item::before, .art-item::before {
     display: none;
