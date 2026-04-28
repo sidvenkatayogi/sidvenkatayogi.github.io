@@ -6,7 +6,7 @@ title: "About Me"
 
 ##### Welcome! I'm a computer science student at UT Austin. 
 <br />
-##### currently interested in LLMs + RecSys
+##### currently interested in LLMs + RecSys + multimodal AI
 ##### broadly interested in any kind of tech, software, and research
 <!-- <br />
 ##### currently working as a research assistant in UT Computational Linguistics,
