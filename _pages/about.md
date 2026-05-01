@@ -8,6 +8,8 @@ title: "About Me"
 <br />
 ##### currently interested in LLMs + RecSys + multimodal AI
 ##### broadly interested in any kind of tech, software, and research
+<br />
+##### this summer I'll be working as an AI engineering intern at [Alpha School](https://alpha.school/)
 <!-- <br />
 ##### currently working as a research assistant in UT Computational Linguistics,
 ##### researching LLMs in the medical domain -->
