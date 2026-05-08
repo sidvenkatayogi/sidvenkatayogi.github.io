@@ -422,6 +422,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var normalColor = isDarkMode ? '#323232' : '#e4e4e4';
         var thinColor = isDarkMode ? '#444444' : '#c9c9c9';
 
+        // Colorful palette for the densest cells
+        var colorfulColors = ['#d23be7', '#4355db', '#34bbe6', '#49da9a', '#f7d038', '#e6261f'];
+        var denseCharThreshold = 1; // charIndex <= this counts as "dense" (@ # $ ? !)
+
         // Sample offscreen canvas in grid and render ASCII
         var cols = Math.ceil(Waves.width / cellSize);
         var rows = Math.ceil(Waves.height / cellSize);
@@ -451,12 +455,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // If there's wave content, map to ASCII character; otherwise use backtick
                 if (avgTotalBrightness > 2) {
-                    // Set color based on which type of wave is more prominent in this cell
-                    ctx.fillStyle = avgThinBrightness > avgNormalBrightness ? thinColor : normalColor;
-
                     // Direct conversion: brightness to character
                     var charIndex = Math.floor((avgTotalBrightness / 255) * (asciiChars.length - 1));
                     charIndex = Math.max(0, Math.min(asciiChars.length - 1, charIndex));
+
+                    // Densest cells get a 70% chance to render in a palette color.
+                    // Seed off cell coordinates so each cell's color is stable across frames.
+                    var cellSeed = Math.sin(col * 12.9898 + row * 78.233) * 43758.5453;
+                    cellSeed = cellSeed - Math.floor(cellSeed);
+                    var colorPick = Math.sin(col * 39.346 + row * 11.135) * 43758.5453;
+                    colorPick = colorPick - Math.floor(colorPick);
+
+                    if (charIndex <= denseCharThreshold && cellSeed < 0.02) {
+                        ctx.fillStyle = colorfulColors[Math.floor(colorPick * colorfulColors.length)];
+                    } else {
+                        // Set color based on which type of wave is more prominent in this cell
+                        ctx.fillStyle = avgThinBrightness > avgNormalBrightness ? thinColor : normalColor;
+                    }
+
                     ctx.fillText(asciiChars[charIndex], x + cellSize / 2, y + cellSize / 2);
                 } else {
                     // Solid background of backticks using the normal background color

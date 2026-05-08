@@ -4,7 +4,7 @@ title: "About Me"
 ---
 <div class="about-intro" markdown="1">
 
-##### Welcome! I'm a computer science student at UT Austin. 
+##### Welcome! I'm a computer science and math student at UT Austin. 
 <br />
 ##### currently interested in LLMs + RecSys + multimodal AI
 ##### broadly interested in any kind of tech, software, and research
@@ -19,7 +19,7 @@ title: "About Me"
 ##### [draw](/art)
 ##### write comics
 ##### learn math
-##### watch shows/movies, currently watching One Piece (doesn't beat Narugoat tho)
+##### watch shows/movies, (favorite anime is Naruto btw)
 ##### play basketball/volleyball/soccer (not well)
 ##### go to the gym
 ##### eat vegan food
