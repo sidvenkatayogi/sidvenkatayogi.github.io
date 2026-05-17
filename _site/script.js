@@ -10,25 +10,39 @@ function setupThemeToggle() {
         lightModeRadio.checked = true;
     }
 
-    lightModeRadio.addEventListener('change', function () {
-        if (this.checked) {
-            document.documentElement.className = 'light-mode';
-            localStorage.setItem('theme', 'light-mode');
-            if (!isMobileDevice()) {
-                waves.reset();
-                waves.render();
-            }
+    function applyTheme(themeClass) {
+        var colorOff = document.documentElement.classList.contains('color-off');
+        document.documentElement.className = themeClass + (colorOff ? ' color-off' : '');
+        localStorage.setItem('theme', themeClass);
+        if (!isMobileDevice()) {
+            waves.reset();
+            waves.render();
         }
+    }
+
+    lightModeRadio.addEventListener('change', function () {
+        if (this.checked) applyTheme('light-mode');
     });
 
     darkModeRadio.addEventListener('change', function () {
+        if (this.checked) applyTheme('dark-mode');
+    });
+}
+
+function setupColorToggle() {
+    var colorToggle = document.getElementById('color-toggle');
+    if (!colorToggle) return;
+    colorToggle.checked = !document.documentElement.classList.contains('color-off');
+    colorToggle.addEventListener('change', function () {
         if (this.checked) {
-            document.documentElement.className = 'dark-mode';
-            localStorage.setItem('theme', 'dark-mode');
-            if (!isMobileDevice()) {
-                waves.reset();
-                waves.render();
-            }
+            document.documentElement.classList.remove('color-off');
+            localStorage.setItem('color', 'on');
+        } else {
+            document.documentElement.classList.add('color-off');
+            localStorage.setItem('color', 'off');
+        }
+        if (!isMobileDevice() && typeof waves !== 'undefined') {
+            waves.render();
         }
     });
 }
@@ -73,6 +87,7 @@ function navigateTo(url, isPopState) {
 
             // Re-bind theme toggle on the fresh DOM
             setupThemeToggle();
+            setupColorToggle();
 
             // Trigger scatter animation on project/art items
             animateScatterItems();
@@ -172,6 +187,8 @@ function animateLinkHover(link) {
     var text = link.textContent;
     if (!text || !text.trim()) return;
 
+    var colorOn = !document.documentElement.classList.contains('color-off');
+    if (!colorOn) return; // CSS handles the fade-to-grey hover when color is off
     var palette = ['#d23be7', '#4355db', '#34bbe6', '#49da9a', '#f7d038', '#e6261f'];
     link.dataset.rainbowAnimating = '1';
     var originalText = text;
@@ -253,6 +270,7 @@ function setupLinkHoverAnimation() {
 
 document.addEventListener('DOMContentLoaded', function () {
     setupThemeToggle();
+    setupColorToggle();
     setupLinkHoverAnimation();
 
     // Initial render
@@ -567,7 +585,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     var colorPick = Math.sin(col * 39.346 + row * 11.135) * 43758.5453;
                     colorPick = colorPick - Math.floor(colorPick);
 
-                    if (charIndex <= denseCharThreshold && cellSeed < 0.02) {
+                    var colorOn = !document.documentElement.classList.contains('color-off');
+                    if (colorOn && charIndex <= denseCharThreshold && cellSeed < 0.02) {
                         ctx.fillStyle = colorfulColors[Math.floor(colorPick * colorfulColors.length)];
                     } else {
                         // Set color based on which type of wave is more prominent in this cell

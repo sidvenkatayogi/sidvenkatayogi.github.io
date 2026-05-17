@@ -6,11 +6,12 @@
     <script>
         (function() {
             var theme = localStorage.getItem('theme') || 'dark-mode';
-            document.documentElement.className = theme;
+            var colorOff = localStorage.getItem('color') !== 'on';
+            document.documentElement.className = theme + (colorOff ? ' color-off' : '');
             document.documentElement.style.backgroundColor = (theme === 'dark-mode') ? '#1a1a1a' : '#fff';
         })();
     </script>
-    <link rel="stylesheet" href="/assets/css/main.css?v=1778992843">
+    <link rel="stylesheet" href="/assets/css/main.css?v=1778993523">
 </head>
 <body class="">
     <div id="holder"></div>
@@ -67,6 +68,10 @@
             </div>
         </div>
         <div class="theme-toggle-wrapper">
+    <div class="theme-option color-option">
+      <input type="checkbox" id="color-toggle">
+      <label for="color-toggle" class="color-label"><span>C</span><span>o</span><span>l</span><span>o</span><span>r</span><span>!</span></label>
+    </div>
     <div class="theme-option">
       <input type="radio" id="light-mode" name="theme" value="light-mode">
       <label for="light-mode">Light</label>
@@ -76,7 +81,7 @@
       <label for="dark-mode">Dark</label>
     </div>
   </div>
-  <script src="/script.js?v=1778992843"></script>
+  <script src="/script.js?v=1778993523"></script>
   <div class="footer">
             <p>Austin, Texas</p>
             <p><a href="https://www.utexas.edu/">University of Texas at Austin</a></p>
