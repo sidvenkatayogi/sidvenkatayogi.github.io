@@ -152,6 +152,16 @@ function animateScatterItems() {
 }
 
 // Rainbow flash-to-grey hover animation for clickable text
+function lockLinkHover(link, triggerEl) {
+    if (link.dataset.rainbowHoverLocked === '1') return false;
+    link.dataset.rainbowHoverLocked = '1';
+    triggerEl.addEventListener('mouseleave', function handler() {
+        delete link.dataset.rainbowHoverLocked;
+        triggerEl.removeEventListener('mouseleave', handler);
+    });
+    return true;
+}
+
 function animateLinkHover(link) {
     if (link.dataset.rainbowAnimating === '1') return;
     // Skip links that contain element children (e.g. images, excerpt blocks);
@@ -223,7 +233,21 @@ function setupLinkHoverAnimation() {
         if (!link) return;
         // Avoid re-triggering when moving between child nodes of the same link
         if (e.relatedTarget && link.contains(e.relatedTarget)) return;
+        if (!lockLinkHover(link, link)) return;
         animateLinkHover(link);
+    });
+
+    // Hovering a project/art thumbnail also triggers the title link animation
+    document.addEventListener('mouseover', function (e) {
+        var thumb = e.target.closest('.project-thumbnail a, .art-thumbnail a');
+        if (!thumb) return;
+        if (e.relatedTarget && thumb.contains(e.relatedTarget)) return;
+        var item = thumb.closest('.project-item, .art-item');
+        if (!item) return;
+        var titleLink = item.querySelector('.project-title a, .art-title a');
+        if (!titleLink) return;
+        if (!lockLinkHover(titleLink, thumb)) return;
+        animateLinkHover(titleLink);
     });
 }
 

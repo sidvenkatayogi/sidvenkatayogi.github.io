@@ -869,14 +869,21 @@ pre.ascii-art {
   justify-content: center;
   align-items: center;
   order: 3;
-  opacity: 0;
+  /* opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: translateX(-10px);
+  transform: translateX(-10px); */
 }
 
-.project-item:hover .project-thumbnail {
+/* .project-item:hover .project-thumbnail {
   opacity: 1;
   transform: translateX(0);
+} */
+.project-item:has(.project-title a:hover) .project-tags,
+.project-item:has(.project-title a:hover) .project-thumbnail,
+.project-item:has(.project-thumbnail a:hover) .project-tags,
+.project-item:has(.project-thumbnail a:hover) .project-thumbnail {
+  opacity: 0.3;
+  transition: opacity 0.5s ease;
 }
 
 /* Ensure inner excerpt centers the image */
@@ -889,8 +896,9 @@ pre.ascii-art {
 
 /* --- Shared Image Sizing --- */
 .centered-content-page .content .project-thumbnail .excerpt img {
-  max-width: 150px;
-  height: auto;
+  height: 60px;
+  width: auto;
+  max-width: none;
 }
 
 .centered-content-page .content .art-thumbnail .excerpt img {
