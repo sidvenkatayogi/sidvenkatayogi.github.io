@@ -3,6 +3,7 @@ title: "GovEase"
 excerpt: "<img src='/images/govease.webp' width='500' height='auto'>"
 slug: govease
 order: 3
+tags: [Tool, AI/ML, LLMs, Hackathon]
 ---
 #### My team's [HackTX25](https://hacktx.com/#about) project! Made in 24 hours. Ngl ts is ass but it was my first hackathon so chill on me 🙏
 

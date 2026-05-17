@@ -9,8 +9,15 @@ title: Programming
   {% assign sorted_projects = site.projects | sort: "order" | reverse %}
   {% for project in sorted_projects %}
     <div class="project-item">
+      {% if project.tags %}
+        <div class="project-tags">
+          {% for tag in project.tags %}
+            <span class="project-tag tag-{{ tag | slugify }}">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
       <div class="project-title">
-        <h4 style="text-align: center;"><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h4>
+        <h4 class="project-name"><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h4>
       </div>
       <div class="project-thumbnail">
         {% if project.excerpt %}

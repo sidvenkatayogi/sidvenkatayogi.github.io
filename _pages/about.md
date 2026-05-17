@@ -20,7 +20,7 @@ title: "About Me"
 ##### [draw](/art)
 ##### write comics
 ##### learn math
-##### watch shows/movies, (favorite anime is Naruto btw)
+##### watch shows/movies (favorite anime is Naruto btw)
 ##### play basketball/volleyball/soccer (not well)
 ##### go to the gym
 ##### eat vegan food

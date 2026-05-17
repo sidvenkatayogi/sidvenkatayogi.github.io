@@ -3,6 +3,7 @@ title: "DataHack 2026"
 excerpt: "<img src='/images/lyra_logo.webp' width='500' height='auto'>"
 slug: datahack-2026
 order: 10
+tags: [AI/ML, RecSys, Hackathon]
 ---
 #### My team's [DataHack 2026](https://sites.google.com/view/utmlds/datahack?authuser=0) project! Made in 6 hours.
 

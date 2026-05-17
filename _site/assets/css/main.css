@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Inter SemiBold";
   src: url("../fonts/Inter-SemiBold.woff2") format("woff2");
@@ -780,8 +781,8 @@ pre.ascii-art {
 }
 
 /* --- PROGRAMMING PAGE STYLES (Center Title, Right Image) --- */
-/* Ghost element (Left) balances Thumbnail (Right) */
-.project-item::before {
+/* Ghost element (Left) balances Thumbnail (Right) — only when no tags column is present */
+.project-item:not(:has(> .project-tags))::before {
   content: "";
   flex: 0 0 200px; /* Matches project-thumbnail width */
   order: 1;
@@ -797,6 +798,68 @@ pre.ascii-art {
   text-align: center;
   padding: 0 20px;
   order: 2;
+}
+
+.project-title .project-name {
+  margin: 0;
+}
+
+.project-tags {
+  flex: 0 0 200px;
+  order: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 20px;
+}
+
+.project-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.tag-research,
+.tag-coursework {
+  background-color: #d23be7;
+}
+
+.tag-ai-ml,
+.tag-rl,
+.tag-data {
+  background-color: #4355db;
+}
+
+.tag-llms,
+.tag-nlp,
+.tag-recsys {
+  background-color: #34bbe6;
+  color: #1a1a1a;
+}
+
+.tag-game {
+  background-color: #49da9a;
+  color: #1a1a1a;
+}
+
+.tag-hackathon {
+  background-color: #f7d038;
+  color: #1a1a1a;
+}
+
+.tag-tool,
+.tag-systems,
+.tag-web3,
+.tag-robotics {
+  background-color: #e6261f;
 }
 
 /* Thumbnail (Right) - Hidden initially */

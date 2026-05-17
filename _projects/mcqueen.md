@@ -3,6 +3,7 @@ title: "McQueen"
 excerpt: "<img src='/images/mcqueen.png' width='500' height='auto'>"
 slug: mcqueen
 order: 5
+tags: [AI/ML, RL, Robotics]
 ---
 #### Work for my team's project in ECLAIR, McQueen ([AWS Deepracer](https://aws.amazon.com/deepracer/)).
 

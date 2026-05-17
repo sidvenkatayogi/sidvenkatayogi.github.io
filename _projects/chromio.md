@@ -3,6 +3,7 @@ title: "Chrom.io"
 excerpt: "<img src='/images/chromio.png' width='500' height='auto'>"
 slug: chromio
 order: 8
+tags: [AI/ML, LLMs, RecSys]
 ---
 #### Work for my project in Texas Luminescence, Chrom.io (text-to-color palette generator). This project did get scrapped because the final full stack product was pretty basic, but I learned a lot experimenting on the ML end!
 

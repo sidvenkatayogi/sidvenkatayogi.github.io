@@ -3,6 +3,7 @@ title: "Flight Sense"
 excerpt: "<img src='/images/flightsense.webp' width='500' height='auto'>"
 slug: flight-sense
 order: 7
+tags: [Web3, Hackathon]
 ---
 #### My team's [TAMUHack26](https://th26.tamuhack.org/) project! Made in 24 hours.
 
