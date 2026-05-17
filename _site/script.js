@@ -151,8 +151,85 @@ function animateScatterItems() {
     });
 }
 
+// Rainbow flash-to-grey hover animation for clickable text
+function animateLinkHover(link) {
+    if (link.dataset.rainbowAnimating === '1') return;
+    // Skip links that contain element children (e.g. images, excerpt blocks);
+    // only animate links whose content is pure text.
+    for (var i = 0; i < link.childNodes.length; i++) {
+        if (link.childNodes[i].nodeType !== 3) return;
+    }
+    var text = link.textContent;
+    if (!text || !text.trim()) return;
+
+    var palette = ['#d23be7', '#4355db', '#34bbe6', '#49da9a', '#f7d038', '#e6261f'];
+    link.dataset.rainbowAnimating = '1';
+    var originalText = text;
+
+    // Wrap each character in its own span
+    link.textContent = '';
+    var spans = [];
+    for (var j = 0; j < originalText.length; j++) {
+        var ch = originalText[j];
+        if (ch === ' ') {
+            link.appendChild(document.createTextNode(' '));
+        } else {
+            var span = document.createElement('span');
+            span.textContent = ch;
+            link.appendChild(span);
+            spans.push({
+                el: span,
+                settleAt: 200 + Math.pow(Math.random(), 1.6) * 1200,
+                nextFlashAt: 0
+            });
+        }
+    }
+
+    var duration = 1500;
+    var start = performance.now();
+
+    function frame(now) {
+        var elapsed = now - start;
+        if (elapsed >= duration) {
+            link.textContent = originalText;
+            delete link.dataset.rainbowAnimating;
+            return;
+        }
+        for (var k = 0; k < spans.length; k++) {
+            var s = spans[k];
+            if (elapsed < s.settleAt) {
+                if (elapsed >= s.nextFlashAt) {
+                    // Probability of a colored flash fades to 0 as we approach settleAt
+                    var remaining = (s.settleAt - elapsed) / s.settleAt;
+                    if (Math.random() < remaining) {
+                        s.el.style.color = palette[Math.floor(Math.random() * palette.length)];
+                    } else {
+                        s.el.style.color = '';
+                    }
+                    s.nextFlashAt = elapsed + 60;
+                }
+            } else if (s.el.style.color !== '') {
+                s.el.style.color = '';
+            }
+        }
+        requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+}
+
+function setupLinkHoverAnimation() {
+    document.addEventListener('mouseover', function (e) {
+        var link = e.target.closest('a');
+        if (!link) return;
+        // Avoid re-triggering when moving between child nodes of the same link
+        if (e.relatedTarget && link.contains(e.relatedTarget)) return;
+        animateLinkHover(link);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     setupThemeToggle();
+    setupLinkHoverAnimation();
 
     // Initial render
     if (!isMobileDevice()) {
