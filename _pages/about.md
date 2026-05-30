@@ -6,7 +6,8 @@ title: "About Me"
 
 ##### Welcome! I'm a computer science and math student at UT Austin. 
 <br />
-##### currently interested in LLMs + RecSys + multimodal AI
+##### currently looking for summer 2027 opportunities
+##### interested in LLMs + RecSys + multimodal AI
 ##### broadly interested in any kind of tech, software, and research
 <br />
 ##### this summer I'll be working as an AI engineering intern at [Alpha School](https://alpha.school/)
