@@ -857,7 +857,8 @@ pre.ascii-art {
 }
 
 .tag-research,
-.tag-coursework {
+.tag-coursework,
+.tag-replication {
   background-color: #d23be7;
 }
 

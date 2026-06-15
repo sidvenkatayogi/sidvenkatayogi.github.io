@@ -33,17 +33,65 @@
                 
                     <div class="item two-column-layout">
   <div class="left-column">
-    <!-- <h1>DataHack 2026</h1> -->
+    <!-- <h1>TIGER</h1> -->
   </div>
   <div class="right-column">
-    <h4 id="my-teams-datahack-2026-project-made-in-6-hours">My team’s <a href="https://sites.google.com/view/utmlds/datahack?authuser=0">DataHack 2026</a> project! Made in 6 hours.</h4>
-
+    <h4 id="my-implementation-of-tiger-from-the-2023-paper-recommender-systems-with-generative-retrieval-rajput-et-al-trained-and-evaluated-on-amazon-beauty">My implementation of TIGER, from the 2023 paper <a href="http://arxiv.org/abs/2305.05065">Recommender Systems with Generative Retrieval</a> (Rajput et al.), trained and evaluated on Amazon Beauty.</h4>
 <p><br /></p>
 
-<h4 id="a-skip-prediction-system-for-the-music-streaming-platform-lyra-that-applies-generative-retrieval-concepts-to-session-modeling-tracks-are-encoded-as-hierarchical-semantic-ids-via-3-level-k-means-clustering-on-audio-features-then-sessions-are-modeled-as-token-sequences-in-a-decoder-only-transformer-trained-with-causal-language-modeling-ensembled-with-lightgbm-for-final-predictions-achieved-the-best-average-performance-rank-6th-in-skip-prediction-and-3rd-in-clv-score-the-second-task-which-i-didnt-work-on">A skip prediction system for the music streaming platform Lyra that applies generative retrieval concepts to session modeling. Tracks are encoded as hierarchical semantic IDs via 3-level k-means clustering on audio features, then sessions are modeled as token sequences in a decoder-only transformer trained with causal language modeling. Ensembled with LightGBM for final predictions. Achieved the best average performance rank (6th in skip prediction and 3rd in CLV score (the second task which I didn’t work on))</h4>
-<p><br /></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Metric</th>
+      <th style="text-align: center">Mine</th>
+      <th style="text-align: center">Paper</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Recall@5</td>
+      <td style="text-align: center">0.0312</td>
+      <td style="text-align: center">0.0454</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">NDCG@5</td>
+      <td style="text-align: center">0.0210</td>
+      <td style="text-align: center">0.0321</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Recall@10</td>
+      <td style="text-align: center">0.0486</td>
+      <td style="text-align: center">0.0648</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">NDCG@10</td>
+      <td style="text-align: center">0.0265</td>
+      <td style="text-align: center">0.0384</td>
+    </tr>
+  </tbody>
+</table>
 
-<h4 id="github-repository"><a href="https://github.com/sidvenkatayogi/mlds-datahack-2026">Github Repository!</a></h4>
+<p>Invalid-ID rate @10 ≈ 0.0006. Best checkpoint at step 20K (val NDCG@10 = 0.0377).
+<br />
+<br /></p>
+
+<h3 id="future-work">Future Work</h3>
+
+<ul>
+  <li>Improve hyperparameters or training behavior to match or improve on original paper’s reported metrics. Current test metrics ended up at ~70% of paper reported.</li>
+  <li>Add implementations for <a href="https://arxiv.org/abs/2510.07784">PLUM</a> and <a href="https://arxiv.org/abs/2602.22647">STATIC</a>
+<br />
+<br /></li>
+</ul>
+
+<h3 id="references">References</h3>
+
+<ul>
+  <li><a href="https://arxiv.org/abs/2305.05065">Recommender Systems with Generative Retrieval</a> — Rajput et al., NeurIPS 2023.</li>
+  <li><a href="https://arxiv.org/abs/2203.01941">Autoregressive Image Generation using Residual Quantization</a> — Lee et al. (RQ-VAE).</li>
+</ul>
+
+<p><br /></p>
 
   </div>
 </div>
