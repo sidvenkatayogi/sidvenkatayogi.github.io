@@ -15,7 +15,13 @@ tags: [AI/ML, RecSys, Replication]
 | Recall@10 | 0.0486 | 0.0648 |
 | NDCG@10 | 0.0265 | 0.0384 |
 
+<br />
+
 Invalid-ID rate @10 ≈ 0.0006. Best checkpoint at step 20K (val NDCG@10 = 0.0377).
+<br />
+<br />
+
+NDCG (Normalized Discounted Cumulative Gain) measures ranking quality, rewarding the correct item appearing higher in the top-K list. Hits are discounted by their rank and normalized so a perfect ranking scores 1.0.
 <br />
 <br />
 
