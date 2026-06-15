@@ -8,6 +8,9 @@ tags: [AI/ML, RecSys, Replication]
 #### My implementation of TIGER, from the 2023 paper [Recommender Systems with Generative Retrieval](http://arxiv.org/abs/2305.05065) (Rajput et al.), trained and evaluated on Amazon Beauty.
 <br />
 
+### [Github!](https://github.com/sidvenkatayogi/tiger)
+<br />
+
 | Metric | Mine | Paper |
 |:---:|:---:|:---:|
 | Recall@5 | 0.0312 | 0.0454 |
