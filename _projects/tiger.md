@@ -30,7 +30,7 @@ NDCG (Normalized Discounted Cumulative Gain) measures ranking quality, rewarding
 
 ### Future Work
 
-- Improve hyperparameters or training behavior to match or improve on original paper's reported metrics. Current test metrics ended up at ~70% of paper reported.
+- Improve hyperparameters or training behavior to match or improve on original paper's reported metrics. Current test metrics ended up at ~70% of paper reported. Pretty sure that this is because of sub optimal RQVAE training.
 - Add implementations for [PLUM](https://arxiv.org/abs/2510.07784) and [STATIC](https://arxiv.org/abs/2602.22647)
 <br />
 <br />

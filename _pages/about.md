@@ -3,25 +3,35 @@ layout: page
 title: "About Me"
 ---
 <div class="about-intro" markdown="1">
-
-##### Welcome! I'm a computer science and math student at UT Austin. 
+<br />
+<br />
+##### Welcome! I'm a computer science and math student at UT Austin.
+##### entering my sophomore year
 <br />
 ##### currently looking for summer 2027 opportunities
 ##### interested in LLMs + RecSys + multimodal AI
 ##### broadly interested in any kind of tech, software, and research
 <br />
-##### this summer I'll be working as an AI engineering intern at [Alpha School](https://alpha.school/)
+
+##### Some highlights:
+##### [paper](/programming/med-counterfact/) in ACL Findings 2026
+##### AI engineering intern at [Alpha School](https://alpha.school/)
+##### 3.86 GPA
+<br />
+
+##### + experience in various domains (explore my [projects](/programming)!)
 
 <!-- <br />
 ##### currently working as a research assistant in UT Computational Linguistics,
 ##### researching LLMs in the medical domain -->
+<br />
 <br />
 ##### I also like to...
 <br />
 ##### [draw](/art)
 ##### write comics
 ##### learn math
-##### watch shows/movies (favorite anime is Naruto btw)
+##### watch shows/movies (favorite anime is Naruto)
 ##### play basketball/volleyball/soccer (not well)
 ##### go to the gym
 ##### eat vegan food
@@ -41,7 +51,7 @@ title: "About Me"
 <br />
 <br />
 
-<pre class="ascii-art">
+<!-- <pre class="ascii-art">
      #######              ##        ##      /                                        /
    /       ###   #         ##        ##   #/                                       #/
   /         ## ###         ##        ##   ##                                #    ##
@@ -79,7 +89,7 @@ title: "About Me"
                                                                        ####   ###        ####   ###
                                                                      /######  /#      /######  /#
                                                                     /      ###/      /     ###/
-</pre>
+</pre> -->
 
 <br />
 <br />
