@@ -6,13 +6,17 @@ order: 15
 tags: [AI/ML, RecSys, LLMs]
 ---
 
-## A fine-tuned Qwen3-1.7B served as a retrieval module. Recommends students 6th-8th grade level math problems, optimized for landing questions in an individual student’s zone of proximal development.
+### A fine-tuned Qwen3-1.7B served as a retrieval module. Recommends students 6th-8th grade level math problems, optimized for landing questions in an individual student’s zone of proximal development.
+
+<div class="qwen-qrec-results" markdown="1">
 
 | Model | Recall@16 / Hit-Rate@16 |
 |:---:|:---:|
 | **Qwen-QRec** | **95.7%** |
 | Claude-Opus-4.8 | 16.7% |
 | GPT-5.6-Sol | ~20% |
+
+</div>
 
 ### Created during my time at Alpha School
 

@@ -374,6 +374,11 @@ h2#table-of-contents + ul {
     font-size: 1.8em; /* Increased H3 size */
 }
 
+.qwen-qrec-results table {
+    font-size: 1.5em; /* Match project-page H3 size */
+    margin: 1em auto;
+}
+
 /* Ensure images and iframes are centered within the content */
 .content img {
     display: block; /* Make them block-level for margin:auto to work */
