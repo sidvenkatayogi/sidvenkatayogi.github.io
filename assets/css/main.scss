@@ -83,19 +83,18 @@ h6 {
     position: relative; /* For fixed positioning context */
 }
 
+/* The scroll container spans the full viewport so a wheel anywhere over the
+   background scrolls it natively — the fixed header/footer/toggle sit above it
+   (z-index 3) and keep their own behaviour. The reading width is constrained on
+   .content instead, so widening this changes nothing visually. */
 .wrapper {
-    max-width: 800px; /* Your desired content width */
-    margin: 0 auto; /* Center the wrapper */
-    padding: 150px 30px 100px; /* Increased padding for fade effect */
+    width: 100%;
+    padding: 150px 0 100px; /* Top/bottom room for the edge fades */
     flex-grow: 1; /* Allows content to take available space */
     overflow-y: auto; /* Make wrapper scrollable */
-    position: relative; /* Ensure proper stacking context for mask */
+    position: relative; /* Ensure proper stacking context */
     z-index: 1; /* Ensure it's above the background */
-    height: calc(100vh - 250px); /* Explicit height for consistent scrolling/masking */
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 75px, black 125px, black calc(100% - 85px), transparent calc(100% - 35px), transparent 100%); /* Bottom fade decreased by 10px */
-    mask-image: linear-gradient(to bottom, transparent 0%, transparent 75px, black 125px, black calc(100% - 85px), transparent calc(100% - 35px), transparent 100%); /* Bottom fade decreased by 10px */
-    -webkit-mask-mode: alpha;
-    mask-mode: alpha;
+    height: calc(100vh - 250px); /* Explicit height for consistent scrolling */
     /* Hide scrollbar for Chrome, Safari and Opera */
     &::-webkit-scrollbar {
         width: 0; /* Remove scrollbar space */
@@ -109,10 +108,44 @@ h6 {
     scrollbar-width: none;  /* Firefox */
 }
 
+/* Holds the reading width that .wrapper used to own. */
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
 
+/* Fade the top/bottom edges of the scrollable content. Implemented as separate
+   pointer-events:none overlays (not a mask on .wrapper itself) so the fade is
+   purely decorative and never interferes with scrolling/hovering the content
+   underneath — Safari in particular can suppress hit-testing on masked-out
+   (transparent) regions of a masked element, which blocked scrolling there. */
+.scroll-fade {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 2; /* Above wrapper content (1), below header/footer/toggle (3) */
+    pointer-events: none;
+}
 
-#scroll-fade-overlay {
-    display: none; /* Hide the overlay as it's no longer needed */
+.scroll-fade-top {
+    top: 0;
+    height: 125px;
+    background: linear-gradient(to bottom, #fff 0px, #fff 75px, transparent 125px);
+}
+
+.scroll-fade-bottom {
+    bottom: 0;
+    height: 85px;
+    background: linear-gradient(to top, #fff 0px, #fff 35px, transparent 85px);
+}
+
+html.dark-mode .scroll-fade-top {
+    background: linear-gradient(to bottom, #1a1a1a 0px, #1a1a1a 75px, transparent 125px);
+}
+
+html.dark-mode .scroll-fade-bottom {
+    background: linear-gradient(to top, #1a1a1a 0px, #1a1a1a 35px, transparent 85px);
 }
 
 .header {
@@ -677,10 +710,25 @@ body {
     }
 
     .wrapper {
-        max-width: 100%;
         padding-top: 185px;
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 150px, black 185px, black calc(100% - 105px), transparent calc(100% - 85px), transparent 100%);
-        mask-image: linear-gradient(to bottom, transparent 0%, transparent 150px, black 185px, black calc(100% - 105px), transparent calc(100% - 85px), transparent 100%);
+    }
+
+    .scroll-fade-top {
+        height: 185px;
+        background: linear-gradient(to bottom, #fff 0px, #fff 150px, transparent 185px);
+    }
+
+    .scroll-fade-bottom {
+        height: 105px;
+        background: linear-gradient(to top, #fff 0px, #fff 85px, transparent 105px);
+    }
+
+    html.dark-mode .scroll-fade-top {
+        background: linear-gradient(to bottom, #1a1a1a 0px, #1a1a1a 150px, transparent 185px);
+    }
+
+    html.dark-mode .scroll-fade-bottom {
+        background: linear-gradient(to top, #1a1a1a 0px, #1a1a1a 85px, transparent 105px);
     }
 
     .content img {
@@ -761,6 +809,32 @@ pre.ascii-art {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+/* Start the first entry 2/5 of the way down the screen; scrolling reveals the rest normally */
+.project-list,
+.art-list,
+.blog-page .content > ul {
+  padding-top: max(0px, calc(40vh - 150px));
+}
+
+@media screen and (max-width: 768px) {
+  .project-list,
+  .art-list,
+  .blog-page .content > ul {
+    padding-top: max(0px, calc(40vh - 185px));
+  }
+}
+
+/* Entries grow as they near the 2/5-from-top focus line and shrink as they scroll
+   away from it. The scale is recomputed every scroll frame in script.js, so there
+   is deliberately no CSS transition here — a transition would restart each frame
+   against a moving target, making the scale visibly lag the scroll. */
+.project-item,
+.art-item,
+.blog-page .content li {
+  transform: scale(1);
+  transform-origin: center center;
 }
 
 /* Scatter-in animation: items start centered and invisible, animate to position */

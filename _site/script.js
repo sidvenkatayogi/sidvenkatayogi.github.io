@@ -91,6 +91,7 @@ function navigateTo(url, isPopState) {
 
             // Trigger scatter animation on project/art items
             animateScatterItems();
+            setupProximityScale();
 
             window.scrollTo(0, 0);
         })
@@ -165,6 +166,223 @@ function animateScatterItems() {
         });
     });
 }
+
+// Scale project/art/blog entries up as they near the 2/5-from-top focus line
+// (matches the list's padding-top offset) and back down as they scroll away from it.
+//
+// Each item's position is measured ONCE into proximityEntries, in scroll-content
+// coordinates. scale() does not affect layout, so those positions stay valid while
+// scrolling — which means the per-frame path reads a single scrollTop and then only
+// writes, never triggering a layout flush per item.
+//
+// The rendered scale eases toward its target rather than tracking scrollTop exactly:
+// a wheel notch moves scrollTop in one big jump, so a scale derived straight from it
+// snaps between values and reads as choppy. Easing decouples the two, giving
+// continuous motion even from discrete scroll input.
+var PROXIMITY_TARGET_FRACTION = 0.4;
+var PROXIMITY_FALLOFF_PX = 320;
+var PROXIMITY_MIN_SCALE = 0.85;
+var PROXIMITY_MAX_SCALE = 1.5;
+var PROXIMITY_MAX_SCALE_MOBILE = 1.25; // Smaller peak so wide items don't overflow narrow screens
+var PROXIMITY_SMOOTHING_TAU = 90; // ms time constant; larger = softer, slower follow
+var proximityEntries = [];
+var proximityWrapper = null;
+var proximityWrapperTop = 0;
+var proximityRemeasureTimer = null;
+var proximityAnimating = false;
+var proximityLastFrameAt = 0;
+
+// True while a scroll is in flight. The background wave animation reads this (and
+// proximityAnimating) and drops to options.scrollingFps so the motion gets the
+// main thread.
+var isScrolling = false;
+var scrollIdleTimer = null;
+
+function markScrolling() {
+    isScrolling = true;
+    clearTimeout(scrollIdleTimer);
+    scrollIdleTimer = setTimeout(function () {
+        isScrolling = false;
+    }, 140);
+}
+
+// offsetTop is relative to the nearest positioned ancestor, so accumulate up the
+// offsetParent chain to get each item's offset within the scroll container.
+function offsetTopWithin(el, ancestor) {
+    var top = 0;
+    var node = el;
+    while (node && node !== ancestor) {
+        top += node.offsetTop;
+        node = node.offsetParent;
+    }
+    return top;
+}
+
+// Add trailing space so the LAST item can be scrolled up to the focus line, the
+// same way the list's padding-top lets the first item start there. Derived by
+// measuring the shortfall rather than by formula, so it stays correct whatever the
+// item heights, margins and wrapper padding happen to be.
+function applyProximityTailPadding(items) {
+    var listEl = items[items.length - 1].parentNode;
+    if (!listEl) return;
+
+    // Dropping the padding shrinks scrollHeight, which makes the browser clamp
+    // scrollTop if we are near the bottom. Restore it so a re-measure triggered
+    // mid-scroll (an image finishing decode, say) never jerks the view.
+    var scrollTop = proximityWrapper.scrollTop;
+
+    listEl.style.paddingBottom = '0px';
+    var lastTop = offsetTopWithin(items[items.length - 1], proximityWrapper);
+    var currentMax = proximityWrapper.scrollHeight - proximityWrapper.clientHeight;
+    var desiredMax = proximityWrapperTop + lastTop - window.innerHeight * PROXIMITY_TARGET_FRACTION;
+    var shortfall = desiredMax - currentMax;
+    listEl.style.paddingBottom = (shortfall > 0 ? Math.round(shortfall) : 0) + 'px';
+
+    if (proximityWrapper.scrollTop !== scrollTop) {
+        proximityWrapper.scrollTop = scrollTop;
+    }
+}
+
+function measureProximityItems() {
+    proximityWrapper = document.querySelector('.wrapper');
+    proximityEntries = [];
+    if (!proximityWrapper) return;
+
+    proximityWrapperTop = proximityWrapper.getBoundingClientRect().top;
+    var items = document.querySelectorAll('.project-item, .art-item, .blog-page .content li');
+    if (!items.length) return;
+
+    for (var i = 0; i < items.length; i++) {
+        proximityEntries.push({
+            el: items[i],
+            center: offsetTopWithin(items[i], proximityWrapper) + items[i].offsetHeight / 2,
+            target: 1,
+            current: 1,
+            lastScale: -1,
+            lastZ: -1
+        });
+    }
+    applyProximityTailPadding(items);
+}
+
+// Where each item wants to be, given the current scroll position.
+function computeProximityTargets() {
+    if (!proximityEntries.length || !proximityWrapper) return;
+
+    var maxScale = isMobileDevice() ? PROXIMITY_MAX_SCALE_MOBILE : PROXIMITY_MAX_SCALE;
+    var range = maxScale - PROXIMITY_MIN_SCALE;
+    var focusY = window.innerHeight * PROXIMITY_TARGET_FRACTION;
+    // The only geometry read of the frame, taken before any writes.
+    var base = proximityWrapperTop - proximityWrapper.scrollTop;
+
+    for (var i = 0; i < proximityEntries.length; i++) {
+        var entry = proximityEntries[i];
+        var distance = Math.abs(base + entry.center - focusY);
+        var t = distance < PROXIMITY_FALLOFF_PX ? distance / PROXIMITY_FALLOFF_PX : 1;
+        var eased = t * t * (3 - 2 * t); // smoothstep for a gradual, smooth falloff
+        entry.target = maxScale - eased * range;
+    }
+}
+
+function writeProximityScale(entry) {
+    var scale = Math.round(entry.current * 1000) / 1000;
+    if (scale === entry.lastScale) return; // Skip redundant style writes
+    entry.lastScale = scale;
+    entry.el.style.transform = 'scale(' + scale + ')';
+
+    // Bigger items stack above their neighbours. Coarse so it rarely changes.
+    var z = Math.round(scale * 50);
+    if (z !== entry.lastZ) {
+        entry.lastZ = z;
+        entry.el.style.zIndex = z;
+    }
+}
+
+function stepProximityAnimation(now) {
+    // Clamped so a long stall (backgrounded tab) does not jump the easing.
+    var dt = Math.min(64, (now - proximityLastFrameAt) || 16);
+    proximityLastFrameAt = now;
+    computeProximityTargets();
+
+    // Exponential approach, so convergence speed is the same whether we are
+    // getting 60 frames a second or 20.
+    var k = 1 - Math.exp(-dt / PROXIMITY_SMOOTHING_TAU);
+    var settled = true;
+
+    for (var i = 0; i < proximityEntries.length; i++) {
+        var entry = proximityEntries[i];
+        // Let the one-time entrance animation finish untouched; it owns its transform.
+        if (entry.el.classList.contains('scatter-animate')) continue;
+
+        var diff = entry.target - entry.current;
+        if (diff > -0.0005 && diff < 0.0005) {
+            entry.current = entry.target;
+        } else {
+            entry.current += diff * k;
+            settled = false;
+        }
+        writeProximityScale(entry);
+    }
+
+    // Keep ticking while still converging, or while a scroll is still feeding
+    // new targets.
+    if (settled && !isScrolling) {
+        proximityAnimating = false;
+        return;
+    }
+    requestAnimationFrame(stepProximityAnimation);
+}
+
+function startProximityAnimation() {
+    if (proximityAnimating || !proximityEntries.length) return;
+    proximityAnimating = true;
+    proximityLastFrameAt = performance.now();
+    requestAnimationFrame(stepProximityAnimation);
+}
+
+function onProximityScroll() {
+    markScrolling();
+    startProximityAnimation();
+}
+
+// Snap straight to the target — used on load/resize/image-decode, where easing
+// from a stale value would look like an unprompted animation.
+function remeasureProximity() {
+    measureProximityItems();
+    computeProximityTargets();
+    for (var i = 0; i < proximityEntries.length; i++) {
+        proximityEntries[i].current = proximityEntries[i].target;
+        writeProximityScale(proximityEntries[i]);
+    }
+}
+
+function scheduleProximityRemeasure() {
+    clearTimeout(proximityRemeasureTimer);
+    proximityRemeasureTimer = setTimeout(remeasureProximity, 120);
+}
+
+function setupProximityScale() {
+    remeasureProximity();
+
+    // Re-measure once the entrance animation has settled: it clears the inline
+    // styles it set, and item positions are only final afterwards.
+    setTimeout(remeasureProximity, 900);
+
+    // Art thumbnails change item heights as they decode, which moves every
+    // item below them.
+    var imgs = document.querySelectorAll('.wrapper img');
+    for (var i = 0; i < imgs.length; i++) {
+        if (!imgs[i].complete) {
+            imgs[i].addEventListener('load', scheduleProximityRemeasure, { once: true });
+        }
+    }
+
+    if (proximityWrapper) {
+        proximityWrapper.addEventListener('scroll', onProximityScroll, { passive: true });
+    }
+}
+
+window.addEventListener('resize', scheduleProximityRemeasure);
 
 // Rainbow flash-to-grey hover animation for clickable text
 function lockLinkHover(link, triggerEl) {
@@ -280,6 +498,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Trigger scatter animation on initial page load
     animateScatterItems();
+    setupProximityScale();
 
     // Intercept internal link clicks for SPA navigation
     document.addEventListener('click', function (e) {
@@ -329,6 +548,8 @@ document.addEventListener('DOMContentLoaded', function () {
             debug: false,
             fps: false,
             asciiCellSize: 12, // Size of each ASCII cell in pixels
+            targetFps: 30, // Cap render rate; see animate() for why
+            scrollingFps: 10, // Yield the main thread to the scroll while it is active
         });
 
         Waves.waves = [];
@@ -489,17 +710,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
     Waves.prototype.animate = function () {
         var Waves = this;
+        var boundAnimate = Waves._boundAnimate || (Waves._boundAnimate = Waves.animate.bind(Waves));
 
-        Waves.render();
+        // A full render costs tens of milliseconds (thousands of bezier strokes,
+        // a full-canvas getImageData, then a fillText per ASCII cell), so at 60Hz
+        // it monopolises the main thread and makes scrolling stutter. The output
+        // is a coarse 12px character grid that cannot show 60Hz motion anyway,
+        // so render at targetFps and leave the remaining frames for everything else.
+        var now = performance.now();
+        var busy = isScrolling || proximityAnimating;
+        var minDelta = 1000 / (busy ? Waves.options.scrollingFps : Waves.options.targetFps);
+        if (now - (Waves._lastRenderAt || 0) >= minDelta) {
+            Waves._lastRenderAt = now;
+            Waves.render();
 
-        if (Waves.options.fps) {
-            Waves.stats.log();
-            Waves.ctx.font = '12px Arial';
-            Waves.ctx.fillStyle = '#000';
-            Waves.ctx.fillText(Waves.stats.fps() + ' FPS', 10, 22);
+            if (Waves.options.fps) {
+                Waves.stats.log();
+                Waves.ctx.font = '12px Arial';
+                Waves.ctx.fillStyle = '#000';
+                Waves.ctx.fillText(Waves.stats.fps() + ' FPS', 10, 22);
+            }
         }
 
-        window.requestAnimationFrame(Waves.animate.bind(Waves));
+        window.requestAnimationFrame(boundAnimate);
     };
 
     Waves.prototype.clear = function () {
