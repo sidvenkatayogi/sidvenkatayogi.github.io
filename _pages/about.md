@@ -9,7 +9,7 @@ title: "About Me"
 ##### entering my sophomore year
 <br />
 ##### currently looking for summer 2027 opportunities
-##### interested in LLMs + RecSys + multimodal AI
+##### interested in LLMs + Search/RecSys + Inference/Infra + multimodal AI + Agents
 ##### broadly interested in any kind of tech, software, and research
 <br />
 
