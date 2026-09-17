@@ -18,3 +18,7 @@ tags: [Coursework, Systems, Data, AI/ML]
 
 ### External Sort
 Sorting a huge database that exceeds the capacity of RAM on the machine. My solution implements k-way merge, parallel/concurrent processing, and data processing pipelines. Ran on Google Cloud GCE. Sorted the [FOIL NYC Taxi Dataset](https://chriswhong.com/open-data/foil_nyc_taxi/).
+<br />
+
+### Map Reduce
+Implementing Map and Reduce over huge database. Map and Reduce run on 2 separate machines connected via socket connection. Ran on Google Cloud GCE. Foil NYC Taxi Dataset again.
