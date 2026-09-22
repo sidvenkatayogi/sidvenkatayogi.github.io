@@ -5,11 +5,11 @@ slug: med-counterfact
 order: 12
 tags: [Research, AI/ML, LLMs]
 ---
-#### A research project I worked on Fall 2025. Accepted to ACL Findings 2026! About how current LLMs consistently stay faithful to provided context/scientific evidence, even when such evidence contains false and possibly harmful information (overriding safety), particularly in medicine (high stakes domain).
+#### A research project I worked on Fall 2025. Published in ACL Findings 2026! About how current LLMs consistently stay faithful to provided context/scientific evidence, even when such evidence contains false and possibly harmful information (overriding safety), particularly in medicine (high stakes domain).
 
 <br />
 
-## [ArXiv!](https://arxiv.org/abs/2601.11886)
+## [Paper!](https://aclanthology.org/2026.findings-acl.1847/)
 
 <br />
 
