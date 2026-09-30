@@ -399,6 +399,22 @@ h2#table-of-contents + ul {
     font-size: 1.8em; /* Increased H3 size */
 }
 
+.relevance-results {
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.relevance-results table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.relevance-results th,
+.relevance-results td {
+    padding: 0.65em 0.8em;
+    border-bottom: 1px solid currentColor;
+}
+
 .qwen-qrec-results table {
     font-size: 1.5em; /* Match project-page H3 size */
     margin: 1em auto;
