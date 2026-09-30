@@ -1,4 +1,149 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-09-22T10:35:45-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Siddhartha Venkatayogi</title><subtitle>Personal website of Siddhartha Venkatayogi.</subtitle><entry><title type="html">New Year (2026), New Sem, New(?) Me</title><link href="http://localhost:4000/blog/2026/01/17/new-year-2026/" rel="alternate" type="text/html" title="New Year (2026), New Sem, New(?) Me" /><published>2026-01-17T00:00:00-06:00</published><updated>2026-01-17T00:00:00-06:00</updated><id>http://localhost:4000/blog/2026/01/17/new-year-2026</id><content type="html" xml:base="http://localhost:4000/blog/2026/01/17/new-year-2026/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-09-30T17:36:00-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Siddhartha Venkatayogi</title><subtitle>Personal website of Siddhartha Venkatayogi.</subtitle><entry><title type="html">Relevance Ranking with Jev and Qwev (Qwen)</title><link href="http://localhost:4000/blog/2026/09/30/relevance-ranking-jev-qwen/" rel="alternate" type="text/html" title="Relevance Ranking with Jev and Qwev (Qwen)" /><published>2026-09-30T00:00:00-05:00</published><updated>2026-09-30T00:00:00-05:00</updated><id>http://localhost:4000/blog/2026/09/30/relevance-ranking-jev-qwen</id><content type="html" xml:base="http://localhost:4000/blog/2026/09/30/relevance-ranking-jev-qwen/"><![CDATA[<p><br /></p>
+
+<h4 id="this-weekend-i-experimented-with-relevance-ranking-using-jev-by-typesafe-ai-here-are-my-thoughts">This weekend, I experimented with relevance ranking using <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">Jev by TypeSafe AI</a>. Here are my thoughts!</h4>
+<p><br /></p>
+
+<h3 id="the-approach">The Approach</h3>
+
+<p>I framed the task into four classification probabilities: <strong>Exact, Substitute, Complement, and Irrelevant</strong>. Then I used the probabilities to calculate a relevance score.
+<br />
+<br /></p>
+
+<p>I also adapted <a href="https://lnkd.in/gWWve2w7">Together AI’s Tev methodology</a> to train a separate Qwen3.5-4B model on ~20k examples, using 1× NVIDIA RTX 6000 Ada with 48 GB VRAM. Instead of generating an answer token, it uses a four-class head and returns probabilities directly (<strong>no autoregressive token generation and decode step!!</strong>)
+<br />
+<br /></p>
+
+<h3 id="ranking-results">Ranking Results</h3>
+
+<p>Results using Amazon’s shopping-query dataset. <strong>NDCG@10 is higher-is-better</strong>, and latency is the median per query.
+<br /></p>
+
+<div class="relevance-results">
+
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: left">Model</th>
+        <th style="text-align: right">NDCG@10</th>
+        <th style="text-align: right">Median latency per query</th>
+        <th style="text-align: left">Hardware / serving</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: left">Trained Qwen</td>
+        <td style="text-align: right">.809</td>
+        <td style="text-align: right">1,463 ms</td>
+        <td style="text-align: left">1× RTX 6000 Ada 48 GB, via Runpod</td>
+      </tr>
+      <tr>
+        <td style="text-align: left">Jev</td>
+        <td style="text-align: right">.807</td>
+        <td style="text-align: right">197 ms</td>
+        <td style="text-align: left">TypeSafe network API</td>
+      </tr>
+      <tr>
+        <td style="text-align: left">BGE reranker</td>
+        <td style="text-align: right">.770</td>
+        <td style="text-align: right">44 ms</td>
+        <td style="text-align: left">1× RTX 6000 Ada 48 GB, via Runpod</td>
+      </tr>
+      <tr>
+        <td style="text-align: left">Untuned Qwen</td>
+        <td style="text-align: right">.745</td>
+        <td style="text-align: right">1,442 ms</td>
+        <td style="text-align: left">1× RTX 6000 Ada 48 GB, via Runpod</td>
+      </tr>
+      <tr>
+        <td style="text-align: left">MiniLM reranker</td>
+        <td style="text-align: right">.740</td>
+        <td style="text-align: right">19 ms</td>
+        <td style="text-align: left">1× RTX 6000 Ada 48 GB, via Runpod</td>
+      </tr>
+      <tr>
+        <td style="text-align: left">BGE embeddings</td>
+        <td style="text-align: right">.739</td>
+        <td style="text-align: right">7 ms</td>
+        <td style="text-align: left">1× RTX 6000 Ada 48 GB, via Runpod</td>
+      </tr>
+      <tr>
+        <td style="text-align: left">BM25</td>
+        <td style="text-align: right">.703</td>
+        <td style="text-align: right">0.67 ms</td>
+        <td style="text-align: left">Runpod host x86 CPU; exact CPU model not recorded</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<p><br />
+<br /></p>
+
+<h3 id="classification-accuracy">Classification Accuracy</h3>
+
+<p>Classification accuracy on the same <strong>20,216 test pairs</strong>. Four-class accuracy uses Exact / Substitute / Complement / Irrelevant. For binary accuracy, Exact + Substitute + Complement are considered Relevant.
+<br /></p>
+
+<div class="relevance-results">
+
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: left">Model</th>
+        <th style="text-align: right">Four-class accuracy</th>
+        <th style="text-align: right">Binary accuracy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: left">Trained Qwen</td>
+        <td style="text-align: right">60.61%</td>
+        <td style="text-align: right">85.47%</td>
+      </tr>
+      <tr>
+        <td style="text-align: left">Jev</td>
+        <td style="text-align: right">56.32%</td>
+        <td style="text-align: right">79.64%</td>
+      </tr>
+      <tr>
+        <td style="text-align: left">Untuned Qwen</td>
+        <td style="text-align: right">50.66%</td>
+        <td style="text-align: right">83.34%</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<p>The <strong>predict-always-relevant baseline is 83.42%</strong> for this dataset.
+<br />
+<br /></p>
+
+<h3 id="my-takeaways">My Takeaways</h3>
+
+<p>The simply trained Qwen didn’t get a significant NDCG advantage over Jev, which is fully zero-shot! Jev is pretty impressive, but also I have no idea about parameter counts/comparisons.
+<br />
+<br /></p>
+
+<p>I do think I could’ve had a significantly stronger training protocol for Qwen. I think a teacher-student protocol and also training my own encoder would have better results. I’m probably underutilizing the current parameters now.
+<br />
+<br /></p>
+
+<p>Regarding the speed: without the decode step, prefill dominates processing and is the primary bottleneck (mostly compute-bound). <strong>BGE reranking was ~33× faster on the same GPU</strong>, while giving up some ranking quality.
+<br />
+<br /></p>
+
+<p>Qwen used reference kernels, so this didn’t fully optimize serving/inference. First things to add are maybe better linear attention kernels and prefix caching.
+<br />
+<br /></p>
+
+<p>This entire project cost about <strong>$5.36</strong> (Jev was ~$0.50, the rest was Runpod GPU costs).</p>
+
+<p><br />
+<br /></p>
+
+<h3 id="make-a-classifier-or-just-use-jev">Make a classifier or just use Jev?</h3>
+<p>Jev could really help with relevance + ranking without having to train and host large foundational models yourself. If you’ve been wanting to implement some candidate ranking for any kind of recommendation features on your platform, but haven’t had the bandwidth to make it good, Jev is a promising option, while being relatively cheap 😸</p>]]></content><author><name></name></author><summary type="html"><![CDATA[I experimented with relevance ranking using Jev by TypeSafe AI. Here are my thoughts!]]></summary></entry><entry><title type="html">New Year (2026), New Sem, New(?) Me</title><link href="http://localhost:4000/blog/2026/01/17/new-year-2026/" rel="alternate" type="text/html" title="New Year (2026), New Sem, New(?) Me" /><published>2026-01-17T00:00:00-06:00</published><updated>2026-01-17T00:00:00-06:00</updated><id>http://localhost:4000/blog/2026/01/17/new-year-2026</id><content type="html" xml:base="http://localhost:4000/blog/2026/01/17/new-year-2026/"><![CDATA[<p><br /></p>
 
 <p>This post is pretty late (writing this after completing my first week back in the Spring semester), but here nonetheless. It’s 2026 now, and I finished my first semester at university! I finished this semester with a 3.92 GPA, a few new friends, and a lot of things learned. The main thing is just I need to be doing more. This semester I wanted to do a lot of things (get an internship, go to the gym consistently, get a 4.0, make progress on comic book) but I realized I didn’t really do any of those…<br />
 <br /></p>
