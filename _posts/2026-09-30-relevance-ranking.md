@@ -3,7 +3,7 @@ layout: post
 title: 'Relevance Ranking with Jev and Qwev (Qwen)'
 date: 2026-09-30
 slug: relevance-ranking-jev-qwen
-excerpt: 'I experimented with relevance ranking using Jev by TypeSafe AI. Here are my thoughts!'
+# excerpt: 'I experimented with relevance ranking using Jev by TypeSafe AI. Here are my thoughts!'
 ---
 <br />
 
