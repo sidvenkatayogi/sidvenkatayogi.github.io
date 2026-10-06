@@ -11,7 +11,7 @@
             document.documentElement.style.backgroundColor = (theme === 'dark-mode') ? '#1a1a1a' : '#fff';
         })();
     </script>
-    <link rel="stylesheet" href="/assets/css/main.css?v=1790807787">
+    <link rel="stylesheet" href="/assets/css/main.css?v=1791322381">
 </head>
 <body class="">
     <div id="holder"></div>
@@ -39,19 +39,38 @@
     <h3 id="projects-for-cs-378-cloud-computing-aka-applied-distributed-systems-with-dr-kia-teymourian">Projects for CS 378: Cloud Computing aka Applied Distributed Systems with Dr. Kia Teymourian.</h3>
 <p><br /></p>
 
-<h3 id="awesome-class">awesome class</h3>
-
-<p><br /></p>
-
 <h4 id="unfortunately-cant-share-the-code-publicly-but-if-youd-like-to-see-the-code-please-reach-out">Unfortunately can’t share the code publicly, but if you’d like to see the code please reach out!</h4>
 <p><br /></p>
 
-<h3 id="external-sort">External Sort</h3>
+<h4 id="external-sort">External Sort</h4>
 <p>Sorting a huge database that exceeds the capacity of RAM on the machine. My solution implements k-way merge, parallel/concurrent processing, and data processing pipelines. Ran on Google Cloud GCE. Sorted the <a href="https://chriswhong.com/open-data/foil_nyc_taxi/">FOIL NYC Taxi Dataset</a>.
+<br />
 <br /></p>
 
-<h3 id="map-reduce">Map Reduce</h3>
-<p>Implementing Map and Reduce over huge database. Map and Reduce run on 2 separate machines connected via socket connection. Ran on Google Cloud GCE. Foil NYC Taxi Dataset again.</p>
+<h4 id="map-reduce">Map Reduce</h4>
+<p>Implementing Map and Reduce over huge database. Map and Reduce run on 2 separate machines connected via socket connection. Ran on Google Cloud GCE. Foil NYC Taxi Dataset again.
+<br />
+<br /></p>
+
+<h4 id="distributed-mapreduce">Distributed MapReduce</h4>
+<p>Implementing MapReduce across five machines connected via sockets, with two mappers, two reducers, and a final aggregation node. Ran concurrent jobs to find the top earning hours and drivers using multithreading and batched data transfers. GCP
+<br />
+<br /></p>
+
+<h4 id="hadoop-mapreduce">Hadoop MapReduce</h4>
+<p>Analyzing taxi data using Apache Hadoop. Implemented chained MapReduce jobs to count GPS errors by hour, identify taxis with the highest GPS error rates, and rank taxis by average speed. Used min-heaps for efficient top-K selection. Ran on a 3 machine Google Cloud cluster.
+<br />
+<br /></p>
+
+<h4 id="we-also-got-to-take-a-field-trip-to-tacc-pictured">We also got to take a field trip to <a href="https://tacc.utexas.edu/systems/horizon/">TACC</a>!!! (pictured)</h4>
+<p><br /></p>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; align-items: start;">
+  <img src="/images/cc1.jpeg" alt="TACC field trip photo 1" style="display: block; width: 100%; height: auto; margin: 0;" />
+  <img src="/images/cc2.jpeg" alt="TACC field trip photo 2" style="display: block; width: 100%; height: auto; margin: 0;" />
+  <img src="/images/cc3.jpeg" alt="TACC field trip photo 3" style="display: block; width: 100%; height: auto; margin: 0;" />
+  <img src="/images/cc4.jpeg" alt="TACC field trip photo 4" style="grid-column: 1 / -1; display: block; width: 100%; height: auto; margin: 0;" />
+</div>
 
   </div>
 </div>
@@ -72,7 +91,7 @@
       <label for="dark-mode">Dark</label>
     </div>
   </div>
-  <script src="/script.js?v=1790807787"></script>
+  <script src="/script.js?v=1791322381"></script>
   <div class="footer">
             <p>Austin, Texas</p>
             <p><a href="https://www.utexas.edu/">University of Texas at Austin</a></p>
