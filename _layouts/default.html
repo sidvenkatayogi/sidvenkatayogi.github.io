@@ -12,10 +12,12 @@
         })();
     </script>
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+    <link rel="stylesheet" href="{{ '/assets/css/terminal.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 </head>
 <body class="{% if page.url == '/' %}home-page{% elsif page.url == '/programming.html' or page.url == '/art.html' %}centered-content-page{% elsif page.url == '/blog.html' %}blog-page{% endif %}">
     <div id="holder"></div>
     <div class="container">
+        <a class="terminal-link" href="{{ '/terminal.html' | relative_url }}" data-full-navigation>terminal</a>
         <div class="header">
             <h1><a href="{{ '/' | relative_url }}" data-nav-number="0" aria-keyshortcuts="0">{{ site.title }}</a></h1>
             <nav>
