@@ -199,9 +199,8 @@ html.dark-mode .quote-overlay {
 
 /* Only explicitly numbered links get a label, sized to match the navigation. */
 a[data-nav-number]::after {
-    content: "[" attr(data-nav-number) "]";
+    content: "\00a0[" attr(data-nav-number) "]";
     display: inline-block;
-    margin-inline-start: 0.45em;
     font-family: 'Inter SemiBold', sans-serif;
     font-size: var(--nav-font-size);
     font-weight: normal;

@@ -518,6 +518,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var href = link.getAttribute('href');
         if (!href) return;
 
+        // Standalone pages use a normal load instead of swapping the site layout.
+        if (link.hasAttribute('data-full-navigation')) return;
+
         // Skip external links, mailto, anchors, new-tab links
         if (link.origin && link.origin !== window.location.origin) return;
         if (href.startsWith('mailto:')) return;

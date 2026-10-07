@@ -1,0 +1,136 @@
+@font-face {
+    font-family: 'Inter Regular';
+    src: url('../fonts/Inter_28pt-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter SemiBold';
+    src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* The entry link uses the main site's navigation typeface and theme. */
+.terminal-link {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 3;
+    color: inherit;
+    font-family: 'Inter SemiBold', sans-serif;
+    font-size: var(--nav-font-size, 1rem);
+    line-height: 1.5;
+    text-decoration: none;
+    transition: opacity 150ms ease;
+}
+
+html.dark-mode .terminal-link { color: #f0f0f0; }
+.terminal-link:hover { opacity: 0.65; }
+.terminal-link:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; }
+
+.terminal-home { left: 20px; right: auto; }
+
+@media (max-width: 768px) {
+    .terminal-link { top: 12px; }
+    .terminal-landing { --nav-font-size: 0.8rem; }
+}
+
+/* The SSH landing page is deliberately separate from the animated website. */
+.terminal-landing {
+    margin: 0;
+    background: #000;
+    color: #fff;
+    font-family: 'Inter Regular', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.terminal-landing * { box-sizing: border-box; }
+
+.terminal-connect {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 100px 24px;
+}
+
+.terminal-panel {
+    position: relative;
+    max-width: 100%;
+    text-align: center;
+}
+
+.terminal-command {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 8px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+.terminal-command code {
+    min-width: 0;
+    padding: 10px 16px;
+    font-family: 'Inter SemiBold', sans-serif;
+    font-weight: 600;
+    font-size: clamp(14px, 4vw, 17px);
+    line-height: 1.5;
+    white-space: nowrap;
+    -webkit-user-select: all;
+    user-select: all;
+}
+
+.terminal-copy {
+    display: grid;
+    place-items: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+}
+
+.terminal-copy:hover { opacity: 0.65; }
+.terminal-copy svg { width: 18px; height: 18px; }
+.terminal-copy .copied-icon { display: none; }
+.terminal-copy[data-copied] .copy-icon { display: none; }
+.terminal-copy[data-copied] .copied-icon { display: block; }
+
+.terminal-intro, .terminal-instruction {
+    color: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.terminal-instruction { margin: 0 0 24px; }
+.terminal-intro { margin: 24px 0 0; }
+
+.terminal-copy-status {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin: 14px 0 0;
+    color: inherit;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.terminal-landing :focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+
+@media (max-width: 360px) {
+    .terminal-command code { padding-inline: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .terminal-link, .terminal-copy { transition: none; }
+}

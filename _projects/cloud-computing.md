@@ -2,7 +2,7 @@
 title: "CS 378 (Cloud Computing)"
 excerpt: "<img src='/images/cloud.jpg' width='500' height='auto'>"
 slug: cloud-computing
-order: 15
+order: 16
 tags: [Coursework, Systems, Data, AI/ML]
 ---
 

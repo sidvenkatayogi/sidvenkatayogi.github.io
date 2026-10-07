@@ -1,4 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-10-06T18:24:28-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Siddhartha Venkatayogi</title><subtitle>Personal website of Siddhartha Venkatayogi.</subtitle><entry><title type="html">Relevance Ranking with Jev and Qwev (Qwen)</title><link href="http://localhost:4000/blog/2026/09/30/relevance-ranking-jev-qwen/" rel="alternate" type="text/html" title="Relevance Ranking with Jev and Qwev (Qwen)" /><published>2026-09-30T00:00:00-05:00</published><updated>2026-09-30T00:00:00-05:00</updated><id>http://localhost:4000/blog/2026/09/30/relevance-ranking-jev-qwen</id><content type="html" xml:base="http://localhost:4000/blog/2026/09/30/relevance-ranking-jev-qwen/"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-10-07T02:25:34-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Siddhartha Venkatayogi</title><subtitle>Personal website of Siddhartha Venkatayogi.</subtitle><entry><title type="html">New TUI!</title><link href="http://localhost:4000/blog/2026/10/07/new-tui/" rel="alternate" type="text/html" title="New TUI!" /><published>2026-10-07T00:00:00-05:00</published><updated>2026-10-07T00:00:00-05:00</updated><id>http://localhost:4000/blog/2026/10/07/new-tui</id><content type="html" xml:base="http://localhost:4000/blog/2026/10/07/new-tui/"><![CDATA[<p><br /></p>
+
+<p>I have a bunch of work to do so of course I do none of it and work on some completely unrelated thing
+<br />
+<br /></p>
+
+<p>On that note heres my portfolio/website in a terminal interface
+<br />
+<br /></p>
+
+<p>find it <a href="https://sh.s9v10.dev">here</a>
+<br />
+<br /></p>
+
+<p>Have fun</p>]]></content><author><name></name></author><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Relevance Ranking with Jev and Qwev (Qwen)</title><link href="http://localhost:4000/blog/2026/09/30/relevance-ranking-jev-qwen/" rel="alternate" type="text/html" title="Relevance Ranking with Jev and Qwev (Qwen)" /><published>2026-09-30T00:00:00-05:00</published><updated>2026-09-30T00:00:00-05:00</updated><id>http://localhost:4000/blog/2026/09/30/relevance-ranking-jev-qwen</id><content type="html" xml:base="http://localhost:4000/blog/2026/09/30/relevance-ranking-jev-qwen/"><![CDATA[<p><br /></p>
 
 <h4 id="this-weekend-i-experimented-with-relevance-ranking-using-jev-by-typesafe-ai-here-are-my-thoughts">This weekend, I experimented with relevance ranking using <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">Jev by TypeSafe AI</a>. Here are my thoughts!</h4>
 <p><br /></p>

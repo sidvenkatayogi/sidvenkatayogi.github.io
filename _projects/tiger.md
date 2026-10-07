@@ -2,7 +2,7 @@
 title: "TIGER"
 excerpt: "<img src='/images/tiger_rec.png' width='500' height='auto'>"
 slug: tiger
-order: 14
+order: 15
 tags: [AI/ML, RecSys, Replication]
 ---
 #### My implementation of TIGER, from the 2023 paper [Recommender Systems with Generative Retrieval](http://arxiv.org/abs/2305.05065) (Rajput et al.), trained and evaluated on Amazon Beauty.

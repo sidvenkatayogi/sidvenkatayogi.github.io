@@ -2,7 +2,7 @@
 title: "Qwen-QRec"
 excerpt: "<img src='/images/qqrec.png' width='500' height='auto'>"
 slug: qwen-qrec
-order: 16
+order: 17
 tags: [AI/ML, RecSys, LLMs]
 ---
 

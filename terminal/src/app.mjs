@@ -1,19 +1,21 @@
 import { clean, safeURL } from './text.mjs';
 import { labelLinks } from './links.mjs';
+import { randomBytes } from 'node:crypto';
 
 export const SECTIONS = ['home', 'about', 'projects', 'art', 'blog', 'contact'];
 export const READING_SECTIONS = ['projects', 'blog'];
-export const COMMANDS = [...SECTIONS, 'help', 'read', 'links', 'references', 'search', 'back', 'forward', 'color', 'motion', 'clear', 'quit'];
-const ALIASES = { programming: 'projects', whoami: 'about', ls: 'projects', exit: 'quit', references: 'links', refs: 'links' };
+export const COMMANDS = [...SECTIONS, 'help', 'links', 'back', 'forward', 'color', 'motion', 'clear', 'quit'];
+const ALIASES = { programming: 'projects', whoami: 'about', ls: 'projects', exit: 'quit' };
 
 export class App {
   constructor(site) {
     this.site = site;
     this.page = 'home'; this.detail = null; this.selected = 0; this.offset = 0; this.listOffset = 0;
-    this.filter = ''; this.stack = []; this.future = [];
+    this.stack = []; this.future = [];
     this.input = ''; this.cursor = 0; this.history = []; this.historyIndex = 0;
-    this.draft = ''; this.pasting = false; this.color = false; this.motion = true;
+    this.draft = ''; this.pasting = false; this.color = true; this.motion = true;
     this.frame = 0; this.closed = false; this.status = 'Welcome in. Type help, or press a section number.';
+    this.animationSeed = randomBytes(4).readUInt32LE(0);
   }
 
   items() {
@@ -26,8 +28,7 @@ export class App {
     if (this.page === 'contact') return labelLinks([{ label: 'Email', url: `mailto:${this.site.email}` },
       ...this.site.socials]).map(link => ({ ...link, title: link.label, summary: link.url }));
     const items = this.site[this.page];
-    return Array.isArray(items) ? items.filter(item => !this.filter ||
-      `${item.title} ${item.tags.join(' ')} ${item.body}`.toLowerCase().includes(this.filter.toLowerCase())) : [];
+    return Array.isArray(items) ? items : [];
   }
 
   entry() {
@@ -43,7 +44,7 @@ export class App {
   }
 
   snapshot() {
-    return Object.fromEntries(['page', 'detail', 'selected', 'offset', 'listOffset', 'filter', 'linkItems'].map(key => [key, this[key]]));
+    return Object.fromEntries(['page', 'detail', 'selected', 'offset', 'listOffset', 'linkItems'].map(key => [key, this[key]]));
   }
 
   remember() {
@@ -54,7 +55,6 @@ export class App {
   navigate(page, detail = null) {
     this.remember();
     this.page = page; this.detail = detail; this.selected = 0; this.offset = 0; this.listOffset = 0;
-    this.filter = '';
     this.status = READING_SECTIONS.includes(page) ? ''
       : detail ? 'Read here. links: references.'
       : ['projects', 'art', 'blog', 'contact', 'links'].includes(page) ? 'Up/Down: select. PgUp/PgDn: scroll. Enter: read.'
@@ -68,11 +68,6 @@ export class App {
   }
 
   resolve(target) {
-    if (/^\d+$/.test(target)) return this.options()[Number(target) - 1];
-    for (const page of ['projects', 'art', 'blog']) {
-      const item = this.site[page].find(item => item.slug === target.toLowerCase() || item.title.toLowerCase() === target.toLowerCase());
-      if (item) return { ...item, page };
-    }
     const page = ALIASES[target] || target;
     if (page === 'contact') return { url: `mailto:${this.site.email}` };
     if (SECTIONS.includes(page)) return { url: page === 'home' ? this.site.base : `${this.site.base}/${page === 'projects' ? 'programming' : page}.html` };
@@ -98,10 +93,9 @@ export class App {
 
   focusEntry(item = this.entry()) {
     const page = item?.page || this.page;
-    if (!item?.body || !READING_SECTIONS.includes(page)) { this.status = 'Choose an entry first. Type search to clear your filter.'; return false; }
+    if (!item?.body || !READING_SECTIONS.includes(page)) { this.status = 'Choose an entry first.'; return false; }
     if (this.page !== page) this.navigate(page);
     const same = this.entry()?.url === item.url;
-    if (!this.options().some(option => option.url === item.url)) this.filter = '';
     this.selected = Math.max(0, this.options().findIndex(option => option.url === item.url));
     this.detail = item;
     if (!same) this.offset = 0;
@@ -115,7 +109,7 @@ export class App {
   }
 
   read(item = READING_SECTIONS.includes(this.page) ? this.entry() : this.items()[this.selected]) {
-    if (!item) { this.status = 'Choose an entry first. Try projects, then read 1.'; return false; }
+    if (!item) { this.status = 'Choose an entry first.'; return false; }
     if (!item.body) {
       if (['links', 'contact'].includes(this.page)) {
         const selected = this.options().findIndex(option => option.url === item.url);
@@ -125,10 +119,9 @@ export class App {
     }
     const page = item.page || this.page;
     if (READING_SECTIONS.includes(page)) return this.focusEntry(item);
-    const filter = page === this.page ? this.filter : '';
     const listOffset = page === this.page ? this.listOffset : 0;
     this.navigate(page, item);
-    this.filter = filter; this.listOffset = listOffset;
+    this.listOffset = listOffset;
     this.selected = Math.max(0, this.options().findIndex(option => option.url === item.url));
     return true;
   }
@@ -154,6 +147,9 @@ export class App {
     const command = ALIASES[verb.toLowerCase()] || verb.toLowerCase();
     const target = args.join(' ');
     if (!raw) return this.read();
+    const label = raw.toLowerCase().match(/^(?:([a-z]+)|\[([a-z]+)\])$/);
+    const reference = label && this.references().find(ref => ref.id === (label[1] || label[2]));
+    if (reference) return this.showReferences(reference.url);
     if (SECTIONS.includes(command)) { this.navigate(command); return true; }
     if (command === 'cd') return this.execute(target === '..' ? 'back' : target || 'home');
     if (['quit', 'q'].includes(command)) { this.closed = true; return true; }
@@ -161,26 +157,14 @@ export class App {
     if (command === 'forward') { this.forward(); return true; }
     if (command === 'help' || command === '?') { this.navigate('help'); return true; }
     if (command === 'clear') { this.navigate('home'); return true; }
-    if (command === 'read') return this.read(target ? this.resolve(target) || null : undefined);
     if (command === 'color' || command === 'motion') {
       if (target && !['on', 'off'].includes(target)) { this.status = `Usage: ${command} [on|off]`; return false; }
       this[command] = target ? target === 'on' : !this[command];
-      this.status = `${command === 'color' ? 'Website colors' : 'ASCII animation'} ${this[command] ? 'on' : 'off'}.`;
+      this.status = `${command === 'color' ? 'Navigation colors' : 'ASCII animation'} ${this[command] ? 'on' : 'off'}.`;
       return true;
     }
     if (command === 'links') return this.showReferences();
-    if (command === 'search' || command === 'filter') {
-      if (!['projects', 'art', 'blog'].includes(this.page)) this.navigate('projects');
-      else if (this.detail) {
-        if (READING_SECTIONS.includes(this.page)) this.blurEntry();
-        else this.navigate(this.page);
-      }
-      this.filter = target; this.selected = 0; this.offset = 0; this.listOffset = 0;
-      this.status = target ? `Filtering for "${target}". Type search to reset.` : 'Showing all entries.';
-      return true;
-    }
     const item = this.resolve(raw);
-    if (item?.body) return this.read(item);
     if (item?.url) return this.showReferences(item.url);
     this.status = `Unknown command: ${raw}. Type help for commands.`;
     return false;
@@ -247,7 +231,7 @@ export class App {
     }
     if (name === 'delete') { this.input = this.input.slice(0, this.cursor) + this.input.slice(this.cursor + 1); return; }
     if (name === 'tab') {
-      const candidates = [...COMMANDS, ...this.site.projects.map(item => item.slug), ...this.site.art.map(item => item.slug), ...this.site.blog.map(item => item.slug)];
+      const candidates = COMMANDS;
       const prefix = this.input.split(' ').at(-1);
       const matches = candidates.filter(command => command.startsWith(prefix));
       if (matches.length === 1) { this.input = this.input.slice(0, this.input.length - prefix.length) + matches[0]; this.cursor = this.input.length; }

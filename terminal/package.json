@@ -12,7 +12,7 @@
     "start": "node src/server.mjs",
     "preview": "node src/local.mjs",
     "test": "node --test",
-    "check": "node --check src/server.mjs && node --check src/app.mjs && node --check src/render.mjs && node --check src/art.mjs && node --check src/links.mjs && node --check src/wave.mjs && node --check scripts/build-content.mjs && node --check scripts/smoke-remote.mjs"
+    "check": "node --check src/server.mjs && node --check src/app.mjs && node --check src/render.mjs && node --check src/art.mjs && node --check src/links.mjs && node --check src/markdown.mjs && node --check src/background.mjs && node --check scripts/build-content.mjs && node --check scripts/smoke-remote.mjs"
   },
   "dependencies": {
     "ssh2": "1.17.0"

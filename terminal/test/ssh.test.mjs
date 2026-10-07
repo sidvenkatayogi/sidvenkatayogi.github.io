@@ -55,9 +55,9 @@ test('real SSH: password-free handshake, typing, arrows, details, links, resize 
   stream.write('\x1b');
   // Escape is a standalone key; readline disambiguates it from escape sequences.
   await new Promise(resolve => setTimeout(resolve, 550));
-  output.clear(); stream.write('pixie\r'); await output.wait(/PIcture eXploration/);
+  output.clear(); stream.write('\x1b[B\x1b[B\r'); await output.wait(/PIcture eXploration/);
   output.clear(); stream.write('links\r'); await output.wait(/\x1b\]8;;https:\/\/s9v10.dev\/programming\/pixie\//);
-  output.clear(); stream.write('\x1b[B'); await output.wait(/https:\/\/github.com\/sidvenkatayogi\/pixie/);
+  output.clear(); stream.write('b\r'); await output.wait(/> \[b\] Github/);
   output.clear(); stream.setWindow(6, 12, 0, 0); await output.wait(/A little/);
   output.clear(); stream.setWindow(24, 80, 0, 0); await output.wait(/https:\/\/github.com\/sidvenkatayogi\/pixie/);
   const closed = once(stream, 'close'); stream.write('\x03'); await closed;

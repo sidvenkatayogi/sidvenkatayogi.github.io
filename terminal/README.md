@@ -1,6 +1,6 @@
 # s9v10.dev, over SSH
 
-A terminal counterpart to the Jekyll site: one animated ASCII wave across the background, colored ASCII artwork, lists on the left with live entry previews on the right, and a command prompt. No account or password is needed to visit.
+A terminal counterpart to the Jekyll site: growing circles with thin white ASCII outlines and shared straight edges, colored ASCII artwork, lists on the left with live entry previews on the right, and a command prompt. No account or password is needed to visit.
 
 ## Try it locally
 
@@ -34,12 +34,11 @@ Interactive connections open on a completely black screen with “Do you see how
 | `6` through `9`, with an empty prompt | GitHub / LinkedIn / Twitter / TikTok links |
 | Up / Down | Switch the preview; scroll text after Enter |
 | Enter | Focus a project or blog post / read an entry, or execute the command |
-| `read 2` / `pixie` | Read by list number or slug |
-| `search AI` / `search` | Filter a collection / clear the filter |
-| `links` / `references` | Source, demo, and reference links with matching letter labels |
-| `color` / `color on` / `color off` | Toggle the website's six-color palette |
+| `links` | Source, demo, and reference links with matching letter labels |
+| `a` / `[a]`, then Enter | Open references with that letter selected |
+| `color` / `color on` / `color off` | Toggle orange navigation accents (on by default); circles stay white |
 | `motion` / `motion off` | Toggle / pause the ASCII animation |
-| Tab | Complete a command or slug |
+| Tab | Complete a command |
 | Ctrl-P / Ctrl-N | Command history; Up/Down also work while editing |
 | Ctrl-B / Ctrl-F / Home / End | Move within the command |
 | Ctrl-U | Clear the prompt |
@@ -55,11 +54,19 @@ Interactive connections open on a completely black screen with “Do you see how
 
 Links use OSC 8 hyperlinks. Cmd-click or Ctrl-click opens them in supporting terminal emulators; the URL is also displayed for copying. A remote SSH application cannot force a browser to open on the visitor's computer. It never launches a browser on the server or changes the visitor's clipboard.
 
-Every link has a letter label: `[a]`, `[b]`, ... `[z]`, `[aa]`, etc. Labels are stable within each entry, repeated URLs share a label, and the `links` view uses the same labels as the text. Letters identify the same links throughout the entry and references list.
+Every link has a letter label: `[a]`, `[b]`, ... `[z]`, `[aa]`, etc. Labels are stable within each entry, repeated URLs share a label, and the `links` view uses the same labels as the text. Type a letter (with or without brackets) and press Enter to open references with that link selected. This also changes selection within references; Esc / Left returns to the original entry and scroll position. Labels are case-insensitive. When `[q]` exists, `q` selects it; use `quit` to disconnect.
 
-The layout fills the terminal, including windows wider than 120 columns or taller than 60 rows, and adapts down to 16 columns by 8 rows. Smaller windows show a resize hint; pathological SSH dimensions are bounded at 1024 columns and 256 rows. The background uses one main Bezier wave and no thin waves, with the desktop website's motion settings: 200-line trails, 45-degree rotation, amplitude 1.5, the same speed ranges, stroke opacity, glyph mapping, and sparse color placement. The terminal sends 8 frames per second while advancing the motion at the site's 30 updates per second. Pausing freezes that clock. The native rasterizer accounts for tall terminal cells and reduces sampling resolution for huge windows; stroke edges and 256-color shades therefore differ slightly from browser canvas output. Only changed rows are sent. The background is monochrome by default; `color` toggles its palette. Artwork always uses colors sampled from the source images. Each visitor has separate navigation, back/forward history, and animation preferences.
+The layout fills the terminal, including windows wider than 120 columns or taller than 60 rows, and adapts down to 16 columns by 8 rows. Smaller windows show a resize hint; pathological SSH dimensions are bounded at 1024 columns and 256 rows.
 
-Projects, art, blog, contact, and references use the same list/preview arrangement. Up/Down changes the selected entry immediately; Page Up/Down scrolls the preview independently. In Projects and Blog, Enter or Right focuses the preview and Up/Down scrolls its text. A thin ASCII border occupies the existing gutters without reflowing the content. Esc or Left unfocuses it while preserving the selection, filter, and scroll position; a second press goes back. Focusing does not add a page to history. The contextual footer shows the focus keys only in Projects and Blog. Art entries open for reading with Enter. Section navigation stays at the top on every page. Home, About, and Help use the full width; the left column is reserved for entry lists. Narrow windows give the preview the full width; the command prompt and number shortcuts still navigate. Images fit the available columns and rows with terminal cell proportions taken into account, and use standard 256-color text. `links` includes the selected entry's website page.
+The terminal background creates a fresh layer of growing circles every eight seconds. Each SSH session gets its own random seed, and each layer gets new positions, staggered spawns, and growth speeds. Growth stays linear instead of settling. Circles intersect only with others on their own layer, sharing straight edges clipped against all their neighbors. Upper layers have opaque black interiors that cover the layers underneath.
+
+Outlines use softly feathered strokes, sampled before conversion to ASCII. Glyphs vary along each outline using only `+`, `*`, `#`, `%`, and `@`, with grayscale brightness following the stroke coverage. This gives sub-cell movement and edges a softer appearance without a fixed character width or one glyph per circle. Circle sizes account for tall terminal cells, and interiors remain black with light terminal themes. Layers are discarded only when newer coverage makes them invisible; generation and composition retain at most three candidate layers, with at most 18 circles apiece, and no growing history. The terminal sends 8 frames per second. `motion` freezes the entire scene and `color` toggles navigation accents while circles stay white. Only changed rows are sent. Artwork retains its source colors, and each visitor has separate navigation and animation preferences.
+
+Projects, art, blog, contact, and references use the same list/preview arrangement. Up/Down changes the selected entry immediately; Page Up/Down scrolls the preview independently. In Projects and Blog, Enter or Right focuses the preview and Up/Down scrolls its text. A thin ASCII border occupies the existing gutters without reflowing the content. Esc or Left unfocuses it while preserving the selection and scroll position; a second press goes back. Focusing does not add a page to history. The contextual footer shows the focus keys only in Projects and Blog. Art entries open for reading with Enter. Section navigation stays at the top on every page. Home, About, and Help use the full width; the left column is reserved for entry lists. Narrow windows give the preview the full width; the command prompt and number shortcuts still navigate. Images fit the available columns and rows with terminal cell proportions taken into account, and use standard 256-color text. `links` includes the selected entry's website page.
+
+Markdown tables use aligned ASCII columns and borders, honor column alignment, and wrap long cells to fit the preview. At narrow widths they become labeled rows so no values are clipped. Link references inside tables keep their colors and shortcuts.
+
+Artwork previews immediately show a white border around only the image; titles and links sit outside it. The Home quote is centered horizontally and vertically, while navigation stays at the top.
 
 ## Content updates
 

@@ -1,7 +1,7 @@
 import { emitKeypressEvents } from 'node:readline';
 import { App } from './app.mjs';
 import { render, openingFrame, draw, ENTER, LEAVE } from './render.mjs';
-import { TERMINAL_FPS } from './wave.mjs';
+import { TERMINAL_FPS } from './background.mjs';
 
 // The same UI runs on a local TTY and each independent SSH channel.
 export function attach(input, output, site, { cols = 80, rows = 24, onExit = () => {}, idleMs = 600_000 } = {}) {
