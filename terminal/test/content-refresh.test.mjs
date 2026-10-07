@@ -114,8 +114,13 @@ test('validation rejects unsafe links and malformed artwork before visitors can 
 });
 
 test('automatic refresh starts immediately and polls again without restarting the app', { timeout: 2000 }, async t => {
-  let calls = 0, second;
-  const received = new Promise(resolve => { second = resolve; });
+  let calls = 0, second, deadline;
+  const received = new Promise((resolve, reject) => {
+    second = resolve;
+    // Production polling is unref'd; the SSH listener normally keeps Node alive.
+    deadline = setTimeout(() => reject(new Error('No automatic content refresh')), 1000);
+  });
+  t.after(() => clearTimeout(deadline));
   const store = await createContentStore({ initial: snapshot('before'), url: `${base}/terminal-content.json`, logger: quiet,
     intervalMs: 10, fetcher: async () => { calls++; if (calls === 2) second(); return response(snapshot(`version ${calls}`)); } });
   t.after(() => store.stop()); store.start();

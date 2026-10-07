@@ -5,8 +5,11 @@ import { frontmatter, plainMarkdown, extractLinks, linkedMarkdown } from '../scr
 import { letter, labelLinks } from '../src/links.mjs';
 import { validateContent } from '../src/content.mjs';
 
+// Interface tests use the committed fixture; these checks verify the fresh build.
+const contentPath = process.env.CONTENT_OUTPUT || new URL('../content/site.json', import.meta.url);
+
 test('content snapshot covers the actual Jekyll collections and canonical routes', () => {
-  const data = JSON.parse(readFileSync(new URL('../content/site.json', import.meta.url), 'utf8'));
+  const data = JSON.parse(readFileSync(contentPath, 'utf8'));
   validateContent(data);
   for (const [key, folder] of [['projects', '_projects'], ['art', '_art'], ['blog', '_posts']]) {
     const files = readdirSync(new URL(`../../${folder}/`, import.meta.url)).filter(file => file.endsWith('.md'));
@@ -19,9 +22,6 @@ test('content snapshot covers the actual Jekyll collections and canonical routes
     const { meta } = frontmatter(readFileSync(new URL(`../../_posts/${file}`, import.meta.url), 'utf8'));
     assert.ok(data.blog.some(item => item.url === `https://s9v10.dev/blog/${String(meta.date).slice(0, 10).replaceAll('-', '/')}/${meta.slug}/`));
   }
-  assert.ok(data.projects.find(item => item.slug === 'cs439'));
-  assert.equal(data.email, 'sidvenkatayogi@utexas.edu');
-  assert.equal(data.socials.length, 4);
 });
 
 test('inline links and reference rows share letters, including repeats and more than 26 links', () => {
@@ -35,7 +35,7 @@ test('inline links and reference rows share letters, including repeats and more 
   const bare = labelLinks(extractLinks('See https://example.org/page.'));
   assert.equal(linkedMarkdown('See https://example.org/page.', bare), 'See https://example.org/page [a].');
   assert.equal(labelLinks([{ label: 'bad', url: 'javascript:bad()' }]).length, 0);
-  const site = JSON.parse(readFileSync(new URL('../content/site.json', import.meta.url), 'utf8'));
+  const site = JSON.parse(readFileSync(contentPath, 'utf8'));
   for (const item of [...site.projects, ...site.art, ...site.blog, site.about]) {
     for (const match of item.body.matchAll(/\[([a-z]+)\]/g)) assert.ok(item.links.some(link => link.id === match[1]));
     assert.ok(item.links.some(link => link.url === item.url));

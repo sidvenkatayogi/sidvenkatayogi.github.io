@@ -17,6 +17,8 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    env:
+      CONTENT_OUTPUT: ${{ runner.temp }}/terminal-content.json
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -43,7 +45,7 @@ jobs:
           source: ./
           destination: ./_site
       - name: Publish matching terminal content alongside the website
-        run: cp terminal/content/site.json _site/terminal-content.json
+        run: cp "$CONTENT_OUTPUT" _site/terminal-content.json
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
           path: _site

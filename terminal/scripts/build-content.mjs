@@ -121,8 +121,9 @@ export async function build() {
     about: { title: 'About me', body: linkedMarkdown(terminalAbout, aboutLinks), url: `${base}/about.html`, links: aboutLinks },
     socials, projects, art, blog,
   };
-  const target = new URL('../content/site.json', import.meta.url);
-  await mkdir(new URL('../content/', import.meta.url), { recursive: true });
+  const target = process.env.CONTENT_OUTPUT
+    ? path.resolve(process.env.CONTENT_OUTPUT) : fileURLToPath(new URL('../content/site.json', import.meta.url));
+  await mkdir(path.dirname(target), { recursive: true });
   await writeFile(target, JSON.stringify(data, null, 2) + '\n');
   console.log(`Synced ${projects.length} projects, ${art.length} artworks, ${blog.length} posts from Jekyll.`);
   return data;
