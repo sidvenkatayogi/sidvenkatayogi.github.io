@@ -13,7 +13,7 @@
             await navigator.clipboard.writeText(command.textContent.trim());
             button.setAttribute('data-copied', '');
             button.setAttribute('aria-label', 'SSH command copied');
-            status.textContent = 'Copied.';
+            status.textContent = 'copied';
             resetTimer = setTimeout(function () {
                 button.removeAttribute('data-copied');
                 button.setAttribute('aria-label', 'Copy SSH command');
