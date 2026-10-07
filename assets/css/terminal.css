@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Inter SemiBold';
+    src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
 /* The entry link uses the main site's navigation typeface and theme. */
 .terminal-link {
     position: fixed;
@@ -65,7 +72,8 @@ html.dark-mode .terminal-link { color: #f0f0f0; }
 .terminal-command code {
     min-width: 0;
     padding: 10px 16px;
-    font-family: inherit;
+    font-family: 'Inter SemiBold', sans-serif;
+    font-weight: 600;
     font-size: clamp(14px, 4vw, 17px);
     line-height: 1.5;
     white-space: nowrap;
