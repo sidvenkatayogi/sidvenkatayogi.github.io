@@ -1,0 +1,28 @@
+{
+	admin unix//run/s9v10-web/admin.sock
+	servers {
+		protocols h1 h2
+	}
+}
+
+sh.s9v10.dev {
+	# Keep the published GitHub Pages document as the single source of truth.
+	@landing {
+		method GET HEAD
+		path / /terminal.html /assets/css/terminal.css /assets/js/terminal.js /assets/fonts/Inter_28pt-Regular.woff2 /assets/fonts/Inter-SemiBold.woff2
+	}
+	handle @landing {
+		@root path /
+		rewrite @root /terminal.html
+		reverse_proxy https://s9v10.dev {
+			transport http {
+				dial_timeout 5s
+				response_header_timeout 15s
+			}
+		}
+	}
+
+	handle {
+		respond "Not found" 404
+	}
+}
