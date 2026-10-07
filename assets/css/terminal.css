@@ -64,7 +64,7 @@ html.dark-mode .terminal-link { color: #f0f0f0; }
     align-items: center;
     max-width: 100%;
     padding: 8px;
-    border: 1px solid #fff;
+    border: 0;
     border-radius: 0;
     background: transparent;
 }
@@ -102,12 +102,14 @@ html.dark-mode .terminal-link { color: #f0f0f0; }
 .terminal-copy[data-copied] .copy-icon { display: none; }
 .terminal-copy[data-copied] .copied-icon { display: block; }
 
-.terminal-intro {
-    margin: 24px 0 0;
+.terminal-intro, .terminal-instruction {
     color: inherit;
     font-size: 14px;
     line-height: 1.6;
 }
+
+.terminal-instruction { margin: 0 0 24px; }
+.terminal-intro { margin: 24px 0 0; }
 
 .terminal-copy-status {
     position: absolute;

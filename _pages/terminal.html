@@ -16,8 +16,9 @@ permalink: /terminal.html
 <body class="terminal-landing">
     <main class="terminal-connect">
         <section class="terminal-panel" aria-label="Connect to my terminal portfolio">
+            <p class="terminal-instruction" id="ssh-instruction">paste this in your terminal</p>
             <div class="terminal-command">
-                <code id="ssh-command" tabindex="0">ssh sh.s9v10.dev</code>
+                <code id="ssh-command" tabindex="0" aria-describedby="ssh-instruction">ssh sh.s9v10.dev</code>
                 <button class="terminal-copy" type="button" aria-label="Copy SSH command" title="Copy command">
                     <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                         <rect x="8" y="8" width="12" height="12" rx="2"></rect>
@@ -28,7 +29,7 @@ permalink: /terminal.html
                     </svg>
                 </button>
             </div>
-            <p class="terminal-intro">SSH = sid's supercool homepage btw</p>
+            <p class="terminal-intro">btw, SSH = sid's supercool homepage</p>
             <p class="terminal-copy-status" id="terminal-copy-status" role="status" aria-live="polite"></p>
         </section>
     </main>
