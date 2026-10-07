@@ -70,7 +70,13 @@ Artwork previews immediately show a white border around only the image; titles a
 
 ## Content updates
 
-From `terminal/`, run `npm run build` after changing the Jekyll content. It reads `_config.yml`, `_pages/about.md`, `_projects`, `_art`, `_posts`, and the main layout's social links and writes `content/site.json`. Projects/art retain their website ordering; blog posts use their canonical dates and slugs. Links are labeled before Markdown/HTML is converted to text, retaining the correspondence to references. Pillow converts artwork into compressed RGB samples at build time; Node renders colored ASCII at each visitor's terminal size without an image library on the server. The terminal About page ends at “always looking for new opportunities!” The generated snapshot is committed and deployed with the app; no runtime access to GitHub is needed.
+Push content changes to `main` as usual. The [Pages workflow](../.github/workflows/pages.yml) builds and tests the terminal snapshot, builds Jekyll, and publishes both in one deployment. The SSH server checks `https://s9v10.dev/terminal-content.json` every minute. After Pages finishes publishing, reconnect to SSH to see the updated content; existing visitors keep their current snapshot without being disconnected. No manual server deployment, GitHub credentials on the server, or additional AWS resources are needed for content changes.
+
+The builder reads `_config.yml`, `_pages/about.md`, `_projects`, `_art`, `_posts`, and the main layout's social links. Projects/art retain their website ordering; blog posts use their canonical dates and slugs. Links are labeled before Markdown/HTML is converted to text, retaining the correspondence to references. Pillow converts artwork into compressed RGB samples during the build. Node renders colored ASCII at each visitor's terminal size without an image library on the server. The terminal About page still ends at “always looking for new opportunities!”
+
+Downloads have a size limit and timeout, and their structure and image data are validated before activation. Updates are saved atomically to `/var/lib/s9v10-terminal/content.json`; an outage, malformed update, or unsupported schema leaves the last working content available. The bundled `content/site.json` is the fallback if no valid cache exists. Set `CONTENT_URL` to enable polling; local previews use the bundled snapshot. Unchanged artwork keeps its rendering cache between refreshes.
+
+For a local preview, run `npm run build` from `terminal/`. Production content is rebuilt from the pushed commit even if you don't regenerate or commit the local snapshot. The workflow must remain the GitHub Pages publishing source (GitHub Actions, rather than the legacy branch build) so the JSON and website always deploy together.
 
 ## Deploy
 
@@ -95,14 +101,14 @@ ssh -i terminal/.state/lightsail_admin -p 22222 \
 
 Keep the private administrative key in a secure backup; `.state/` is Git-ignored and excluded from the Jekyll website and deployment archive. If your public IP changes, update only the port 22222 firewall rule in Lightsail before connecting. Do not open administrative SSH to everyone.
 
-After editing content or code, run from the repository root:
+Content changes publish automatically. For terminal application code changes, run from the repository root:
 
 ```sh
 bash terminal/deploy/update.sh
 node terminal/scripts/smoke-remote.mjs
 ```
 
-The update rebuilds the content snapshot, uploads only app files, reinstalls locked dependencies, and restarts the service. It preserves the portfolio host key. The live smoke check pins the expected host identity recorded in `deploy/state.json` and verifies navigation, links, resizing, and rejected file/forwarding/shell requests. Inspect service logs with `sudo journalctl -u s9v10-terminal --since '10 minutes ago'` over the administrative connection.
+The manual code update rebuilds the fallback snapshot, uploads only app files, reinstalls locked dependencies, and restarts the service. It preserves the portfolio host key and cached content. Automatic content refreshes do not restart the service. The live smoke check pins the expected host identity recorded in `deploy/state.json` and verifies navigation, links, resizing, and rejected file/forwarding/shell requests. Inspect refresh revisions or failures with `sudo journalctl -u s9v10-terminal --since '10 minutes ago'` over the administrative connection. The feed's `sourceRevision` identifies the website commit being served.
 
 To remove this hosting later, delete the Lightsail instance, release its static IP, and remove the `sh` DNS record. Stopping a Lightsail instance alone does not end its billing. Preserve the host key first if migrating to another server.
 

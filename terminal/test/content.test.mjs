@@ -3,16 +3,22 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { frontmatter, plainMarkdown, extractLinks, linkedMarkdown } from '../scripts/build-content.mjs';
 import { letter, labelLinks } from '../src/links.mjs';
+import { validateContent } from '../src/content.mjs';
 
 test('content snapshot covers the actual Jekyll collections and canonical routes', () => {
   const data = JSON.parse(readFileSync(new URL('../content/site.json', import.meta.url), 'utf8'));
+  validateContent(data);
   for (const [key, folder] of [['projects', '_projects'], ['art', '_art'], ['blog', '_posts']]) {
     const files = readdirSync(new URL(`../../${folder}/`, import.meta.url)).filter(file => file.endsWith('.md'));
     assert.equal(data[key].length, files.length);
     assert.equal(new Set(data[key].map(item => item.url)).size, files.length);
     for (const item of data[key]) assert.match(item.url, /^https:\/\/s9v10\.dev\//);
   }
-  assert.equal(data.blog[0].url, 'https://s9v10.dev/blog/2026/09/30/relevance-ranking-jev-qwen/');
+  assert.deepEqual(data.blog.map(item => item.date), data.blog.map(item => item.date).sort().reverse());
+  for (const file of readdirSync(new URL('../../_posts/', import.meta.url)).filter(file => file.endsWith('.md'))) {
+    const { meta } = frontmatter(readFileSync(new URL(`../../_posts/${file}`, import.meta.url), 'utf8'));
+    assert.ok(data.blog.some(item => item.url === `https://s9v10.dev/blog/${String(meta.date).slice(0, 10).replaceAll('-', '/')}/${meta.slug}/`));
+  }
   assert.ok(data.projects.find(item => item.slug === 'cs439'));
   assert.equal(data.email, 'sidvenkatayogi@utexas.edu');
   assert.equal(data.socials.length, 4);

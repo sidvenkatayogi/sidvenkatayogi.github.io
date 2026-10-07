@@ -5,6 +5,7 @@ import ssh2 from 'ssh2';
 import { App } from './app.mjs';
 import { plain } from './render.mjs';
 import { attach } from './session.mjs';
+import { createContentStore } from './content.mjs';
 
 export const site = JSON.parse(readFileSync(new URL('../content/site.json', import.meta.url), 'utf8'));
 
@@ -18,7 +19,7 @@ export function hostKey(filename) {
   return readFileSync(filename);
 }
 
-export function createServer({ key, data = site, maxConnections = 64, maxPerIP = 8, idleMs = 600_000 } = {}) {
+export function createServer({ key, data = site, getData = () => data, maxConnections = 64, maxPerIP = 8, idleMs = 600_000 } = {}) {
   const clients = new Set();
   const counts = new Map();
   const server = new ssh2.Server({ hostKeys: [key], ident: 's9v10-portfolio' }, (client, info) => {
@@ -44,6 +45,7 @@ export function createServer({ key, data = site, maxConnections = 64, maxPerIP =
     client.on('session', (accept, reject) => {
       if (active) { reject(); return; }
       active = true;
+      const data = getData();
       const session = accept();
       let pty = null, started = false;
       session.on('pty', (accept, reject, info) => {
@@ -88,13 +90,20 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('PORT must be between 1 and 65535');
   const host = process.env.HOST || '127.0.0.1';
   const keyPath = resolve(process.env.HOST_KEY_PATH || fileURLToPath(new URL('../.state/host_ed25519', import.meta.url)));
-  const server = createServer({ key: hostKey(keyPath) });
+  const content = await createContentStore({
+    initial: site,
+    url: process.env.CONTENT_URL,
+    cachePath: process.env.CONTENT_URL ? resolve(dirname(keyPath), 'content.json') : undefined,
+  });
+  const server = createServer({ key: hostKey(keyPath), getData: content.get });
   server.on('error', error => { console.error(error.message); process.exitCode = 1; });
   server.listen(port, host, () => {
     console.log(`S9V10 terminal listening on ${host}:${port}`);
     console.log(`Connect: ssh -p ${port} ${host === '0.0.0.0' ? 'localhost' : host}`);
+    content.start();
   });
   for (const signal of ['SIGINT', 'SIGTERM']) process.once(signal, () => {
+    content.stop();
     server.shutdown();
     setTimeout(() => process.exit(0), 1000).unref();
   });

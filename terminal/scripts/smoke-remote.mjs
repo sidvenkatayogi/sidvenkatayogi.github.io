@@ -4,9 +4,14 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import ssh2 from 'ssh2';
 import { strip } from '../src/render.mjs';
+import { validateContent } from '../src/content.mjs';
 
 const config = JSON.parse(readFileSync(new URL('../deploy/state.json', import.meta.url)));
 const host = process.argv[2] || config.hostname;
+const published = await fetch(`https://s9v10.dev/terminal-content.json?verify=${Date.now()}`, { signal: AbortSignal.timeout(15000) });
+if (!published.ok) throw new Error(`Content feed returned HTTP ${published.status}`);
+const snapshot = validateContent(await published.json());
+const titlePattern = title => new RegExp(title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
 const clients = [];
 const deadline = setTimeout(() => { console.error('Live SSH test timed out'); process.exit(1); }, 20_000);
 async function connect() {
@@ -60,7 +65,10 @@ try {
   stream.write('\r'); await wait(/Read here/);
   stream.setWindow(90, 240, 0, 0); await wait(/\x1b\[87;/);
   stream.setWindow(24, 40, 0, 0); await wait(/\x1b\[21;/);
-  stream.write('4'); await wait(/Relevance Ranking/);
+  stream.write('4'); await wait(titlePattern(snapshot.blog[0].title));
+  const longPost = snapshot.blog.findIndex(item => item.body.length > 2000);
+  assert.ok(longPost >= 0, 'Need a long post to verify scrolling');
+  if (longPost) { stream.write('\x1b[B'.repeat(longPost)); await wait(titlePattern(snapshot.blog[longPost].title)); }
   stream.write('\x1b[C'); await wait(/\+-{5,}\+[\s\S]*Post focused/);
   stream.write('\x1b[B'); await wait(/2-\d+\/\d+/);
   stream.write('\x1b[D'); await wait(/Post list focused/);

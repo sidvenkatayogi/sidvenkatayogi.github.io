@@ -116,6 +116,7 @@ export async function build() {
   }
   const aboutLinks = labelLinks([...extractLinks(terminalAbout), { label: 'Website', url: `${base}/about.html` }]);
   const data = {
+    schemaVersion: 1, sourceRevision: process.env.GITHUB_SHA || null,
     name: clean(config.title), base, quote: clean(quote), email,
     about: { title: 'About me', body: linkedMarkdown(terminalAbout, aboutLinks), url: `${base}/about.html`, links: aboutLinks },
     socials, projects, art, blog,

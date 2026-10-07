@@ -13,6 +13,7 @@ Environment=HOST=0.0.0.0
 Environment=PORT=22
 Environment=HOST_KEY_PATH=/var/lib/s9v10-terminal/host_ed25519
 Environment=NODE_ENV=production
+Environment=CONTENT_URL=https://s9v10.dev/terminal-content.json
 StateDirectory=s9v10-terminal
 Restart=on-failure
 RestartSec=3

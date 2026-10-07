@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 1,
+  "sourceRevision": null,
   "name": "Siddhartha Venkatayogi",
   "base": "https://s9v10.dev",
   "quote": "Do you see how infinite you are?",
@@ -58,7 +60,7 @@
       "slug": "qwen-qrec",
       "title": "Qwen-QRec",
       "date": "",
-      "order": 16,
+      "order": 17,
       "tags": [
         "AI/ML",
         "RecSys",
@@ -84,7 +86,7 @@
       "slug": "cloud-computing",
       "title": "CS 378 (Cloud Computing)",
       "date": "",
-      "order": 15,
+      "order": 16,
       "tags": [
         "Coursework",
         "Systems",
@@ -116,7 +118,7 @@
       "slug": "tiger",
       "title": "TIGER",
       "date": "",
-      "order": 14,
+      "order": 15,
       "tags": [
         "AI/ML",
         "RecSys",
@@ -167,7 +169,7 @@
       "slug": "pixie",
       "title": "PIXIE",
       "date": "",
-      "order": 13,
+      "order": 14,
       "tags": [
         "Tool",
         "AI/ML",
@@ -203,7 +205,7 @@
       "slug": "med-counterfact",
       "title": "MedCounterFact",
       "date": "",
-      "order": 12,
+      "order": 13,
       "tags": [
         "Research",
         "AI/ML",
@@ -234,7 +236,7 @@
       "slug": "cs388",
       "title": "CS388",
       "date": "",
-      "order": 11,
+      "order": 12,
       "tags": [
         "AI/ML",
         "NLP"
@@ -289,7 +291,7 @@
       "slug": "datahack-2026",
       "title": "DataHack 2026",
       "date": "",
-      "order": 10,
+      "order": 11,
       "tags": [
         "AI/ML",
         "RecSys",
@@ -312,6 +314,26 @@
       ]
     },
     {
+      "slug": "cs439",
+      "title": "CS439",
+      "date": "",
+      "order": 10,
+      "tags": [
+        "Systems",
+        "Coursework"
+      ],
+      "url": "https://s9v10.dev/programming/cs439/",
+      "body": "Principles of Computer Systems (OS) with Dr. Mootaz Elnozahay\na lot of C so far",
+      "summary": "Principles of Computer Systems (OS) with Dr. Mootaz Elnozahay",
+      "links": [
+        {
+          "id": "a",
+          "label": "Website",
+          "url": "https://s9v10.dev/programming/cs439/"
+        }
+      ]
+    },
+    {
       "slug": "cs429",
       "title": "CS429",
       "date": "",
@@ -321,8 +343,8 @@
         "Coursework"
       ],
       "url": "https://s9v10.dev/programming/cs429/",
-      "body": "Computer Organization and Architecture [a] at UT\n...a tough class but i definitely learned a lot\nended with a B+\nincluding on my website bc the projects were pretty cool\nProjects:\nAArch64 System Emulator on x86 (implementing pipeline instruction execution with forwarding and hazard control)\nDynamic Heap Memory Allocator (custom malloc and free)\nAssembly and C Coding\nBonus: C and Linux Proficiency Test",
-      "summary": "Computer Organization and Architecture at UT",
+      "body": "Computer Organization and Architecture [a] at with Dr. Siddhartha Chatterjee\n...a tough class but i definitely learned a lot\nended with a B+\nincluding on my website bc the projects were pretty cool\nProjects:\nAArch64 System Emulator on x86 (implementing pipeline instruction execution with forwarding and hazard control)\nDynamic Heap Memory Allocator (custom malloc and free)\nAssembly and C Coding\nBonus: C and Linux Proficiency Test",
+      "summary": "Computer Organization and Architecture at with Dr. Siddhartha Chatterjee",
       "links": [
         {
           "id": "a",
@@ -333,31 +355,6 @@
           "id": "b",
           "label": "Website",
           "url": "https://s9v10.dev/programming/cs429/"
-        }
-      ]
-    },
-    {
-      "slug": "cs439",
-      "title": "CS439",
-      "date": "",
-      "order": 9,
-      "tags": [
-        "Systems",
-        "Coursework"
-      ],
-      "url": "https://s9v10.dev/programming/cs439/",
-      "body": "Computer Organization and Architecture [a] at UT\n...a tough class but i definitely learned a lot\nended with a B+\nincluding on my website bc the projects were pretty cool\nProjects:\nAArch64 System Emulator on x86 (implementing pipeline instruction execution with forwarding and hazard control)\nDynamic Heap Memory Allocator (custom malloc and free)\nAssembly and C Coding\nBonus: C and Linux Proficiency Test",
-      "summary": "Computer Organization and Architecture at UT",
-      "links": [
-        {
-          "id": "a",
-          "label": "Computer Organization and Architecture",
-          "url": "https://www.cs.utexas.edu/~sidchat/2023fall/429.html"
-        },
-        {
-          "id": "b",
-          "label": "Website",
-          "url": "https://s9v10.dev/programming/cs439/"
         }
       ]
     },
@@ -1007,6 +1004,28 @@
     }
   ],
   "blog": [
+    {
+      "slug": "new-tui",
+      "title": "New TUI!",
+      "date": "2026-10-07",
+      "order": 0,
+      "tags": [],
+      "url": "https://s9v10.dev/blog/2026/10/07/new-tui/",
+      "body": "I have a bunch of work to do so of course I do none of it and work on some completely unrelated thing\n\nOn that note heres my portfolio/website in a terminal interface\n\nfind it here [a]\n\nHave fun",
+      "summary": "I have a bunch of work to do so of course I do none of it and work on some completely unrelated thing",
+      "links": [
+        {
+          "id": "a",
+          "label": "here",
+          "url": "https://sh.s9v10.dev/"
+        },
+        {
+          "id": "b",
+          "label": "Website",
+          "url": "https://s9v10.dev/blog/2026/10/07/new-tui/"
+        }
+      ]
+    },
     {
       "slug": "relevance-ranking-jev-qwen",
       "title": "Relevance Ranking with Jev and Qwev (Qwen)",

@@ -5,7 +5,7 @@ import { mkdtempSync, statSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import ssh2 from 'ssh2';
-import { createServer, hostKey } from '../src/server.mjs';
+import { createServer, hostKey, site } from '../src/server.mjs';
 import { strip } from '../src/render.mjs';
 
 const key = ssh2.utils.generateKeyPairSync('ed25519').private;
@@ -88,6 +88,18 @@ test('public SSH refuses SFTP and local/remote port forwarding', { timeout: 10_0
   assert.ok(remote);
   const sftp = await new Promise(resolve => client.sftp(error => resolve(error)));
   assert.ok(sftp);
+});
+
+test('new SSH visitors get refreshed content while active visitors keep their current page', { timeout: 10_000 }, async t => {
+  let current = { ...site, about: { ...site.about, body: 'Original content snapshot' } };
+  const { connect } = await setup(t, { getData: () => current });
+  const stream = await shell(await connect()), output = observer(stream);
+  stream.write('about\r'); await output.wait(/Original content snapshot/);
+  current = { ...site, about: { ...site.about, body: 'Updated content snapshot' } };
+  const fresh = await exec(await connect(), 'about');
+  assert.match(fresh.output, /Updated content snapshot/);
+  output.clear(); stream.write('home\rabout\r');
+  await output.wait(/Original content snapshot/);
 });
 
 test('idle sessions close and persistent host keys keep the same identity', { timeout: 5000 }, async t => {
