@@ -30,8 +30,11 @@ html.dark-mode .terminal-link { color: #f0f0f0; }
 .terminal-link:hover { opacity: 0.65; }
 .terminal-link:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; }
 
+.terminal-home { left: 20px; right: auto; }
+
 @media (max-width: 768px) {
     .terminal-link { top: 12px; }
+    .terminal-landing { --nav-font-size: 0.8rem; }
 }
 
 /* The SSH landing page is deliberately separate from the animated website. */
