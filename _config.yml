@@ -21,6 +21,10 @@ plugins:
 
 exclude:
   - about.html
+  - terminal
+  - AGENTS.md
+  - CLAUDE.md
+  - GEMINI.md
 
 # Collections
 collections:

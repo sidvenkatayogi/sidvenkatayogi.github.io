@@ -1,0 +1,14 @@
+{
+  "provider": "aws-lightsail",
+  "profile": "s9v10",
+  "region": "us-east-2",
+  "instance": "s9v10-terminal",
+  "bundle": "nano_3_0",
+  "monthlyUSD": 5,
+  "staticIPName": "s9v10-terminal-ip",
+  "ipv4": "3.147.94.53",
+  "hostname": "sh.s9v10.dev",
+  "publicPort": 22,
+  "adminPort": 22222,
+  "hostFingerprint": "SHA256:F4nrCRm3tbB/GJb36YCBtvUSFCGiq6x6rsgcpDStGu0"
+}

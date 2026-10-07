@@ -1,0 +1,36 @@
+[Unit]
+Description=s9v10.dev SSH portfolio
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=s9v10
+Group=s9v10
+WorkingDirectory=/opt/s9v10-terminal
+ExecStart=/usr/bin/node-22 /opt/s9v10-terminal/src/server.mjs
+Environment=HOST=0.0.0.0
+Environment=PORT=22
+Environment=HOST_KEY_PATH=/var/lib/s9v10-terminal/host_ed25519
+Environment=NODE_ENV=production
+StateDirectory=s9v10-terminal
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryMax=160M
+TasksMax=64
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

@@ -11,19 +11,19 @@
             document.documentElement.style.backgroundColor = (theme === 'dark-mode') ? '#1a1a1a' : '#fff';
         })();
     </script>
-    <link rel="stylesheet" href="/assets/css/main.css?v=1791322381">
+    <link rel="stylesheet" href="/assets/css/main.css?v=1791329068">
 </head>
 <body class="">
     <div id="holder"></div>
     <div class="container">
         <div class="header">
-            <h1><a href="/">Siddhartha Venkatayogi</a></h1>
+            <h1><a href="/" data-nav-number="0" aria-keyshortcuts="0">Siddhartha Venkatayogi</a></h1>
             <nav>
                 <ul>
-                    <li><a href="/about.html">About Me</a></li>
-                    <li><span class="nav-circle"></span><span class="nav-circle"></span><a href="/programming.html">Programming</a></li>
-                    <li><a href="/art.html">Art</a></li>
-                    <li><a href="/blog.html">Blog</a></li>
+                    <li><a href="/about.html" data-nav-number="1" aria-keyshortcuts="1">About Me</a></li>
+                    <li><span class="nav-circle"></span><span class="nav-circle"></span><a href="/programming.html" data-nav-number="2" aria-keyshortcuts="2">Programming</a></li>
+                    <li><a href="/art.html" data-nav-number="3" aria-keyshortcuts="3">Art</a></li>
+                    <li><a href="/blog.html" data-nav-number="4" aria-keyshortcuts="4">Blog</a></li>
                 </ul>
             </nav>
         </div>
@@ -64,27 +64,23 @@
                 
             </div>
         </div>
+        <div class="footer">
+            <p>Austin, Texas</p>
+            <p><a href="https://www.utexas.edu/">University of Texas at Austin</a></p>
+            <p><a href="mailto:sidvenkatayogi [at] utexas (dot) edu" data-nav-number="5" aria-keyshortcuts="5">sidvenkatayogi [at] utexas (dot) edu</a></p>
+            <p class="social-links"><a href="https://github.com/sidvenkatayogi" data-nav-number="6" aria-keyshortcuts="6">GitHub</a> / <a href="https://www.linkedin.com/in/sidvenkatayogi" data-nav-number="7" aria-keyshortcuts="7">LinkedIn</a> / <a href="https://twitter.com/sidvenkatayogi" data-nav-number="8" aria-keyshortcuts="8">Twitter</a> / <a href="https://www.tiktok.com/@elphcomics" data-nav-number="9" aria-keyshortcuts="9">TikTok</a></p>
+        </div>
         <div class="theme-toggle-wrapper">
     <div class="theme-option color-option">
       <input type="checkbox" id="color-toggle">
       <label for="color-toggle" class="color-label"><span>C</span><span>o</span><span>l</span><span>o</span><span>r</span><span>!</span></label>
     </div>
     <div class="theme-option">
-      <input type="radio" id="light-mode" name="theme" value="light-mode">
-      <label for="light-mode">Light</label>
-    </div>
-    <div class="theme-option">
-      <input type="radio" id="dark-mode" name="theme" value="dark-mode" checked>
-      <label for="dark-mode">Dark</label>
+      <input type="checkbox" id="theme-toggle" role="switch" aria-label="Dark mode" checked>
+      <label for="theme-toggle">Light / Dark</label>
     </div>
   </div>
-  <script src="/script.js?v=1791322381"></script>
-  <div class="footer">
-            <p>Austin, Texas</p>
-            <p><a href="https://www.utexas.edu/">University of Texas at Austin</a></p>
-            <p><a href="mailto:sidvenkatayogi [at] utexas (dot) edu">sidvenkatayogi [at] utexas (dot) edu</a></p>
-            <p class="social-links"><a href="https://github.com/sidvenkatayogi">GitHub</a>&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.linkedin.com/in/sidvenkatayogi">LinkedIn</a>&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://twitter.com/sidvenkatayogi">Twitter</a>&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.tiktok.com/@elphcomics">TikTok</a></p>
-        </div>
+  <script src="/script.js?v=1791329068"></script>
         <script
           src="https://utexas.network/embed.js"
           data-webring

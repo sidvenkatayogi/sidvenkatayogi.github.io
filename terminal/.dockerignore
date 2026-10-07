@@ -1,0 +1,8 @@
+node_modules
+.state
+.env
+test
+test-artifacts
+scripts
+deploy
+*.log

@@ -1,31 +1,20 @@
-// Theme Toggle (Radio Buttons) — extracted so it can be re-bound after SPA swaps
+// Theme toggle — extracted so it can be re-bound after SPA swaps
 function setupThemeToggle() {
-    var lightModeRadio = document.getElementById('light-mode');
-    var darkModeRadio = document.getElementById('dark-mode');
-    if (!lightModeRadio || !darkModeRadio) return;
+    var themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return;
 
-    if (document.documentElement.classList.contains('dark-mode')) {
-        darkModeRadio.checked = true;
-    } else {
-        lightModeRadio.checked = true;
-    }
+    themeToggle.checked = document.documentElement.classList.contains('dark-mode');
 
-    function applyTheme(themeClass) {
+    themeToggle.addEventListener('change', function () {
+        var themeClass = this.checked ? 'dark-mode' : 'light-mode';
         var colorOff = document.documentElement.classList.contains('color-off');
         document.documentElement.className = themeClass + (colorOff ? ' color-off' : '');
+        document.documentElement.style.backgroundColor = this.checked ? '#1a1a1a' : '#fff';
         localStorage.setItem('theme', themeClass);
         if (!isMobileDevice()) {
             waves.reset();
             waves.render();
         }
-    }
-
-    lightModeRadio.addEventListener('change', function () {
-        if (this.checked) applyTheme('light-mode');
-    });
-
-    darkModeRadio.addEventListener('change', function () {
-        if (this.checked) applyTheme('dark-mode');
     });
 }
 
@@ -486,10 +475,31 @@ function setupLinkHoverAnimation() {
     });
 }
 
+function setupNumberShortcuts() {
+    document.addEventListener('keydown', function (e) {
+        if (e.defaultPrevented || e.repeat || e.isComposing ||
+            e.ctrlKey || e.metaKey || e.altKey || e.shiftKey ||
+            !/^[0-9]$/.test(e.key)) return;
+
+        var target = e.target;
+        if (target && (target.isContentEditable ||
+            (target.closest && target.closest('input, textarea, select, [role="textbox"], [role="combobox"], [role="spinbutton"]')))) return;
+
+        // Resolve the current link so shortcuts survive page-content swaps.
+        var link = document.querySelector('a[data-nav-number="' + e.key + '"][href]');
+        if (!link) return;
+
+        e.preventDefault();
+        // Use the normal click behavior for internal, external, and email links.
+        link.click();
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     setupThemeToggle();
     setupColorToggle();
     setupLinkHoverAnimation();
+    setupNumberShortcuts();
 
     // Initial render
     if (!isMobileDevice()) {

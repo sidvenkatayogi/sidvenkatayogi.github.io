@@ -1,0 +1,26 @@
+services:
+  portfolio:
+    build: .
+    restart: unless-stopped
+    init: true
+    ports:
+      - "${SSH_PUBLIC_PORT:-2222}:2222"
+    volumes:
+      - host-key:/data
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 64
+    mem_limit: 192m
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+    healthcheck:
+      test: ["CMD", "node", "-e", "const s=require('net').connect(2222,'127.0.0.1');s.setTimeout(2000);s.on('data',b=>{s.destroy();process.exit(b.toString().startsWith('SSH-2.0-')?0:1)});s.on('error',()=>process.exit(1));s.on('timeout',()=>process.exit(1));"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+volumes:
+  host-key:

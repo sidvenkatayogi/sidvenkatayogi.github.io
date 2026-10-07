@@ -1,0 +1,5 @@
+# The SSH service is deployed separately from GitHub Pages.
+_site/terminal/
+_site/AGENTS.md
+_site/CLAUDE.md
+_site/GEMINI.md

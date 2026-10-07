@@ -76,6 +76,10 @@ h6 {
     font-size: 1.1em; /* Default H6 size */
 }
 
+:root {
+    --nav-font-size: 1rem;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -193,6 +197,18 @@ html.dark-mode .quote-overlay {
     text-decoration: none;
 }
 
+/* Only explicitly numbered links get a label, sized to match the navigation. */
+a[data-nav-number]::after {
+    content: "[" attr(data-nav-number) "]";
+    display: inline-block;
+    margin-inline-start: 0.45em;
+    font-family: monospace;
+    font-size: var(--nav-font-size);
+    font-weight: normal;
+    white-space: nowrap;
+    vertical-align: baseline;
+}
+
 html.dark-mode .header h1 a {
     color: #f0f0f0; /* White text for dark mode */
 }
@@ -221,6 +237,7 @@ html.dark-mode .header h1 a:hover {
     text-decoration: none;
     padding: 5px 0;
     font-family: 'Inter SemiBold', sans-serif;
+    font-size: var(--nav-font-size);
     // text-transform: uppercase;
 }
 
@@ -265,6 +282,7 @@ html.dark-mode .content a:hover {
     position: fixed;
     bottom: 20px;
     right: 20px;
+    max-width: calc(100% - 40px);
     text-align: right;
     z-index: 3; /* Ensure footer is above the fade overlay */
 }
@@ -274,6 +292,7 @@ html.dark-mode .content a:hover {
 }
 
 .footer p a {
+    display: inline-block;
     color: inherit;
     text-decoration: none;
     font-family: 'Inter SemiBold', sans-serif;
@@ -484,7 +503,7 @@ html.dark-mode .footer a {
     color: #f0f0f0;
 }
 
-/* Theme Toggle Styles (Radio Buttons) */
+/* Theme toggle styles */
 .theme-toggle-wrapper {
     position: fixed;
     bottom: 20px;
@@ -500,9 +519,8 @@ html.dark-mode .footer a {
     align-items: center;
 }
 
-.theme-option input[type="radio"],
 .theme-option input[type="checkbox"] {
-    /* Hide default radio button */
+    /* Hide the default checkbox */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -517,19 +535,18 @@ html.dark-mode .footer a {
     background-color: transparent; /* Default background */
 }
 
-/* Dark mode specific outer border for radio buttons */
-html.dark-mode .theme-option input[type="radio"],
+/* Dark mode specific outer border */
 html.dark-mode .theme-option input[type="checkbox"] {
     border-color: #ccc; /* Lighter border for dark mode */
 }
 
-/* Color toggle checkbox — checked state mirrors the active theme's filled square */
-.theme-option input[type="checkbox"]#color-toggle:checked {
+/* Checked toggles use the active theme's filled square */
+.theme-option input[type="checkbox"]:checked {
     border-color: #000;
     background-color: #fff;
 }
 
-.theme-option input[type="checkbox"]#color-toggle:checked::before {
+.theme-option input[type="checkbox"]:checked::before {
     background-color: #000;
     content: '';
     display: block;
@@ -541,49 +558,22 @@ html.dark-mode .theme-option input[type="checkbox"] {
     transform: translate(-50%, -50%);
 }
 
-html.dark-mode .theme-option input[type="checkbox"]#color-toggle:checked {
+html.dark-mode .theme-option input[type="checkbox"]:checked {
     border-color: #fff;
     background-color: #000;
 }
 
-html.dark-mode .theme-option input[type="checkbox"]#color-toggle:checked::before {
+html.dark-mode .theme-option input[type="checkbox"]:checked::before {
     background-color: #fff;
 }
 
-/* Checked state for light mode */
-.theme-option input[type="radio"]#light-mode:checked {
-    border-color: #000; /* Outer border black */
-    background-color: #fff; /* Inner border white */
+.theme-option input[type="checkbox"]:focus-visible {
+    outline: 2px solid #333;
+    outline-offset: 3px;
 }
 
-.theme-option input[type="radio"]#light-mode:checked::before {
-    background-color: #000; /* Fill black */
-    content: '';
-    display: block;
-    width: 6px; /* Adjust size for fill */
-    height: 6px; /* Adjust size for fill */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Checked state for dark mode */
-.theme-option input[type="radio"]#dark-mode:checked {
-    border-color: #fff; /* Outer border white */
-    background-color: #000; /* Inner border black */
-}
-
-html.dark-mode .theme-option input[type="radio"]#dark-mode:checked::before {
-    background-color: #fff; /* Fill white */
-    content: '';
-    display: block;
-    width: 6px; /* Adjust size for fill */
-    height: 6px; /* Adjust size for fill */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+html.dark-mode .theme-option input[type="checkbox"]:focus-visible {
+    outline-color: #ccc;
 }
 
 .theme-option label {
@@ -626,12 +616,16 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    :root {
+        --nav-font-size: 0.8rem;
+    }
+
     .home-quote {
         font-size: 0.8em;
     }
 
     .header h1 a {
-        font-size: 0.8em; /* Increase font size for the main title */
+        font-size: clamp(1rem, 6vw, 0.8em);
         position: relative;
         top: -8px;
     }
@@ -645,7 +639,7 @@ body {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
         gap: 0px; /* Adjust gap between items */
-        width: 100%;
+        width: auto;
         position: fixed;
         left: 45px;
         right: 60px;
@@ -673,34 +667,29 @@ body {
         text-align: right;
     }
 
-    .header nav ul li a {
-        font-size: 0.8em; /* Adjust font size for navigation items */
-    }
-
     .theme-toggle-wrapper {
         top: 120px;
         right: 3px;
         bottom: auto;
         left: auto;
-        flex-direction: column; /* Revert to vertical layout */
-        gap: 50px;
+        writing-mode: vertical-rl;
+        flex-direction: row;
+        gap: 20px;
     }
 
     .theme-option {
         display: flex;
         align-items: center;
-        transform: rotate(90deg);
-        transform-origin: top right;
     }
 
-    .theme-option input[type="radio"] {
+    .theme-option input[type="checkbox"] {
         order: 1; /* Place the button first */
-        margin-right: 5px; /* Add some space between the button and the label */
+        margin: 0 0 5px; /* Space between the button and the vertical label */
     }
 
     .theme-option label {
         order: 2; /* Place the label second */
-        writing-mode: horizontal-tb; /* Reset writing mode */
+        writing-mode: inherit;
         text-orientation: mixed;
     }
 
