@@ -80,10 +80,13 @@ export function content(app, width, height = 40) {
   ];
   const item = app.entry();
   if (!item) return rows('No entries available.', 'muted');
-  if (['links', 'contact'].includes(app.page)) return [
-    ...rows(`[${item.id}] ${item.label || item.title}`, 'quote', item.url), line(''),
-    ...rows(item.url, 'link', item.url),
-  ];
+  if (['links', 'contact'].includes(app.page)) {
+    const displayURL = item.url.replace(/^mailto:/i, '');
+    return [
+      ...rows(`[${item.id}] ${item.label || item.title}`, 'quote', item.url), line(''),
+      ...rows(displayURL, 'link', item.url),
+    ];
+  }
   if (item.image) {
     const heading = rows(linked(item.title, item.url), 'quote', item.url);
     const footer = refs.filter(ref => ref.url !== item.url).flatMap(ref => rows(`${ref.label} [${ref.id}]`, 'link', ref.url));
