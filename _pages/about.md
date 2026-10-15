@@ -6,20 +6,20 @@ title: "About Me"
 <br />
 <br />
 ##### Welcome! I'm a computer science and math student at UT Austin.
-##### entering my sophomore year
+<!-- ##### entering my sophomore year -->
 <br />
-##### currently looking for summer 2027 opportunities
+<!-- ##### currently looking for summer 2027 opportunities -->
 ##### interested in LLMs + Search/RecSys + Inference/Infra + multimodal AI + Agents
 ##### broadly interested in any kind of tech, software, and research
-<br />
-
+<!-- <br /> -->
+<!-- 
 ##### Some highlights:
 ##### [paper](/programming/med-counterfact/) in ACL Findings 2026
 ##### AI engineering intern at [Alpha School](https://alpha.school/)
 ##### 3.86 GPA
-<br />
+<br /> -->
 
-##### + experience in various domains (explore my [projects](/programming)!)
+<!-- ##### + experience in various domains (explore my [projects](/programming)!) -->
 
 <!-- <br />
 ##### currently working as a research assistant in UT Computational Linguistics,
