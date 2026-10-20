@@ -32,6 +32,12 @@ Analyzing taxi data using Apache Hadoop. Implemented chained MapReduce jobs to c
 <br />
 <br />
 
+#### Spark kNN Text Classification
+Classifying Wikipedia documents with a PySpark k-nearest neighbors classifier using TF-IDF vectors. Processes a corpus of one million pages and uses Spark DataFrames to summarize category statistics, rank common categories, and identify pages with the most categories.
+<br />
+<br />
+
+
 #### We also got to take a field trip to [TACC](https://tacc.utexas.edu/systems/horizon/)!!! (pictured)
 <br />
 
